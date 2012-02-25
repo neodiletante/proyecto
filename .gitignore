@@ -1,0 +1,17 @@
+/build/
+/nbproject/
+/setup/
+/web/WEB-INF/struts-config.xml
+/web/WEB-INF/validation.xml
+/web/WEB-INF/tiles-defs.xml
+/web/WEB-INF/validator-rules.xml
+/web/welcomeStruts.jsp
+/web/paginaError.jsp
+/src/java/com/myapp/struts/ApplicationResource.properties
+/web/WEB-INF/lib/standard.jar
+/web/WEB-INF/lib/mysql-connector-java-5.1.18-bin.jar
+/web/WEB-INF/lib/jstl.jar
+/web/META-INF/context.xml
+/build.xml
+/src/conf/MANIFEST.MF
+/dir_conflicts.prej
