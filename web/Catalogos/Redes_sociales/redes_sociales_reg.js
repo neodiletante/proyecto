@@ -40,6 +40,12 @@ $(function(){
     
   }, 'text');
 });
+$('#btn-iniciar-red').click(function(){
+  $.post('iniciaRed',parameters, function(){
+    
+  }, 'text');
+  
+});
 /*
  $('#no-lista').change(function(){
 //    alert("estoy cambiando");
