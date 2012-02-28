@@ -24,13 +24,13 @@ public class RedesSocialesDAO {
     this.con = con;
   }
   
-  public void insertaRedSocial(RedSocialReg rsg){
-    String qInserta = "INSERT INTO tc_redes_sociales VALUES (0,?,?)";
+  public void insertaRedSocial(RedSocialReg reg){
+    String qInserta = "INSERT INTO tc_redes_sociales VALUES (0,?,?,?)";
     PreparedStatement psInserta = null;
     try {
       psInserta = con.prepareStatement(qInserta);
-      psInserta.setInt(1, rsg.getIdGrupo());
-      psInserta.setInt(2, rsg.getNoListaRefiere());
+      psInserta.setInt(1, reg.getIdGrupo());
+      psInserta.setInt(2, reg.getNoListaRefiere());
       psInserta.execute();
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
