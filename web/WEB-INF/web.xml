@@ -101,6 +101,10 @@
         <servlet-name>BuscaGruposPorTurno</servlet-name>
         <servlet-class>catalogos.grupos.BuscaGruposPorTurnoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>IniciaRed</servlet-name>
+        <servlet-class>catalogos.redes_sociales.IniciaRedServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
@@ -188,6 +192,10 @@
     <servlet-mapping>
         <servlet-name>BuscaGruposPorTurno</servlet-name>
         <url-pattern>/buscaGruposPorTurno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>IniciaRed</servlet-name>
+        <url-pattern>/iniciaRed</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
