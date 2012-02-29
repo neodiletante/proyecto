@@ -2,6 +2,9 @@ var accion='agregar';
 var id_dato;
 
 
+
+
+
 $(function(){
   
 $('a').click(function(){
