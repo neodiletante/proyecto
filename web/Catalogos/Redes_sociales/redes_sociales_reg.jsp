@@ -41,6 +41,7 @@
      <button class="ui-button" id="btn-iniciar-red">Nueva red</button> 
     <button class="ui-button" id="btn-examinar-redes">Ver redes</button> 
   
+    
     <br />
     <jsp:useBean id="tiposDato" class="java.util.ArrayList" scope="session" />
      <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="session" />
@@ -68,3 +69,4 @@
             </c:forEach>
         <!--/tbody>
     </table-->
+         <button class="ui-button" id="btn-guardar-red">Guardar</button> 
