@@ -12,7 +12,15 @@ public class RedSocialReg {
   private int idRed;
   private int idGrupo;
   private int noListaRefiere;
+  private int noListaReferido;
 
+  public RedSocialReg(){}
+  
+  public RedSocialReg(String idGrupo, String noListaRefiere, String noListaReferido){
+    this.idGrupo = Integer.parseInt(idGrupo);
+    this.noListaRefiere = Integer.parseInt(noListaRefiere);
+    this.noListaReferido = Integer.parseInt(noListaReferido);
+  }
     public int getIdGrupo() {
         return idGrupo;
     }
@@ -36,6 +44,14 @@ public class RedSocialReg {
     public void setNoListaRefiere(int noListaRefiere) {
         this.noListaRefiere = noListaRefiere;
     }
+
+  public int getNoListaReferido() {
+    return noListaReferido;
+  }
+
+  public void setNoListaReferido(int noListaReferido) {
+    this.noListaReferido = noListaReferido;
+  }
   
   
 }

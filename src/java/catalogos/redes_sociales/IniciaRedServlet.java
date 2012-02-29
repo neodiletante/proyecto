@@ -34,9 +34,14 @@ public class IniciaRedServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
+    
     HttpSession session = request.getSession();
     Connection con = (Connection) session.getAttribute("conn");
-    
+    RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
+    String idGrupo = request.getParameter("id_grupo");
+    String noListaRefiere = request.getParameter("no_lista_refiere");
+    String noListaReferido = request.getParameter("no_lista_referido");
+    RedSocialReg rsr = new RedSocialReg(idGrupo,noListaRefiere, noListaReferido);
     
     try {
     

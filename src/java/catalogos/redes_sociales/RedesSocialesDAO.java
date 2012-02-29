@@ -31,6 +31,7 @@ public class RedesSocialesDAO {
       psInserta = con.prepareStatement(qInserta);
       psInserta.setInt(1, reg.getIdGrupo());
       psInserta.setInt(2, reg.getNoListaRefiere());
+      psInserta.setInt(3, reg.getNoListaReferido());
       psInserta.execute();
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
