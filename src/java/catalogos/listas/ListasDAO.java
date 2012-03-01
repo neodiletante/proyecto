@@ -34,6 +34,10 @@ public class ListasDAO{
      */
     
     public ListasDAO() {}
+
+  public ListasDAO(int no_lista) {
+    this.no_lista = no_lista;
+  }
     
     public ListasDAO(Connection con){
       this.con = con;

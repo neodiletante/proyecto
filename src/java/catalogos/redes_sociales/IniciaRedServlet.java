@@ -33,7 +33,7 @@ public class IniciaRedServlet extends HttpServlet {
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
+    System.out.println("En el servlet de inicia red");
     
     HttpSession session = request.getSession();
     Connection con = (Connection) session.getAttribute("conn");
@@ -42,6 +42,7 @@ public class IniciaRedServlet extends HttpServlet {
     String noListaRefiere = request.getParameter("no_lista_refiere");
     String noListaReferido = request.getParameter("no_lista_referido");
     RedSocialReg rsr = new RedSocialReg(idGrupo,noListaRefiere, noListaReferido);
+    rsDAO.insertaRedSocial(rsr);
     
     try {
     

@@ -25,6 +25,7 @@ public class RedesSocialesDAO {
   }
   
   public void insertaRedSocial(RedSocialReg reg){
+    System.out.println(reg);
     String qInserta = "INSERT INTO tc_redes_sociales VALUES (0,?,?,?)";
     PreparedStatement psInserta = null;
     try {

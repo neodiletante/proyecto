@@ -41,6 +41,12 @@ $(function(){
   }, 'text');
 });
 $('#btn-iniciar-red').click(function(){
+  var referido = $('.radio_referido:checked').val();
+  var parameters={};
+  parameters.id_grupo = $('#select-grupos').val();
+  parameters.no_lista_refiere = $('#no-lista').val();
+  parameters.no_lista_referido = referido;
+  alert(parameters.id_grupo + " " + parameters.no_lista_refiere + " " + parameters.no_lista_referido);
   $.post('iniciaRed',parameters, function(){
     
   }, 'text');

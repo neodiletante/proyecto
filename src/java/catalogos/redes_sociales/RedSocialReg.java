@@ -52,6 +52,11 @@ public class RedSocialReg {
   public void setNoListaReferido(int noListaReferido) {
     this.noListaReferido = noListaReferido;
   }
+
+  @Override
+  public String toString() {
+    return this.getIdGrupo() + " " + this.getNoListaRefiere() + " " + this.getNoListaReferido();
+  }
   
   
 }

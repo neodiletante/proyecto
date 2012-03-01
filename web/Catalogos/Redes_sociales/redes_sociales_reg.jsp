@@ -58,10 +58,10 @@
                <!--tr>
                <td class="resultado" id="input_grado"--><label class="h4">${alumno.no_lista}</label>
               
-                    <input class="check_alumno" type="checkbox" name="agrega_alumno" id="agrega-alumno" value="${alumnos.no_exp}"/>
+                    <input class="check_alumno" type="checkbox" name="agrega_alumno"  value="${alumnos.no_exp}"/>
               
                
-                <input class="radio_turno" type="radio" name="duenio"  value="${alumno.no_lista}"/>
+                <input class="radio_referido" type="radio" name="referido"  value="${alumno.no_lista}"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <!--/td>
                
