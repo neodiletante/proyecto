@@ -25,7 +25,7 @@
             case 3:ruta="mostrarAlumnos";break; 
             case 4:ruta="muestraDatosInteres";break;
             case 5:ruta="buscaCortes?url=Catalogos/Redes_sociales/redes_sociales_reg.jsp";break;
-            case 6:ruta="modificaRedesSociales";break;
+            case 6:ruta="buscaCortes?url=Catalogos/Redes_sociales/redes_sociales_mod.jsp";break;
             default:ruta="Catalogos/Cortes/cortes.jsp";break;
         }
     %> 

@@ -8,51 +8,56 @@
    <center>
     <jsp:useBean id="cortes" class="java.util.ArrayList" scope="session" />
     <select id="select-cortes-mod" class="combo-cortes">
-      <option value="" selected="true">Seleccione un corte</option>
+      <option value="" selected="true">Corte</option>
       <c:forEach var="corte" items="${cortes}">
         <option value="${corte}"> ${corte} </option>  
       </c:forEach>
       
     </select>
+    <select id="select-turno-mod" class="combo-cortes">
+      <option value="" selected="true">Turno</option>
+      <option value="M"> M </option>  
+      <option value="V"> V </option>
+    </select>
       <jsp:useBean id="grupos" class="java.util.ArrayList" scope="session" />
     <select id="select-grupos-mod">
-      <option value="" selected="true">Seleccione un grupo</option>
+      <option value="" selected="true">Grupo</option>
       <c:forEach var="grupo" items="${grupos}">
         <option value="${grupo.idGrupo}"> ${grupo.grado} ${grupo.grupo} ${grupo.turno} </option>  
       </c:forEach>
       
     </select>
-      <jsp:useBean id="nos_lista" class="java.util.ArrayList" scope="session" />
+      <jsp:useBean id="lista" class="java.util.ArrayList" scope="session" />
     <select id="no-lista-mod">
-      <option value="" selected="true">Seleccione un número de lista</option>
-      <c:forEach var="no_lista" items="${nos_lista}">
-        <option value="${no_lista}"> ${no_lista} </option>  
+      <option value="" selected="true">No lista refiere</option>
+      <c:forEach var="lista" items="${lista}">
+        <option value="${lista.no_lista}"> ${lista.no_lista} </option>  
       </c:forEach>
       </select>
     <br />
-    <table id="tabla-grupos-actuales">
+    <table id="tabla-redes">
         <thead>
-            <th colspan="6">Grupos actuales</th>
+            <th colspan="6">Redes actuales</th>
         </thead>
         <tbody>
             <tr>
-                <th>Red</th>
-                <th>Borrar</th>
+                <th>Id Red</th>
+                <th>No. personas</th>
                 <th>Modificar</th>
+                <th>No. lista referido</th>
             </tr>
-            <jsp:useBean id="redes" class="java.util.ArrayList" scope="request" />
-            <c:forEach var="grupo" items="${redes}">
+            <jsp:useBean id="listaRedes" class="java.util.ArrayList" scope="session" />
+            <c:forEach var="red" items="${listaRedes}">
                <tr>
-                <td class="resultado" id="input_corte">${redes}</td>
-                <td class="centrado">
-                    <input class="check_red" type="checkbox" name="corte" id="borrar_red" value="${grupo.idGrupo}"/>
-                </td>
+                <td class="resultado" id="id-red">${red.idRed}</td>
+                <td class="resultado" id="no-personas">${red.noPersonas}</td>
                 <td class="centrado">
                     <input class="radio_red" type="radio" name="modificar" id="modificar_red" value="${grupo.idGrupo}"/>
                 </td>
+                <td class="resultado" id="no-lista-referido">${red.noListaReferido}</td>
                </tr> 
             </c:forEach>
         </tbody>
     </table>
     <button class="ui-button" id="btn-modificar-red">Modificar</button> 
-    <button class="ui-button" id="btn-borrar-red">Borrar</button> 
+    <button class="ui-button" id="btn-borrar-red">Datos de interés</button> 

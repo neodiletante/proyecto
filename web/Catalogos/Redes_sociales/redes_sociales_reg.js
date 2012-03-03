@@ -2,9 +2,9 @@ $(function(){
   
   $('#select-cortes').change(function(){
     //alert("estoy cambiando");
-    $('#select-turno').val('');
-    $('#select-grupos').val('');
-    $('#no-lista').val('');    
+      $('#select-turno').val('');
+      $('#select-grupos').val('');
+      $('#no-lista').val('');    
   });
   
   $('#select-turno').change(function(){

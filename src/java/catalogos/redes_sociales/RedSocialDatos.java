@@ -10,28 +10,11 @@ package catalogos.redes_sociales;
  */
 public class RedSocialDatos {
   private int idRed;
-  private int noLista1;
-  private int noLista2;
+  private int noListaRefiere;
+  private int noListaReferido;
   private int idRelacion;
-  private int datoInteresRed;
-  private int datoInteresSoc;
-
-  public int getDatoInteresRed() {
-    return datoInteresRed;
-  }
-
-  public void setDatoInteresRed(int datoInteresRed) {
-    this.datoInteresRed = datoInteresRed;
-  }
-
-  public int getDatoInteresSoc() {
-    return datoInteresSoc;
-  }
-
-  public void setDatoInteresSoc(int datoInteresSoc) {
-    this.datoInteresSoc = datoInteresSoc;
-  }
-
+  private int noPersonas;
+  
   public int getIdRed() {
     return idRed;
   }
@@ -48,23 +31,28 @@ public class RedSocialDatos {
     this.idRelacion = idRelacion;
   }
 
-  public int getNoLista1() {
-    return noLista1;
+  public int getNoListaReferido() {
+    return noListaReferido;
   }
 
-  public void setNoLista1(int noLista1) {
-    this.noLista1 = noLista1;
+  public void setNoListaReferido(int noListaReferido) {
+    this.noListaReferido = noListaReferido;
   }
 
-  public int getNoLista2() {
-    return noLista2;
+  public int getNoListaRefiere() {
+    return noListaRefiere;
   }
 
-  public void setNoLista2(int noLista2) {
-    this.noLista2 = noLista2;
+  public void setNoListaRefiere(int noListaRefiere) {
+    this.noListaRefiere = noListaRefiere;
+  }
+
+  public int getNoPersonas() {
+    return noPersonas;
+  }
+
+  public void setNoPersonas(int noPersonas) {
+    this.noPersonas = noPersonas;
   }
   
-    
-    
-    
 }

@@ -49,7 +49,7 @@ public class BuscaNosListaServlet extends HttpServlet {
       lista.add(new ListasDAO(4));
       lista.add(new ListasDAO(5));
      // System.out.println(lista);
-      //System.out.println("Elementos lista " + lista.size());
+      System.out.println("Elementos lista " + lista.size());
       if(lista!=null){
       session.setAttribute("lista", lista);
       }else{
