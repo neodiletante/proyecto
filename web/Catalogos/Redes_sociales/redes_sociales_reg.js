@@ -46,9 +46,16 @@ $('#btn-iniciar-red').click(function(){
   parameters.id_grupo = $('#select-grupos').val();
   parameters.no_lista_refiere = $('#no-lista').val();
   parameters.no_lista_referido = referido;
-  alert(parameters.id_grupo + " " + parameters.no_lista_refiere + " " + parameters.no_lista_referido);
-  $.post('iniciaRed',parameters, function(){
+  //alert(parameters.id_grupo + " " + parameters.no_lista_refiere + " " + parameters.no_lista_referido);
+
+  $.post('iniciaRed',parameters, function(data){
+    //alert("antes de agregar red " + data); 
+     $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
     
+    alert("Se ha agregado la red social"); 
+     //   alert("estoy canbiamdo " + data);
+      
+    });
   }, 'text');
   
 });

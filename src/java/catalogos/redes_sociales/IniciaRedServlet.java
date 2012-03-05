@@ -43,9 +43,10 @@ public class IniciaRedServlet extends HttpServlet {
     String noListaReferido = request.getParameter("no_lista_referido");
     RedSocialReg rsr = new RedSocialReg(idGrupo,noListaRefiere, noListaReferido);
     rsDAO.insertaRedSocial(rsr);
+    session.removeAttribute("lista");
     
     try {
-    
+      out.write("echo");
     } finally {      
       out.close();
     }

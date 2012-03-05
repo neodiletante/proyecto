@@ -40,14 +40,15 @@ public class BuscaNosListaServlet extends HttpServlet {
       ListasDAO listaDAO = new ListasDAO(conn);
       String grupo = request.getParameter("grupo");
      
-      //List lista = listaDAO.getDatos(Integer.parseInt(grupo));
-     
+      List lista = listaDAO.getDatos(Integer.parseInt(grupo));
+     /*
       List lista = new ArrayList();
       lista.add(new ListasDAO(1));
       lista.add(new ListasDAO(2));
       lista.add(new ListasDAO(3));
       lista.add(new ListasDAO(4));
       lista.add(new ListasDAO(5));
+    */
      // System.out.println(lista);
       System.out.println("Elementos lista " + lista.size());
       if(lista!=null){

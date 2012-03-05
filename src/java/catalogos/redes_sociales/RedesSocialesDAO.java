@@ -25,6 +25,7 @@ public class RedesSocialesDAO {
   }
   
   public void insertaRedSocial(RedSocialReg reg){
+    System.out.println("En  DAO, insertando red social");
     System.out.println(reg);
     String qInserta = "INSERT INTO tc_redes_sociales VALUES (0,?,?,?)";
     PreparedStatement psInserta = null;
@@ -35,7 +36,8 @@ public class RedesSocialesDAO {
       psInserta.setInt(3, reg.getNoListaReferido());
       psInserta.execute();
     } catch (SQLException ex) {
-      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+      //Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+      ex.printStackTrace();
     }
   }
   
