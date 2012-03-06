@@ -59,6 +59,22 @@ $('#btn-iniciar-red').click(function(){
   }, 'text');
   
 });
+
+$('#btn-examinar-redes').click(function(){
+  //alert("Examinado redess");
+  var parameters={};
+  parameters.url = "Catalogos/Redes_sociales/redes_sociales_mod.jsp";
+  //$.post('?o=6', parameters, function(){
+    // $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
+ var url = "?o=6";
+ $(location).attr('href', url);
+  //  });
+    
+ // }, 'text');
+  
+ 
+  
+});
 /*
  $('#no-lista').change(function(){
 //    alert("estoy cambiando");

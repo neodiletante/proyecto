@@ -52,11 +52,11 @@ $('#select-grupos-mod').change(function(){
     parameters.no_lista = no_lista;
     parameters.grupo = grupo;
     $.post('buscaRedesSociales', parameters, function(data){
-      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
-        $('#select-cortes-mod').val(corte);
-        $('#select-turno-mod').val(turno);
-        $('#select-grupos-mod').val(grupo);
-        $('#no-lista-mod').val(no_lista);
+      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
+        //$('#select-cortes-mod').val(corte);
+        //$('#select-turno-mod').val(turno);
+        //$('#select-grupos-mod').val(grupo);
+        //$('#no-lista-mod').val(no_lista);
     });
     
   }, 'text');

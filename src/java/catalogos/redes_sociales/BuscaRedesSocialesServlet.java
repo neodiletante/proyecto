@@ -45,7 +45,12 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     int noListaRefiere = Integer.parseInt(noListaRefiereString);
     rsr.setIdGrupo(idGrupo);
     rsr.setNoListaRefiere(noListaRefiere);
-    List listaRedes = rsDAO.buscaDatosRedes(rsr);
+    //List listaRedes = rsDAO.buscaDatosRedes(rsr);
+    List<RedSocialReg> listaRedes = rsDAO.buscaRedes(rsr);
+    System.out.println("tamaño lista " + listaRedes.size());
+    for(RedSocialReg reg : listaRedes){
+      System.out.println(reg.getIdRed());
+    }
     session.setAttribute("listaRedes", listaRedes);
     try {
     
