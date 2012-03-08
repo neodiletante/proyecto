@@ -59,17 +59,25 @@ public class RedesSocialesDAO {
   }
   
   public List<RedSocialReg> buscaRedes(RedSocialReg reg){
-    String query = "SELECT id_red FROM tc_redes_sociales "
+    String query = "SELECT id_red, id_grupo, no_lista_refiere FROM tc_redes_sociales "
             + "WHERE id_grupo = ? AND no_lista_refiere = ?";
     PreparedStatement psBuscaRedes = null;
     ResultSet rs = null;
-    List<RedSocialReg> listaRedSocial = null;
+    List<RedSocialReg> listaRedSocial = new ArrayList<RedSocialReg>();//null;
+    RedSocialReg redSocialReg;
     try {
       psBuscaRedes = con.prepareStatement(query);
       psBuscaRedes.setInt(1, reg.getIdGrupo());
       psBuscaRedes.setInt(2, reg.getNoListaRefiere());
       rs = psBuscaRedes.executeQuery();
-      listaRedSocial = mapRedSocialReg(rs);
+      while(rs.next()){
+      redSocialReg = new RedSocialReg();
+      redSocialReg.setIdRed(rs.getInt("id_red"));
+      redSocialReg.setIdGrupo(rs.getInt("id_grupo"));
+      redSocialReg.setNoListaRefiere(rs.getInt("no_lista_refiere"));
+      listaRedSocial.add(redSocialReg);
+      }
+      //listaRedSocial = mapRedSocialReg(rs);
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{

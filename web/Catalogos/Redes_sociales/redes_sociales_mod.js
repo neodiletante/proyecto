@@ -49,7 +49,7 @@ $('#select-grupos-mod').change(function(){
     var turno = $('#select-turno-mod').val();
     var grupo = $('#select-grupos-mod').val();
     var no_lista = $('#no-lista-mod').val();
-    parameters.no_lista = no_lista;
+    parameters.no_lista_refiere = no_lista;
     parameters.grupo = grupo;
     $.post('buscaRedesSociales', parameters, function(data){
       $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){

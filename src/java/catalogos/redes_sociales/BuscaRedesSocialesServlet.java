@@ -45,6 +45,8 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     int noListaRefiere = Integer.parseInt(noListaRefiereString);
     rsr.setIdGrupo(idGrupo);
     rsr.setNoListaRefiere(noListaRefiere);
+    System.out.println("id grupo " + rsr.getIdGrupo());
+    System.out.println("no lista refiere " + rsr.getNoListaRefiere());
     //List listaRedes = rsDAO.buscaDatosRedes(rsr);
     List<RedSocialReg> listaRedes = rsDAO.buscaRedes(rsr);
     System.out.println("tamaño lista " + listaRedes.size());
