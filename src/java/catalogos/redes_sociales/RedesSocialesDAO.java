@@ -103,7 +103,7 @@ public class RedesSocialesDAO {
         rsd = new RedSocialDatos();
         rsd.setIdRed(rs.getInt("id_red"));
         rsd.setNoPersonas(rs.getInt("no_personas"));
-        rsd.setNoListaRefiere(rs.getInt("no_lista_refiere"));
+        rsd.setNoListaReferido(rs.getInt("no_lista_referido"));
         listaDatosRed.add(rsd);
       }
       

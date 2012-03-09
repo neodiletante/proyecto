@@ -41,7 +41,21 @@ $(function(){
   }, 'text');
 });
 $('#btn-iniciar-red').click(function(){
-  var referido = $('.radio_referido:checked').val();
+  var referido = $('.radio-referido:checked').val();
+  var red_social = $('.check-red-social:checked');
+  var json_red = '{"red":[';
+  for(var i=0 ; i< red_social.length ; i++ ){
+    json_red += '{"elemento": "';
+    //alert(red_social[i].value);
+    json_red += red_social[i].value;
+    json_red += '"}';
+    if(i+1 < red_social.length){
+      json_red += ',';
+    }else{
+      json_red += ']}'
+    }
+  }
+  alert(json_red);
   var parameters={};
   parameters.id_grupo = $('#select-grupos').val();
   parameters.no_lista_refiere = $('#no-lista').val();
