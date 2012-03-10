@@ -12,13 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.reflect.TypeToken;
-import java.io.BufferedReader;
-import java.lang.reflect.Type;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 /**
  *
  * @author ulises
@@ -40,13 +37,7 @@ public class IniciaRedServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     System.out.println("En el servlet de inicia red");
-    String json = "{\"red\":[{\"elemento\": \"1\"}]}";
-    Type listType = new TypeToken<List<red>>(){}.getType();
-    Gson gson = new Gson();
-    List<red> redes = gson.fromJson(json,listType);
-    for (red r : redes){
-    System.out.println(r);
-    }
+   
    // Red obj =  gson.fromJson(json,Red.class);
    //  System.out.println("Esto es lo que sale " + obj);
 	
@@ -56,9 +47,20 @@ public class IniciaRedServlet extends HttpServlet {
     String idGrupo = request.getParameter("id_grupo");
     String noListaRefiere = request.getParameter("no_lista_refiere");
     String noListaReferido = request.getParameter("no_lista_referido");
+    String red = request.getParameter("red");
+    System.out.println("Toda la red " + red);
+    List<String> redSocial = new ArrayList<String>();
+    StringTokenizer tokens = new StringTokenizer(red,",");
+    while(tokens.hasMoreTokens()){
+      String elemento = tokens.nextToken();
+      System.out.println("elemento " + elemento);
+      redSocial.add(elemento);
+    }
+    
     System.out.println("No lista referido " + noListaReferido );
     RedSocialReg rsr = new RedSocialReg(idGrupo,noListaRefiere, noListaReferido);
     rsDAO.insertaRedSocial(rsr);
+    rsDAO.insertaElementosRed(redSocial);
     session.removeAttribute("lista");
     
     try {

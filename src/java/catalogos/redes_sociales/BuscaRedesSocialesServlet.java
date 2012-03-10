@@ -34,8 +34,10 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
+    
     System.out.println("En el servlet busca redes sociales");
     HttpSession session = request.getSession();
+    session.removeAttribute("listaRedes");
     Connection con = (Connection) session.getAttribute("conn");
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
     RedSocialReg rsr = new RedSocialReg();

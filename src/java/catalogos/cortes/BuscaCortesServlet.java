@@ -43,6 +43,7 @@ public class BuscaCortesServlet extends HttpServlet {
       session.setAttribute("cortes",cortes);
       session.removeAttribute("grupos");
       session.removeAttribute("lista");
+      session.removeAttribute("listaRedes");
      // session.removeAttribute("referidos");
       String url = request.getParameter("url");
       System.out.println(url);

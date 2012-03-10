@@ -50,7 +50,7 @@
             <c:forEach var="red" items="${listaRedes}">
                <tr>
                 <td class="resultado" id="id-red">${red.idRed}</td>
-                <td class="resultado" id="no-personas">${red}</td>
+                <td class="resultado" id="no-personas">${red.noPersonas}</td>
                 <td class="centrado">
                     <input class="radio_red" type="radio" name="modificar" id="modificar_red" value="${grupo.idGrupo}"/>
                 </td>

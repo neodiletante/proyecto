@@ -29,6 +29,7 @@ public class RedesSocialesDAO {
     System.out.println(reg);
     String qInserta = "INSERT INTO tc_redes_sociales VALUES (0,?,?,?)";
     PreparedStatement psInserta = null;
+    
     try {
       psInserta = con.prepareStatement(qInserta);
       psInserta.setInt(1, reg.getIdGrupo());
@@ -38,6 +39,49 @@ public class RedesSocialesDAO {
     } catch (SQLException ex) {
       //Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
       ex.printStackTrace();
+    }
+  }
+  
+  public int buscaIdUltimo(){
+    String query = "SELECT MAX(id_red) AS id_ultimo FROM tc_redes_sociales";
+    PreparedStatement psSelecciona;
+    ResultSet rs;
+    int idUltimo = 0;
+    try {
+      psSelecciona = con.prepareStatement(query);
+      rs = psSelecciona.executeQuery();
+      if(rs.next()){
+        idUltimo = rs.getInt("id_ultimo");
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+      return idUltimo;
+    }
+    
+  }
+  
+  public void insertaElementosRed(List<String> elementos){
+    System.out.println("En el DAO, inertando elementos red");
+    String qInserta = "INSERT INTO tr_redes_sociales VALUES (?,?,null)";
+    PreparedStatement psInserta;
+    int idRed;
+    idRed = buscaIdUltimo();
+    for (String elemento : elementos){
+      int elementoInt = Integer.parseInt(elemento);
+      System.out.print("id red " + idRed);
+      System.out.println(" -> elemento " + elemento);
+      
+      try{
+        
+        psInserta = con.prepareStatement(qInserta);
+        psInserta.setInt(1,idRed);
+        psInserta.setInt(2,elementoInt);
+      //  psInserta.setInt(3,0);
+        psInserta.execute();
+      }catch(SQLException sqle){
+       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, sqle);
+      }
     }
   }
   
