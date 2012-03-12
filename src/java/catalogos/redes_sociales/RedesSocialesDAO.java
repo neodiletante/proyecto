@@ -171,4 +171,23 @@ public class RedesSocialesDAO {
     }
     return listaRedesSociales;
   }
+  
+  public List buscaElementosRed(int idRed){
+    List elementosRed = new ArrayList();
+    String query = "SELECT no_lista FROM tr_redes_sociales WHERE id_red = ?";
+    PreparedStatement psBusca;
+    ResultSet rs;
+    int elemento;
+    try {
+      psBusca = con.prepareStatement(query);
+      rs = psBusca.executeQuery();
+      while(rs.next()){
+        elemento = rs.getInt("no_lista");
+        elementosRed.add(elemento);
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return elementosRed;
+  }
 } 

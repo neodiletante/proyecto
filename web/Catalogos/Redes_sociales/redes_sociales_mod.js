@@ -49,6 +49,7 @@ $('#select-grupos-mod').change(function(){
     var turno = $('#select-turno-mod').val();
     var grupo = $('#select-grupos-mod').val();
     var no_lista = $('#no-lista-mod').val();
+    alert ("el grupo " + grupo);
     parameters.no_lista_refiere = no_lista;
     parameters.grupo = grupo;
     $.post('buscaRedesSociales', parameters, function(data){
@@ -62,6 +63,10 @@ $('#select-grupos-mod').change(function(){
   }, 'text');
 });
   
+  $('#btn-modificar-red').click(function(){
+    
+    
+  });
 
   
 });

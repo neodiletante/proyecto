@@ -109,6 +109,10 @@
         <servlet-name>BuscaRedesSociales</servlet-name>
         <servlet-class>catalogos.redes_sociales.BuscaRedesSocialesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuscaElementosRed</servlet-name>
+        <servlet-class>catalogos.redes_sociales.BuscaElementosRedServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
@@ -204,6 +208,10 @@
     <servlet-mapping>
         <servlet-name>BuscaRedesSociales</servlet-name>
         <url-pattern>/buscaRedesSociales</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuscaElementosRed</servlet-name>
+        <url-pattern>/buscaElementosRed</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

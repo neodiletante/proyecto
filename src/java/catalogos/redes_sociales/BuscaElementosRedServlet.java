@@ -6,19 +6,16 @@ package catalogos.redes_sociales;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author maria
+ * @author ulises
  */
-public class BuscaRedesSocialesServlet extends HttpServlet {
+public class BuscaElementosRedServlet extends HttpServlet {
 
   /**
    * Processes requests for both HTTP
@@ -35,30 +32,10 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     
-    System.out.println("En el servlet busca redes sociales");
-    HttpSession session = request.getSession();
-    session.removeAttribute("listaRedes");
-    Connection con = (Connection) session.getAttribute("conn");
-    RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
-    RedSocialReg rsr = new RedSocialReg();
-    String idGrupoString = request.getParameter("grupo");
-    System.out.println("id grupo " + idGrupoString);
-    int idGrupo = Integer.parseInt(idGrupoString);
-    String noListaRefiereString = request.getParameter("no_lista_refiere");
-    int noListaRefiere = Integer.parseInt(noListaRefiereString);
-    rsr.setIdGrupo(idGrupo);
-    rsr.setNoListaRefiere(noListaRefiere);
-    System.out.println("id grupo " + rsr.getIdGrupo());
-    System.out.println("no lista refiere " + rsr.getNoListaRefiere());
-    //List listaRedes = rsDAO.buscaDatosRedes(rsr);
-    List<RedSocialDatos> listaRedes = rsDAO.buscaDatosRedes(rsr);
-    System.out.println("tamaño lista " + listaRedes.size());
-    for(RedSocialDatos reg : listaRedes){
-      System.out.println(reg.getIdRed());
-    }
-    session.setAttribute("listaRedes", listaRedes);
-    try {
     
+    
+    try {
+     
     } finally {      
       out.close();
     }
