@@ -180,6 +180,7 @@ public class RedesSocialesDAO {
     int elemento;
     try {
       psBusca = con.prepareStatement(query);
+      psBusca.setInt(1, idRed);
       rs = psBusca.executeQuery();
       while(rs.next()){
         elemento = rs.getInt("no_lista");

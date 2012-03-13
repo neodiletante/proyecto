@@ -52,7 +52,7 @@
                 <td class="resultado" id="id-red">${red.idRed}</td>
                 <td class="resultado" id="no-personas">${red.noPersonas}</td>
                 <td class="centrado">
-                    <input class="radio_red" type="radio" name="modificar" id="modificar_red" value="${grupo.idGrupo}"/>
+                    <input class="radio_red" type="radio" name="modificar" id="modificar_red" value="${red.idRed}"/>
                 </td>
                 <td class="resultado" id="no-lista-referido">${red.noListaReferido}</td>
                </tr> 

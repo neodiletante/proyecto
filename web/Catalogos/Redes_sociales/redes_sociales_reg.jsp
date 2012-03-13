@@ -9,36 +9,36 @@
   <center>
     <jsp:useBean id="cortes" class="java.util.ArrayList" scope="session" />
     <select id="select-cortes" class="combo-cortes">
-      <option value="" selected="true">Seleccione un corte</option>
+      <option value="" selected="true">Corte</option>
       <c:forEach var="corte" items="${cortes}">
         <option value="${corte}"> ${corte} </option>  
       </c:forEach>
     </select>
     <select id="select-turno" class="combo-cortes">
-      <option value="" selected="true">Seleccione un turno</option>
+      <option value="" selected="true">Turno</option>
       <option value="M"> M </option>  
       <option value="V"> V </option>
     </select>
       <jsp:useBean id="grupos" class="java.util.ArrayList" scope="session" />
     <select id="select-grupos">
-      <option value="" selected="true">Seleccione un grupo</option>
+      <option value="" selected="true">Grupo</option>
       <c:forEach var="grupo" items="${grupos}">
         <option value="${grupo.idGrupo}"> ${grupo.grado} ${grupo.grupo} ${grupo.turno} </option>  
       </c:forEach>
     </select>
       <jsp:useBean id="lista" class="java.util.ArrayList" scope="session" />
     <select id="no-lista">
-      <option value="" selected="true">Seleccione un número de lista</option>
+      <option value="" selected="true">No. lista</option>
       <c:forEach var="lista" items="${lista}">
         <option value="${lista.no_lista}"> ${lista.no_lista} </option>  
       </c:forEach>
     </select>
      <select id="select-tipo">
-      <option value="" selected="true">Seleccione un tipo</option>
+      <option value="" selected="true">Tipo</option>
       <option value="AM"> Amistad </option>  
       <option value="AB"> Abuso </option>
     </select>
-     <button class="ui-button" id="btn-iniciar-red">Nueva red</button> 
+     <button class="ui-button" id="btn-iniciar-red">Guardar</button> 
     <button class="ui-button" id="btn-examinar-redes">Ver redes</button> 
   
     
@@ -69,4 +69,4 @@
             </c:forEach>
         <!--/tbody>
     </table-->
-         <button class="ui-button" id="btn-guardar-red">Guardar</button> 
+         <!--button class="ui-button" id="btn-guardar-red">Guardar</button--> 

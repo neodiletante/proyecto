@@ -6,10 +6,14 @@ package catalogos.redes_sociales;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import com.google.gson.Gson;
 
 /**
  *
@@ -31,11 +35,26 @@ public class BuscaElementosRedServlet extends HttpServlet {
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-    
+    System.out.println("En el servlert busca elementos red");
+    HttpSession session = request.getSession();
+    String idRed = request.getParameter("id_red");
+    Connection con  = (Connection) session.getAttribute("conn");
+    RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
+    List elementosRed = rsDAO.buscaElementosRed(Integer.parseInt(idRed));
+    //Gson gson = new Gson();
+    //String json = gson.toJson(elementosRed);
+    //System.out.println(json);
+    String elementos = "";
+    for(int i=0 ; i<elementosRed.size() ; i++){
+      elementos += elementosRed.get(i);
+      if(i<elementosRed.size()){
+        elementos += ",";
+      }
+    }
     
     
     try {
-     
+      out.write(elementos); 
     } finally {      
       out.close();
     }
