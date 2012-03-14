@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.google.gson.Gson;
+
 
 /**
  *
@@ -41,17 +41,15 @@ public class BuscaElementosRedServlet extends HttpServlet {
     Connection con  = (Connection) session.getAttribute("conn");
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
     List elementosRed = rsDAO.buscaElementosRed(Integer.parseInt(idRed));
-    //Gson gson = new Gson();
-    //String json = gson.toJson(elementosRed);
-    //System.out.println(json);
+
     String elementos = "";
     for(int i=0 ; i<elementosRed.size() ; i++){
       elementos += elementosRed.get(i);
-      if(i<elementosRed.size()){
+      if(i+1<elementosRed.size()){
         elementos += ",";
       }
     }
-    
+    System.out.println(elementos);
     
     try {
       out.write(elementos); 

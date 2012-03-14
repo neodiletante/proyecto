@@ -73,6 +73,15 @@ $('#select-grupos-mod').change(function(){
     $.post('buscaElementosRed', parameters, function(data){
       //alert(data);
       $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
+        alert(data);
+        var elementos = data.split(",");
+        var red_social = $('.check-red-social');
+        for(var i=0 ; i< elementos.length ; i++){
+          alert("ckecked " + red_social[i]);
+          red_social[i].attr('checked', true);
+          
+          
+        }
         //var json = $.getJSON(data);
         //$.each(json, function(k,v){console.log(k+" -> " +v); });
         //$('#select-cortes-mod').val(corte);
