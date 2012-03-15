@@ -15,7 +15,7 @@
 <textarea id="descripcion-dato-interes" name="descripcion_dato"/>
 <p>
 <label>Tipo de dato</label>
- <jsp:useBean id="tiposDato" class="java.util.ArrayList" scope="request" />
+ <jsp:useBean id="tiposDato" class="java.util.ArrayList" scope="session" />
 <select id ="tipo-dato" size="1">
     <option value="" selected="true"> Seleccione un tipo de dato </option>
   <c:forEach var="tipoDato" items="${tiposDato}">
@@ -42,7 +42,7 @@
                 <th>Borrar</th>
                 <th>Modifcar</th>
             </tr>
-            <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="request" />
+            <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="session" />
             <c:forEach var="datoInteres" items="${datosInteres}">
                <tr>
                 <td class="resultado" id="input_tipo">${datoInteres.descTipo}</td>
@@ -71,7 +71,7 @@
                 <button class="ui-button" id="btn-agrega-tipo">Agrega tipo</button>
               </div>
               <div>         
-                 <jsp:useBean id="tiposNoUsados" class="java.util.ArrayList" scope="request" />
+                 <jsp:useBean id="tiposNoUsados" class="java.util.ArrayList" scope="session" />
                  <p><select id ="tipo_dato_no_usado" size="1">
                       <option value="" selected="true"> Seleccione un tipo de dato para borrar </option>
                      <c:forEach var="tipoNoUsado" items="${tiposNoUsados}">

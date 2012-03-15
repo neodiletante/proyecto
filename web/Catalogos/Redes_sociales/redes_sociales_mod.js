@@ -94,6 +94,17 @@ $('#select-grupos-mod').change(function(){
     
     
   });
-
+  
+  $('#btn-agregar-datos').click(function(){
+    var parameters={};
+    parameters.url="Catalogos/Redes_sociales/agrega_datos_red.jsp";
+    $.post('muestraDatosInteres', parameters, function(data){
+     $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
+    //  var url = "?o=12";
+ //$(location).attr('href', url);  
+     });
+    
+  });
+  });
   
 });

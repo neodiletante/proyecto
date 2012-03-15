@@ -33,14 +33,12 @@
         <option value="${lista.no_lista}"> ${lista.no_lista} </option>  
       </c:forEach>
     </select>
-     <select id="select-tipo">
+     <!--select id="select-tipo">
       <option value="" selected="true">Tipo</option>
       <option value="AM"> Amistad </option>  
       <option value="AB"> Abuso </option>
-    </select>
-     <button class="ui-button" id="btn-iniciar-red">Guardar</button> 
-    <button class="ui-button" id="btn-examinar-redes">Ver redes</button> 
-  
+    </select-->
+    
     
     <br />
     <jsp:useBean id="tiposDato" class="java.util.ArrayList" scope="session" />
@@ -67,6 +65,10 @@
                
                </tr--> 
             </c:forEach>
+               <br /> 
+                 <button class="ui-button" id="btn-iniciar-red">Guardar</button> 
+    <button class="ui-button" id="btn-examinar-redes">Ver redes</button> 
+  
         <!--/tbody>
     </table-->
          <!--button class="ui-button" id="btn-guardar-red">Guardar</button--> 

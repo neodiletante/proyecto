@@ -72,8 +72,8 @@ $('#btn-iniciar-red').click(function(){
 
 $('#btn-examinar-redes').click(function(){
   //alert("Examinado redess");
-  var parameters={};
-  parameters.url = "Catalogos/Redes_sociales/redes_sociales_mod.jsp";
+ // var parameters={};
+  //parameters.url = "Catalogos/Redes_sociales/redes_sociales_mod.jsp";
   //$.post('?o=6', parameters, function(){
     // $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
  var url = "?o=6";

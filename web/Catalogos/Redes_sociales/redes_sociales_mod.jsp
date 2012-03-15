@@ -60,4 +60,4 @@
         </tbody>
     </table>
     <button class="ui-button" id="btn-modificar-red">Modificar</button> 
-    <button class="ui-button" id="btn-borrar-red">Datos de interés</button> 
+    <button class="ui-button" id="btn-agregar-datos">Datos de interés</button> 

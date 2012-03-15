@@ -38,13 +38,18 @@ public class MuestraDatosInteresServlet extends HttpServlet {
     Connection conect = (Connection) session.getAttribute("conn");
     DatosInteresDAO dDAO = new DatosInteresDAO(conect);
     List<DatoInteres> datosInteres = dDAO.buscaDatosInteres();
-    List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos(false);
+    List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos();
     List<TipoDato> tiposNoUsados = dDAO.buscaTiposDeDatos(true);
+    //HttpSession session = request.getSession();
     
-    request.setAttribute("datosInteres", datosInteres);
-    request.setAttribute("tiposDato", tiposDato);
-    request.setAttribute("tiposNoUsados", tiposNoUsados);
-    RequestDispatcher view = request.getRequestDispatcher("Catalogos/Datos_interes/datos_interes.jsp");
+    //request.setAttribute("datosInteres", datosInteres);
+    //request.setAttribute("tiposDato", tiposDato);
+    //request.setAttribute("tiposNoUsados", tiposNoUsados);
+    session.setAttribute("datosInteres", datosInteres);
+    session.setAttribute("tiposDato", tiposDato);
+    session.setAttribute("tiposNoUsados", tiposNoUsados);
+    String url = request.getParameter("url");
+    RequestDispatcher view = request.getRequestDispatcher(url);
     view.forward(request, response);
   }
 

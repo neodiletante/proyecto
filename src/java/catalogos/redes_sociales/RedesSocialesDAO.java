@@ -132,7 +132,9 @@ public class RedesSocialesDAO {
    public List<RedSocialDatos> buscaDatosRedes(RedSocialReg reg){
     String query = "SELECT reg.id_red, COUNT(*) AS no_personas, reg.no_lista_referido"
             + " FROM tc_redes_sociales reg, tr_redes_sociales dat"
-            + " WHERE reg.id_grupo = ? AND reg.no_lista_refiere = ?";
+            + " WHERE reg.id_grupo = ? AND reg.no_lista_refiere = ?"
+            + " AND reg.id_red = dat.id_red"
+            + " GROUP BY reg.id_red";
            
     PreparedStatement psBuscaRedes = null;
     ResultSet rs = null;
