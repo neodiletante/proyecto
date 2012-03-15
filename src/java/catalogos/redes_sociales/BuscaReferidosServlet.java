@@ -46,7 +46,7 @@ public class BuscaReferidosServlet extends HttpServlet {
     HttpSession session = request.getSession();
     Connection conect = (Connection) session.getAttribute("conn");
     List<ListasDAO> lista = (List) session.getAttribute("lista");
-    ListasDAO alumno = new ListasDAO();
+    ListasDAO alumno = new ListasDAO(session);
     String noLista = request.getParameter("no_lista");
     alumno.setNo_lista(Integer.parseInt(noLista));
     //List referidos = lista;

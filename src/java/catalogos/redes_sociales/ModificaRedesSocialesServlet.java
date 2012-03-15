@@ -49,7 +49,7 @@ public class ModificaRedesSocialesServlet extends HttpServlet {
         System.out.println(corte);
       }
    //   List<Grupo> grupos = gDAO.consultaGrupos();
-       List lista = new ListasDAO(conect).getDatos(2);
+       List lista = new ListasDAO(session).getDatos(2);
          request.setAttribute("cortes", cortes);
      // request.setAttribute("grupos", grupos);
       request.setAttribute("listas", lista);

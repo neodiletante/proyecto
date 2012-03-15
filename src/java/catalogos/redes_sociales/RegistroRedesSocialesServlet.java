@@ -51,7 +51,7 @@ public class RegistroRedesSocialesServlet extends HttpServlet {
    //       Grupo grupo = grupos.get(i);
    //         System.out.println(grupo.getGrado() + " " + grupo.getGrupo()) ;
    //   }
-      List lista = new ListasDAO(conect).getDatos(2);
+      List lista = new ListasDAO(session).getDatos(2);
       List<DatoInteres> datosInteres = dDAO.buscaDatosInteres(); 
       List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos(false); 
       Map datos = new HashMap();

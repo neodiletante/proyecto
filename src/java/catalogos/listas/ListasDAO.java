@@ -3,21 +3,23 @@
  * and open the template in the editor.
  */
 package catalogos.listas;
-//import com.sun.istack.internal.logging.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author daniel
  */
-public class ListasDAO{
+public class ListasDAO {
     private String nombre;
     private int id_grupo;
     private int no_lista;
@@ -28,25 +30,19 @@ public class ListasDAO{
     private boolean tieneRegistros;
     Connection con = null;
 
-  //  private Logger log= Logger.getLogger(ListasDAO.class);
+    private final Logger log= Logger.getLogger(this.getClass().getName());
     /**
      * @return the nombre
      */
-    
-    public ListasDAO() {}
-
-  public ListasDAO(int no_lista) {
-    this.no_lista = no_lista;
-  }
-    
-    public ListasDAO(Connection con){
-      this.con = con;
-    }
-    
     public String getNombre() {
         return nombre;
     }
 
+    public ListasDAO(HttpSession sesion){
+        con=(Connection)sesion.getAttribute("conn");
+    }
+    
+    private ListasDAO(){}
     /**
      * @param nombre the nombre to set
      */
@@ -95,31 +91,41 @@ public class ListasDAO{
                 dao.setNombre(rst.getString("nombre"));
                 dao.setId_grupo(rst.getInt("id_grupo"));
                 dao.setColor(rst.getString("color"));
-                dao.setGrupo_estadistico(rst.getString("gpo_estadistico"));
+                dao.setGrupo_estadistico(rst.getString("grupo_estadistico"));
                 dao.setNombreGrupo("nombre_grupo");
                 dao.setNo_exp(Integer.parseInt(rst.getString("no_expediente")));
                 dao.setTieneRegistros(rst.getInt("registros")>0);
-                //System.out.println(dao.getNombre() + " " + dao.getNo_lista());
                 retVar.add(dao);
                 dao=null;
               }  
           }
         }
         catch(Exception ex){
-         //  log.log(Level.WARNING, "Error:", ex);
-          ex.printStackTrace();
+           log.log(Level.WARNING, "Error:", ex);
+        }
+        finally{
+            if(rst!=null) try {
+                rst.close();
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(ListasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return retVar;
     }
         
         public ListasDAO mapRqt(HttpServletRequest request){
-            ListasDAO dao=new ListasDAO();
-            dao.setId_grupo(Integer.parseInt(request.getParameter("id_grupo")));
-            dao.setNo_lista(Integer.parseInt(request.getParameter("no_lista")));
+            ListasDAO dao=new ListasDAO(request.getSession());
+            if(request.getParameter("id_grupo")!=null)
+              try{
+                dao.setId_grupo(Integer.parseInt(request.getParameter("id_grupo")));
+              }catch(Exception ex){}
+            if(request.getParameter("no_lista")!=null)
+                dao.setNo_lista(Integer.parseInt(request.getParameter("no_lista")));
             dao.setNombre(request.getParameter("nombre"));
             dao.setColor(request.getParameter("color"));
             dao.setGrupo_estadistico(request.getParameter("grupo_estadistico"));
-            dao.setNo_exp(Integer.parseInt(request.getParameter("no_expediente")));
+            if(request.getParameter("no_expediente")!=null)
+                dao.setNo_exp(Integer.parseInt(request.getParameter("no_expediente")));
             return dao;
         }
 
@@ -152,25 +158,18 @@ public class ListasDAO{
     }
     
     public List getDatos(int id_grupo){
-    //    System.out.println("En el getDAts 1");
         List retVar = null;
         ResultSet rst = null;
         PreparedStatement pst = null;
-        StringBuilder query=new StringBuilder("select * from saes.vw_listas where id_grupo=?");
+        StringBuilder query=new StringBuilder("select * from vw_listas where id_grupo=?");
         try{
-      //    System.out.println("En el getDAts 2");  
-          pst=con.prepareStatement(query.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        //  System.out.println("En el getDAts 3");  
-          pst.setInt(1, id_grupo);
-          //System.out.println("En el getDAts 4");  
-          rst=pst.executeQuery();
-          ///System.out.println("En el getDAts 5");
+            pst=con.prepareStatement(query.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            pst.setInt(1, id_grupo);
+            rst=pst.executeQuery();
             retVar = this.map(rst);
-           // System.out.println("En el getDAts 6");
         }
         catch(Exception ex){
-        //    log.log(Level.WARNING, "Error:", ex);
-          ex.printStackTrace();
+            log.log(Level.WARNING, "Error:", ex);
         }
         return retVar;
     }
@@ -218,29 +217,6 @@ public class ListasDAO{
     }
     
     public boolean getTieneRegistros(){return this.tieneRegistros;}
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    final ListasDAO other = (ListasDAO) obj;
-    if (this.no_lista != other.no_lista) {
-      return false;
-    }
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    int hash = this.no_lista;
-    return hash;
-  }
-    
-    
     
     }
 

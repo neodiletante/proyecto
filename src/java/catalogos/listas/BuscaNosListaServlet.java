@@ -37,7 +37,7 @@ public class BuscaNosListaServlet extends HttpServlet {
     PrintWriter out = response.getWriter();
       HttpSession session = request.getSession();
       Connection conn = (Connection) session.getAttribute("conn");
-      ListasDAO listaDAO = new ListasDAO(conn);
+      ListasDAO listaDAO = new ListasDAO(session);
       String grupo = request.getParameter("grupo");
      
       List lista = listaDAO.getDatos(Integer.parseInt(grupo));

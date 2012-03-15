@@ -16,26 +16,26 @@
         <script src="JavaScript/js/jquery-1.7.1.min.js"></script>  
         <script src="JavaScript/js/jquery-ui-1.8.17.custom.min.js"></script>  
         <style media="all" type="text/css">@import "Estilos/forma-dialogo.css";</style>
+        <script type="text/javascript" src="JavaScript/colorpicker/jscolor.js"></script>
 
         <% String ruta=null;
        int o= request.getParameter("o")==null?0:Integer.parseInt(request.getParameter("o"));
-       //o=1;
         switch(o){
-            case 1:ruta="buscaCortes?url=Catalogos/Grupos/grupos.jsp";break;
-            case 3:ruta="mostrarAlumnos";break; 
+            case 1:ruta="Catalogos/Cortes/cortes.jsp";break;
+            case 2:ruta="Catalogos/Listas/modificarListas.jsp";break;
+             case 3:ruta="mostrarAlumnos";break; 
             case 4:ruta="muestraDatosInteres?url=Catalogos/Datos_interes/datos_interes.jsp";break;
             case 5:ruta="buscaCortes?url=Catalogos/Redes_sociales/redes_sociales_reg.jsp";break;
             case 6:ruta="buscaCortes?url=Catalogos/Redes_sociales/redes_sociales_mod.jsp";break;
             case 12:ruta="muestraDatosInteres?url=Catalogos/Redes_sociales/agrega_datos_red.jsp";break;
-            default:ruta="Catalogos/Cortes/cortes.jsp";break;
+            default:ruta="Catalogos/Listas/modificarListas.jsp";break;
         }
     %> 
         <script type="text/javascript">
             $(function(){
+             //$.datepicker.setDefaults( $.datepicker.regional[ "es" ] );
              
              $('#_principal').load('<%=ruta%>');
-             $('button').addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");
-             
             });
                
  
