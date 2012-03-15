@@ -4,7 +4,11 @@
  */
 package catalogos.grupos;
 
-import java.sql.*;
+import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,16 +29,21 @@ public class GruposDAO {
         
     }
 
-        public List consultaGrupos(int corte) {
+        public List<Grupo> consultaGrupos(int corte){
+            return consultaGrupos(corte, null);
+        }
+        
+        public List consultaGrupos(int corte, String turno) {
         List<Grupo> grupos = new ArrayList<Grupo>();
-        PreparedStatement psBusca = null;
-        String query = "SELECT * FROM tc_grupos WHERE corte = ? ORDER BY corte DESC";
         try{
-          psBusca = con.prepareStatement(query);
-            //stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-          psBusca.setInt(1, corte);  
-           // System.out.println(query);
-            rs = psBusca.executeQuery();
+           
+            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String query = "SELECT * FROM tc_grupos where corte="+corte;
+            if (turno!=null)
+                query= query+" and turno=";
+            query+=" order by turno";
+            System.out.println(query);
+            rs = stmt.executeQuery(query);
             
             while(rs.next()) {
                 grupo = new Grupo();
@@ -117,13 +126,14 @@ public class GruposDAO {
           }
             return cortes;
         }
-        
+    
+                
         public List<Grupo> buscaGruposPorTurno(int corte, String turno){
            List<Grupo> grupos = new ArrayList<Grupo>();
         PreparedStatement psBusca = null;
         String query = "SELECT * FROM tc_grupos WHERE corte = ? AND turno = ?";
         try{
-          psBusca = con.prepareStatement(query);
+          psBusca = (PreparedStatement) con.prepareStatement(query);
             //stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
           psBusca.setInt(1, corte);  
           psBusca.setString(2, turno);

@@ -18,6 +18,10 @@
         <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet>
+        <servlet-name>listasBean</servlet-name>
+        <servlet-class>catalogos.listas.listasBean</servlet-class>
+    </servlet>    
+    <servlet>
         <servlet-name>grupos</servlet-name>
         <servlet-class>catalogos.grupos.GruposServlet</servlet-class>
     </servlet>
@@ -113,6 +117,10 @@
         <servlet-name>BuscaElementosRed</servlet-name>
         <servlet-class>catalogos.redes_sociales.BuscaElementosRedServlet</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>listasBean</servlet-name>
+        <url-pattern>/listasBean</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
