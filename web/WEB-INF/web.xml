@@ -20,7 +20,7 @@
     <servlet>
         <servlet-name>listasBean</servlet-name>
         <servlet-class>catalogos.listas.listasBean</servlet-class>
-    </servlet>    
+    </servlet>
     <servlet>
         <servlet-name>grupos</servlet-name>
         <servlet-class>catalogos.grupos.GruposServlet</servlet-class>
@@ -116,6 +116,10 @@
     <servlet>
         <servlet-name>BuscaElementosRed</servlet-name>
         <servlet-class>catalogos.redes_sociales.BuscaElementosRedServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuscaDatosInteres</servlet-name>
+        <servlet-class>catalogos.datos_interes.BuscaDatosInteresServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
@@ -220,6 +224,10 @@
     <servlet-mapping>
         <servlet-name>BuscaElementosRed</servlet-name>
         <url-pattern>/buscaElementosRed</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuscaDatosInteres</servlet-name>
+        <url-pattern>/BuscaDatosInteres</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

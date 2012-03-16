@@ -27,7 +27,7 @@
             case 4:ruta="muestraDatosInteres?url=Catalogos/Datos_interes/datos_interes.jsp";break;
             case 5:ruta="buscaCortes?url=Catalogos/Redes_sociales/redes_sociales_reg.jsp";break;
             case 6:ruta="buscaCortes?url=Catalogos/Redes_sociales/redes_sociales_mod.jsp";break;
-            case 12:ruta="muestraDatosInteres?url=Catalogos/Redes_sociales/agrega_datos_red.jsp";break;
+            case 12:ruta="buscaCortes?url=Catalogos/Redes_sociales/agrega_datos_red.jsp";break;
             default:ruta="Catalogos/Listas/modificarListas.jsp";break;
         }
     %> 

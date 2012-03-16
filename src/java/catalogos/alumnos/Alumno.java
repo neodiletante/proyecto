@@ -4,6 +4,9 @@
  */
 package catalogos.alumnos;
 
+import java.sql.ResultSet;
+import java.util.List;
+
 /**
  *
  * @author ulises
@@ -50,5 +53,11 @@ public class Alumno {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
+
+  public List<Alumno> mapRst(ResultSet rst) {
+    throw new UnsupportedOperationException("Not yet implemented");
+  }
+    
+    
    
 }

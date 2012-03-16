@@ -46,9 +46,10 @@ public class BuscaCortesServlet extends HttpServlet {
       session.removeAttribute("listaRedes");
      // session.removeAttribute("referidos");
       String url = request.getParameter("url");
+      
       System.out.println(url);
-      RequestDispatcher vista = request.getRequestDispatcher(url);
-      vista.forward(request, response);
+ //     RequestDispatcher vista = request.getRequestDispatcher(url);
+  //    vista.forward(request, response);
     
     try {
     

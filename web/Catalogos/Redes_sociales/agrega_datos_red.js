@@ -1,6 +1,66 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+ $(function(){
+ 
+ $('#select-cortes-add').change(function(){
+    //alert("estoy cambiando");
+     $('#select-turno-add').val('');
+    $('#select-grupos-add').val('');
+    $('#no-lista-add').val(''); 
+  });
+  
+  $('#select-turno-add').change(function(){
+    //alert('Cambiando turno');
+     var parameters={};
+     var corte = $('#select-cortes-add').val();
+     var turno = $('#select-turno-add').val();
+     parameters.corte = corte;
+     parameters.turno = turno;
+      $.post('buscaGruposPorTurno', parameters, function(data){
+      $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_interes.jsp',data,function(){
+        $('#select-cortes-add').val(corte);
+        $('#select-turno-add').val(turno);
+      });
+    }, 'text');
+  });
+  
+$('#select-grupos-add').change(function(){
+  //  alert("estoy cambiando");
+    var parameters={};
+     var corte = $('#select-cortes-add').val();
+     var turno = $('#select-turno-add').val();
+    var grupo = $('#select-grupos-add').val();
+    parameters.grupo = grupo;
+    $.post('buscaNosLista', parameters, function(data){
+      $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_interes.jsp',data,function(){
+        $('#select-cortes-add').val(corte);
+        $('#select-turno-add').val(turno);
+        $('#select-grupos-add').val(grupo);
+     //   alert("estoy canbiamdo " + data);
+      
+    });
+    
+  }, 'text');
+});
 
 
+ $('#no-lista-mod').change(function(){
+    //alert("estoy cambiando");
+    var parameters={};
+    var corte = $('#select-cortes-add').val();
+    var turno = $('#select-turno-add').val();
+    var grupo = $('#select-grupos-add').val();
+    var no_lista = $('#no-lista-add').val();
+    //alert ("el grupo " + grupo);
+    parameters.no_lista_refiere = no_lista;
+    parameters.grupo = grupo;
+    $.post('buscaRedesSociales', parameters, function(data){
+      $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
+        //$('#select-cortes-mod').val(corte);
+        //$('#select-turno-mod').val(turno);
+        //$('#select-grupos-mod').val(grupo);
+        //$('#no-lista-mod').val(no_lista);
+    });
+    
+  }, 'text');
+});
+
+});
