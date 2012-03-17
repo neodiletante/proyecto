@@ -4,24 +4,20 @@
  */
 package catalogos.redes_sociales;
 
-import catalogos.datos_interes.DatoInteres;
-import catalogos.datos_interes.DatosInteresDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
- * @author ulises
+ * @author maria
  */
-public class BuscaElementosRedServlet extends HttpServlet {
+public class ActualizaRedServlet extends HttpServlet {
 
   /**
    * Processes requests for both HTTP
@@ -35,39 +31,20 @@ public class BuscaElementosRedServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    System.out.println("En el servlert busca elementos red");
-    HttpSession session = request.getSession();
-    String idRed = request.getParameter("id_red");
-    Connection con  = (Connection) session.getAttribute("conn");
-    RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
-    List elementosRed = rsDAO.buscaElementosRed(Integer.parseInt(idRed));
+  //  response.setContentType("text/html;charset=UTF-8");
+  //  PrintWriter out = response.getWriter();
+  HttpSession session = request.getSession();
+  Connection con = (Connection) session.getAttribute("conn");
+  
+  
     
-     DatosInteresDAO dDAO = new DatosInteresDAO(con);
-     List<DatoInteres> datosInteres = dDAO.buscaDatosInteres();
-     System.out.println("Datos de interés " + datosInteres.size());
-     for (int i = 0 ; i < datosInteres.size() ; i++){
-       System.out.println(datosInteres.get(i).getDescripcion());
-     }
-     
-     session.setAttribute("datosInteres", datosInteres);
-
-    String elementos = "";
-    for(int i=0 ; i<elementosRed.size() ; i++){
-      elementos += elementosRed.get(i);
-      if(i+1<elementosRed.size()){
-        elementos += ",";
-      }
-    }
-    System.out.println(elementos);
-    session.setAttribute("nosLista", elementosRed);
     
-    try {
-      out.write(elementos); 
-    } finally {      
-      out.close();
-    }
+    
+    //  try {
+  
+  //  } finally {      
+  //    out.close();
+  //  }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

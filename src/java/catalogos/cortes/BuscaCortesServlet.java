@@ -40,10 +40,11 @@ public class BuscaCortesServlet extends HttpServlet {
       Connection  conn = (Connection) session.getAttribute("conn");
       GruposDAO gDAO = new GruposDAO(conn);
       List cortes = gDAO.consultaCortes();
+     // session.removeAttribute("cortes");
       session.setAttribute("cortes",cortes);
-   //   session.removeAttribute("grupos");
-   //   session.removeAttribute("lista");
-   //   session.removeAttribute("listaRedes");
+      session.removeAttribute("grupos");
+      session.removeAttribute("lista");
+      session.removeAttribute("listaRedes");
      // session.removeAttribute("referidos");
       String url = request.getParameter("url");
       
