@@ -42,7 +42,7 @@ $('#select-grupos-add').change(function(){
 });
 
 
- $('#no-lista-mod').change(function(){
+ $('#no-lista-add').change(function(){
     //alert("estoy cambiando");
     var parameters={};
     var corte = $('#select-cortes-add').val();

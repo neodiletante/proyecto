@@ -34,28 +34,28 @@ public class BuscaCortesServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
+    //response.setContentType("text/html;charset=UTF-8");
+    //PrintWriter out = response.getWriter();
       HttpSession session = request.getSession();
       Connection  conn = (Connection) session.getAttribute("conn");
       GruposDAO gDAO = new GruposDAO(conn);
       List cortes = gDAO.consultaCortes();
       session.setAttribute("cortes",cortes);
-      session.removeAttribute("grupos");
-      session.removeAttribute("lista");
-      session.removeAttribute("listaRedes");
+   //   session.removeAttribute("grupos");
+   //   session.removeAttribute("lista");
+   //   session.removeAttribute("listaRedes");
      // session.removeAttribute("referidos");
       String url = request.getParameter("url");
       
       System.out.println(url);
- //     RequestDispatcher vista = request.getRequestDispatcher(url);
-  //    vista.forward(request, response);
+      RequestDispatcher vista = request.getRequestDispatcher(url);
+      vista.forward(request, response);
     
-    try {
+   // try {
     
-    } finally {      
-      out.close();
-    }
+   // } finally {      
+   //   out.close();
+   // }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
