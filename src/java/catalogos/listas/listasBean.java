@@ -68,7 +68,7 @@ public class listasBean extends HttpServlet {
              }
              
              if(accion.equalsIgnoreCase("modificar")){
-                 modificarEnLista(dao);
+                 mensaje=modificarEnLista(dao);
              }
              
              
@@ -191,18 +191,18 @@ public class listasBean extends HttpServlet {
         return retVar;
     }
 
-    private boolean modificarEnLista(ListasDAO dao) {
-        boolean retVar=false;
-        StringBuilder query = new StringBuilder("update tb_listas set no_exp=?, color=?, gpo_estadistico=?  where id_grupo=? and no_lista=?");
+    private String modificarEnLista(ListasDAO dao) {
+        String retVar="";
+        StringBuilder query = new StringBuilder("update tc_listas set no_exp=?, color=?, gpo_estadistico=?  where id_grupo=? and no_lista=?");
         PreparedStatement pst=null;
         try{
             pst = con.prepareStatement(query.toString());
             pst.setInt(1, dao.getNo_exp());
             pst.setString(2, dao.getColor());
             pst.setString(3, dao.getGrupo_estadistico());
-            pst.setInt(5, dao.getId_grupo());
-            pst.setInt(6, dao.getNo_lista());
-            retVar=pst.executeUpdate()>0;
+            pst.setInt(4, dao.getId_grupo());
+            pst.setInt(5, dao.getNo_lista());
+            retVar=pst.executeUpdate()>0?"Cambio realizado":"";
         }
         catch(Exception ex){
             log.log(Level.WARNING,"Error: ",ex);
@@ -251,7 +251,7 @@ public class listasBean extends HttpServlet {
                    retVar.append( "<input type=\"hidden\" id=\"\" value=\"" ).append( rst.getString("no_lista") ).append( "\"/></td><td>" );
                    retVar.append( rst.getString("gpo_estadistico") ).append( "</td><td> " );
                    retVar.append("<input type=\"checkbox\" value =\"").append(rst.getString("no_lista")).append("\"/></td><td>");
-                   retVar.append("<input type=\"radio\" name=\"no_lista\" value =\"").append(rst.getString("no_lista")).append("\"/></td></tr>");
+                   retVar.append("<input type=\"radio\" name=\"cambiar\" value =\"").append(rst.getString("no_lista")).append("\"/></td></tr>");
                }
                while(rst.next());
             }
