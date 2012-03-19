@@ -7,6 +7,7 @@ package catalogos.redes_sociales;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,13 +38,14 @@ public class ActualizaRedServlet extends HttpServlet {
   HttpSession session = request.getSession();
   Connection con = (Connection) session.getAttribute("conn");
   RedesSocialesDAO rrssDAO = new RedesSocialesDAO(con);
-  String idRed = request.getParameter("id_red");
+  String idRedString = request.getParameter("id_red");
+  int idRed = Integer.parseInt(idRedString);
   String noLista = request.getParameter("no_lista");
   String idDato = request.getParameter("id_dato");
-  int idRelacion = rrssDAO.buscaIdRelacion(Integer.parseInt(idRed), Integer.parseInt(noLista));
+  int idRelacion = rrssDAO.buscaIdRelacion(idRed, Integer.parseInt(noLista));
   rrssDAO.actualizaDatosRed(idRelacion, Integer.parseInt(idDato));
-  
-      
+  List<RedSocialDatos> datosPorRed = rrssDAO.buscaDatosPorRed(idRed);
+  session.setAttribute("datosPorRed", datosPorRed);            
     //  try {
   
   //  } finally {      
