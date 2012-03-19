@@ -88,8 +88,29 @@ $('#sel-red').change(function(){
 });
 
 $('#btn-actualiza-red').click(function(){
-  
-  
+  var corte = $('#select-cortes-add').val();
+  var turno = $('#select-turno-add').val();
+  var grupo = $('#select-grupos-add').val();
+  var red = $('#sel-red').val();
+  var no_lista = $('#no-lista-add').val();
+  var dato_interes = $('#select-datos-interes').val();
+  var no_lista_referido = $('#sel-nos-lista').val();
+  parameters={};
+  parameters.id_red = red;
+  parameters.no_lista = no_lista_referido;
+  parameters.id_dato = dato_interes;
+  $.post('actualizaRed', parameters, function(data){
+      $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
+        $('#select-cortes-add').val(corte);
+        $('#select-turno-add').val(turno);
+        $('#select-grupos-add').val(grupo);
+        $('#no-lista-add').val(no_lista);
+        $('#sel-red').val(red);
+        $('#select-datos-interes').val(dato_interes);
+        $('#sel-nos-lista').val(no_lista_referido);
+    });
+    
+  }, 'text');
 });
 
 

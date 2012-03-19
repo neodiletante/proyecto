@@ -33,13 +33,17 @@ public class ActualizaRedServlet extends HttpServlet {
           throws ServletException, IOException {
   //  response.setContentType("text/html;charset=UTF-8");
   //  PrintWriter out = response.getWriter();
+  System.out.println("En el servlet de actualizar las redes sociales");
   HttpSession session = request.getSession();
   Connection con = (Connection) session.getAttribute("conn");
+  RedesSocialesDAO rrssDAO = new RedesSocialesDAO(con);
+  String idRed = request.getParameter("id_red");
+  String noLista = request.getParameter("no_lista");
+  String idDato = request.getParameter("id_dato");
+  int idRelacion = rrssDAO.buscaIdRelacion(Integer.parseInt(idRed), Integer.parseInt(noLista));
+  rrssDAO.actualizaDatosRed(idRelacion, Integer.parseInt(idDato));
   
-  
-    
-    
-    
+      
     //  try {
   
   //  } finally {      

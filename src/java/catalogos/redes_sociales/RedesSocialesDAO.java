@@ -193,4 +193,63 @@ public class RedesSocialesDAO {
     }
     return elementosRed;
   }
+  public void actualizaDatosRed(int idRelacion, int idDato){
+    String qInserta = "INSERT INTO tr_datos_interes VALUES(?,?)";
+    PreparedStatement psInserta = null;
+    try {
+      psInserta = con.prepareStatement(qInserta);
+      psInserta.setInt(1, idRelacion);
+      psInserta.setInt(2, idDato);
+       psInserta.execute();
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+  
+  public int buscaIdRelacion(int idRed, int noLista){
+    String query = "SELECT id_relacion FROM tr_redes_sociales WHERE id_red = ? AND no_lista = ?";
+    PreparedStatement psBusca;
+    ResultSet rs;
+    int idRelacion = 0;
+    try {
+      psBusca = con.prepareStatement(query);
+      psBusca.setInt(1, idRed);
+      psBusca.setInt(2,noLista);
+      rs = psBusca.executeQuery();
+      while(rs.next()){
+        idRelacion = rs.getInt("id_relacion");
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+      return idRelacion;
+    }
+  }
+  
+  public List buscaDatosPorRed(int idRed){
+    List<RedSocialDatos> datosPorRed = new ArrayList<RedSocialDatos>();
+    String query = "SELECT rrs.no_lista, cdi.descripcion"
+            + " FROM tr_redes_sociales rrs INNER JOIN tc_datos_interes cdi"
+            + " INNER JOIN tr_datos_interes rdi"
+            + " WHERE rdi.id_relacion = rrs.id_relacion"
+            + " AND rdi.id_dato = cdi.id_dato AND rrs.id_red = ?";
+    PreparedStatement psBusca;
+    ResultSet rs;
+    RedSocialDatos rsd;
+    try {
+      psBusca = con.prepareStatement(query);
+      psBusca.setInt(1, idRed);
+      rs = psBusca.executeQuery();
+      while(rs.next()){
+        rsd = new RedSocialDatos();
+        rsd.setNoListaReferido(rs.getInt("no_lista"));
+        rsd.setDescDatoInteres(rs.getString("descripcion"));
+        datosPorRed.add(rsd);
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+      return datosPorRed;
+    }
+  }
 } 

@@ -14,6 +14,7 @@ public class RedSocialDatos {
   private int noListaReferido;
   private int idRelacion;
   private int noPersonas;
+  private String descDatoInteres;
   
   public int getIdRed() {
     return idRed;
@@ -53,6 +54,14 @@ public class RedSocialDatos {
 
   public void setNoPersonas(int noPersonas) {
     this.noPersonas = noPersonas;
+  }
+
+  public String getDescDatoInteres() {
+    return descDatoInteres;
+  }
+
+  public void setDescDatoInteres(String descDatoInteres) {
+    this.descDatoInteres = descDatoInteres;
   }
   
 }
