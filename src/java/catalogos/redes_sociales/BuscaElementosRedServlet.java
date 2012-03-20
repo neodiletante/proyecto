@@ -6,6 +6,7 @@ package catalogos.redes_sociales;
 
 import catalogos.datos_interes.DatoInteres;
 import catalogos.datos_interes.DatosInteresDAO;
+//import catalogos.datos_interes.DatosInteresDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -43,7 +44,7 @@ public class BuscaElementosRedServlet extends HttpServlet {
     Connection con  = (Connection) session.getAttribute("conn");
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
     List elementosRed = rsDAO.buscaElementosRed(Integer.parseInt(idRed));
-    
+  
      DatosInteresDAO dDAO = new DatosInteresDAO(con);
      List<DatoInteres> datosInteres = dDAO.buscaDatosInteres();
      System.out.println("Datos de interés " + datosInteres.size());

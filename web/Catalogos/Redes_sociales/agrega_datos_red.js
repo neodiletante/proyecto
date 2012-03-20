@@ -93,7 +93,7 @@ $('#btn-actualiza-red').click(function(){
   var grupo = $('#select-grupos-add').val();
   var red = $('#sel-red').val();
   var no_lista = $('#no-lista-add').val();
-  var dato_interes = $('#select-datos-interes').val();
+  var dato_interes = 1;//$('#select-datos-interes').val();
   var no_lista_referido = $('#sel-nos-lista').val();
   parameters={};
   parameters.id_red = red;

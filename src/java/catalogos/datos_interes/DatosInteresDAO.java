@@ -99,23 +99,21 @@ public class DatosInteresDAO {
     }
   
   public List<DatoInteres> buscaDatosInteres(){
+    System.out.println("En el método busca datos interés");
     DatoInteres datoInteres = null;
+    PreparedStatement psBusca = null;
+    ResultSet res = null;
     List<DatoInteres> datosInteres = new ArrayList<DatoInteres>();
-    String query = "SELECT * FROM tc_datos_interes";// WHERE tipo NOT IN (SELECT tipo FROM tc_datos_interes)";
-    //String query = "SELECT d.id_dato AS id_dato, d.descripcion AS desc_dato, "
-    //        + "d.tipo AS id_tipo, t.descripcion AS desc_tipo "
-    //        + "FROM tc_datos_interes d, tc_tipo_dato_interes t "
-    //        + "WHERE d.tipo = t.tipo";
+    String query = "SELECT id_dato, descripcion FROM tc_datos_interes";
     try {
-      stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-      rs = stmt.executeQuery(query);
-      while(rs.next()) {
+      psBusca = con.prepareStatement(query);
+      res = psBusca.executeQuery();
+      while(res.next()) {
         datoInteres = new DatoInteres();
-        datoInteres.setIdDato(rs.getInt("id_dato"));
-        datoInteres.setDescripcion(rs.getString("descripcion"));
-      //  datoInteres.setTipo(rs.getInt("id_tipo"));
-      //  datoInteres.setDescTipo(rs.getString("desc_tipo"));
+        datoInteres.setIdDato(res.getInt("id_dato"));
+        datoInteres.setDescripcion(res.getString("descripcion"));
         datosInteres.add(datoInteres);
+        System.out.println("Estoy agregando otro dato de interés  ");
       }
     } catch (SQLException ex) {
       Logger.getLogger(DatosInteresDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,24 +122,24 @@ public class DatosInteresDAO {
     }
   }
   
-  public List<DatoInteres> buscaDatosInteres(int tipo){
+  public List<DatoInteres> buscaDatosInteres(int idDato){
+   System.out.println("En el método busca datos interés");
     DatoInteres datoInteres = null;
+    PreparedStatement psBusca = null;
+    ResultSet res = null;
     List<DatoInteres> datosInteres = new ArrayList<DatoInteres>();
-    String query = "SELECT * FROM tc_datos_interes";// WHERE tipo NOT IN (SELECT tipo FROM tc_datos_interes)";
-    //String query = "SELECT d.id_dato AS id_dato, d.descripcion AS desc_dato, "
-    //        + "d.tipo AS id_tipo, t.descripcion AS desc_tipo "
-    //        + "FROM tc_datos_interes d, tc_tipo_dato_interes t "
-    //        + "WHERE d.tipo = t.tipo AND d.tipo = " + tipo;
+    String query = "SELECT id_dato,descripcion FROM tc_datos_interes WHERE id_dato = ?";
     try {
-      stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-      rs = stmt.executeQuery(query);
-      while(rs.next()) {
+      psBusca = con.prepareStatement(query);
+      psBusca.setInt(1, idDato);
+      res = psBusca.executeQuery();
+      
+      while(res.next()) {
         datoInteres = new DatoInteres();
-        datoInteres.setIdDato(rs.getInt("id_dato"));
-        datoInteres.setDescripcion(rs.getString("descripcion"));
-     //   datoInteres.setTipo(rs.getInt("id_tipo"));
-     //   datoInteres.setDescTipo(rs.getString("desc_tipo"));
+        datoInteres.setIdDato(res.getInt("id_dato"));
+        datoInteres.setDescripcion(res.getString("descripcion"));
         datosInteres.add(datoInteres);
+        System.out.println("Estoy agregando otro dato de interés  ");
       }
     } catch (SQLException ex) {
       Logger.getLogger(DatosInteresDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -197,6 +195,7 @@ public class DatosInteresDAO {
         System.out.println("Ocurrió un error SQL al modificar el dato");
         Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
       }finally{
+        
         return status;
       }
     }

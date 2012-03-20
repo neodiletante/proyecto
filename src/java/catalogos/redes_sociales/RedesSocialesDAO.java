@@ -44,7 +44,7 @@ public class RedesSocialesDAO {
   
   public int buscaIdUltimo(){
     String query = "SELECT MAX(id_red) AS id_ultimo FROM tc_redes_sociales";
-    PreparedStatement psSelecciona;
+    PreparedStatement psSelecciona= null;
     ResultSet rs;
     int idUltimo = 0;
     try {

@@ -58,7 +58,7 @@
       </select>
       <br />
       <button class="ui-button" id="btn-actualiza-red">Agregar</button> 
-      <p>Red: ${red.idRed}</p>
+      ${red.idRed}
       <br />
  <table id="tabla-datos">
         <thead>
@@ -74,8 +74,8 @@
            <jsp:useBean id="datosPorRed" class="java.util.ArrayList" scope="session" />
            <tr>
              <c:forEach var="dato" items="${datosPorRed}">
-               <td class="resultado" id="td-no-lista-referido">1</td>
-               <td class="resultado" id="td-dato-interes">2</td>
+               <td class="resultado" id="td-no-lista-referido">${dato.noListaReferido}</td>
+               <td class="resultado" id="td-dato-interes">${dato.descDatoInteres}</td>
              </c:forEach>
            </tr>
         </tbody>

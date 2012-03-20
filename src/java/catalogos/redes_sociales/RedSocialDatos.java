@@ -4,11 +4,13 @@
  */
 package catalogos.redes_sociales;
 
+import java.io.Serializable;
+
 /**
  *
  * @author maria
  */
-public class RedSocialDatos {
+public class RedSocialDatos implements Serializable {
   private int idRed;
   private int noListaRefiere;
   private int noListaReferido;
