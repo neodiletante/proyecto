@@ -5,7 +5,8 @@
 --%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   <script type="text/javascript" src="Catalogos/Redes_sociales/redes_sociales_reg.js" />
-
+  <%int cuenta = 0;%>
+  <c:set var="noElementos" scope="session"/>
   <center>
     <jsp:useBean id="cortes" class="java.util.ArrayList" scope="session" />
     <select id="select-cortes" class="combo-cortes">
@@ -43,6 +44,7 @@
     <br />
     <jsp:useBean id="tiposDato" class="java.util.ArrayList" scope="session" />
      <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="session" />
+     <jsp:useBean id="" >
      <%--jsp:useBean id="datos" class="java.util.ArrayList" scope="request" /--%>
      <%--jsp:useBean id="referidos" class="java.util.ArrayList" scope="session"  /--%>
     <!--table id="tabla-alumnos">
@@ -61,8 +63,16 @@
                
                 <input class="radio-referido" type="radio" name="referido"  value="${alumno.no_lista}"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;
+               <%
+               //Httpsession session = request.getSession();
+               Integer noElementos= (Integer)session.getAttribute("noElementos");
+               if(cuenta==noElementos){
+                 cuenta=0;
+               %>
+               <br/>
+               <%}%>
                 <!--/td>
-               
+                <
                </tr--> 
             </c:forEach>
                <br /> 

@@ -72,11 +72,13 @@
             </tr>
           
            <jsp:useBean id="datosPorRed" class="java.util.ArrayList" scope="session" />
+        <c:forEach var="dato" items="${datosPorRed}">
            <tr>
-             <c:forEach var="dato" items="${datosPorRed}">
+             
                <td class="resultado" id="td-no-lista-referido">${dato.noListaReferido}</td>
                <td class="resultado" id="td-dato-interes">${dato.descDatoInteres}</td>
-             </c:forEach>
+            
            </tr>
+            </c:forEach>
         </tbody>
     </table>

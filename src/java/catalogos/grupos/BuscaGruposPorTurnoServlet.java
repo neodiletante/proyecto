@@ -45,6 +45,8 @@ public class BuscaGruposPorTurnoServlet extends HttpServlet {
     GruposDAO gDAO = new GruposDAO(conn);
     session.removeAttribute("grupos");
     session.removeAttribute("lista");
+    session.removeAttribute("datosInteres");
+    session.removeAttribute("datosPorRed");
     List<Grupo> grupos = gDAO.buscaGruposPorTurno(Integer.parseInt(corte), turno);
     //System.out.println("No. elkementeos " + grupos.size());
     //    for(int i=0 ; i< grupos.size() ; i++){

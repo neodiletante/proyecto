@@ -51,7 +51,6 @@ public class BuscaElementosRedServlet extends HttpServlet {
      for (int i = 0 ; i < datosInteres.size() ; i++){
        System.out.println(datosInteres.get(i).getDescripcion());
      }
-     
      session.setAttribute("datosInteres", datosInteres);
 
     String elementos = "";
@@ -63,6 +62,10 @@ public class BuscaElementosRedServlet extends HttpServlet {
     }
     System.out.println(elementos);
     session.setAttribute("nosLista", elementosRed);
+    
+    List<RedSocialDatos> datosPorRed = rsDAO.buscaDatosPorRed(Integer.parseInt(idRed));
+  session.setAttribute("datosPorRed", datosPorRed);      
+    
     
     try {
       out.write(elementos); 

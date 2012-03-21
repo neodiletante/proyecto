@@ -58,9 +58,11 @@ public class BuscaNosListaServlet extends HttpServlet {
       session.removeAttribute("lista");
       System.out.println("Nop hay elementos en la lista");
       }
+      Integer noElementos =  (int) Math.round(Math.sqrt(lista.size()));
+      session.setAttribute("noElementos", noElementos);
       
     try {
-     out.write("CbNDO");
+     out.write(noElementos);
     } finally {      
       out.close();
     }
