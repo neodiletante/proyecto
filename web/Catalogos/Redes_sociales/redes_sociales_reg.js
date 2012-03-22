@@ -30,7 +30,7 @@ $(function(){
     var grupo = $('#select-grupos').val();
     parameters.grupo = grupo;
     $.post('buscaNosLista', parameters, function(data){
-      alert(data);
+  //    alert(data);
       $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
         $('#select-cortes').val(corte);
         $('#select-turno').val(turno);

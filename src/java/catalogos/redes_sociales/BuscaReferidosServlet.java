@@ -63,7 +63,9 @@ public class BuscaReferidosServlet extends HttpServlet {
      DatosInteresDAO dDAO = new DatosInteresDAO(conect);
     
     //  List lista = new ListasDAO(conect).getDatos(2);
-      List<DatoInteres> datosInteres = dDAO.buscaDatosInteres(); 
+   
+     /*
+     List<DatoInteres> datosInteres = dDAO.buscaDatosInteres(); 
       List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos(false); 
       Map datos = new HashMap();
       for(TipoDato tipo : tiposDato){
@@ -104,7 +106,7 @@ public class BuscaReferidosServlet extends HttpServlet {
       session.setAttribute("tiposDato", tiposDato);
     
     
-    
+   */ 
     
     try {
      

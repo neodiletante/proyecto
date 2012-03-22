@@ -10,6 +10,7 @@
        if( session.getAttribute("conn")==null||((Connection)session.getAttribute("conn")).isClosed() ){
         Connection conection=null;   
         try{
+            session = request.getSession(true);
             conection=ds.getConnection();
             session.setAttribute("conn", conection);
         }catch(Exception ex) {

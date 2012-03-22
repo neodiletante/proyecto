@@ -44,15 +44,17 @@ public class RegistroRedesSocialesServlet extends HttpServlet {
       HttpSession session = request.getSession();
       Connection conect = (Connection) session.getAttribute("conn");
       GruposDAO gDAO = new GruposDAO(conect);
-      DatosInteresDAO dDAO = new DatosInteresDAO(conect);
+   //   DatosInteresDAO dDAO = new DatosInteresDAO(conect);
       List cortes = gDAO.consultaCortes();
     //  List<Grupo> grupos = gDAO.consultaGrupos();
    //   for(int i=0 ; i< grupos.size() ; i++){
    //       Grupo grupo = grupos.get(i);
    //         System.out.println(grupo.getGrado() + " " + grupo.getGrupo()) ;
    //   }
-      List lista = new ListasDAO(session).getDatos(2);
-      List<DatoInteres> datosInteres = dDAO.buscaDatosInteres(); 
+   //   List lista = new ListasDAO(session).getDatos(2);
+    //  List<DatoInteres> datosInteres = dDAO.buscaDatosInteres(); 
+     
+      /*
       List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos(false); 
       Map datos = new HashMap();
       for(TipoDato tipo : tiposDato){
@@ -71,7 +73,7 @@ public class RegistroRedesSocialesServlet extends HttpServlet {
       }
       
     
-      
+      /*
       for(TipoDato tipo : tiposDato){
         System.out.println("Tipo de dato " + tipo.getDescripcion());
         List list =  (List) datos.get(tipo.getDescripcion());
@@ -83,14 +85,18 @@ public class RegistroRedesSocialesServlet extends HttpServlet {
         //  }
         }
       }
+      * 
+      * 
+      */
+      
       System.out.println("Quitando el atributo grupos");
       session.removeAttribute("grupos");
       session.removeAttribute("cortes");
       session.removeAttribute("referidos");
       session.removeAttribute("lista");
-       session.setAttribute("datosInteres", datosInteres);
-      session.setAttribute("datos", datos);
-      session.setAttribute("tiposDato", tiposDato);
+      // session.setAttribute("datosInteres", datosInteres);
+  //    session.setAttribute("datos", datos);
+  //    session.setAttribute("tiposDato", tiposDato);
       
       request.setAttribute("cortes", cortes);
     //  request.setAttribute("grupos", grupos);

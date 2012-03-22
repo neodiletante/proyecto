@@ -48,7 +48,7 @@ public class RedesSocialesDAO {
     ResultSet rs;
     int idUltimo = 0;
     try {
-      psSelecciona = con.prepareStatement(query);
+      psSelecciona = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
       rs = psSelecciona.executeQuery();
       if(rs.next()){
         idUltimo = rs.getInt("id_ultimo");
@@ -103,14 +103,15 @@ public class RedesSocialesDAO {
   }
   
   public List<RedSocialReg> buscaRedes(RedSocialReg reg){
-    String query = "SELECT id_red, id_grupo, no_lista_refiere FROM tc_redes_sociales "
-            + "WHERE id_grupo = ? AND no_lista_refiere = ?";
+    String query = "SELECT id_red, id_grupo, no_lista_refiere"
+            + " FROM tc_redes_sociales"
+            + " WHERE id_grupo = ? AND no_lista_refiere = ?";
     PreparedStatement psBuscaRedes = null;
     ResultSet rs = null;
     List<RedSocialReg> listaRedSocial = new ArrayList<RedSocialReg>();//null;
     RedSocialReg redSocialReg;
     try {
-      psBuscaRedes = con.prepareStatement(query);
+      psBuscaRedes = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
       psBuscaRedes.setInt(1, reg.getIdGrupo());
       psBuscaRedes.setInt(2, reg.getNoListaRefiere());
       rs = psBuscaRedes.executeQuery();
@@ -141,7 +142,7 @@ public class RedesSocialesDAO {
     RedSocialDatos rsd;
     List<RedSocialDatos> listaDatosRed = new ArrayList<RedSocialDatos>();
     try {
-      psBuscaRedes = con.prepareStatement(query);
+      psBuscaRedes = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
       psBuscaRedes.setInt(1, reg.getIdGrupo());
       psBuscaRedes.setInt(2, reg.getNoListaRefiere());
       rs = psBuscaRedes.executeQuery();
@@ -181,7 +182,7 @@ public class RedesSocialesDAO {
     ResultSet rs;
     int elemento;
     try {
-      psBusca = con.prepareStatement(query);
+      psBusca = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
       psBusca.setInt(1, idRed);
       rs = psBusca.executeQuery();
       while(rs.next()){
@@ -212,7 +213,7 @@ public class RedesSocialesDAO {
     ResultSet rs;
     int idRelacion = 0;
     try {
-      psBusca = con.prepareStatement(query);
+      psBusca = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
       psBusca.setInt(1, idRed);
       psBusca.setInt(2,noLista);
       rs = psBusca.executeQuery();
@@ -237,7 +238,7 @@ public class RedesSocialesDAO {
     ResultSet rs;
     RedSocialDatos rsd;
     try {
-      psBusca = con.prepareStatement(query);
+      psBusca = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
       psBusca.setInt(1, idRed);
       rs = psBusca.executeQuery();
       while(rs.next()){

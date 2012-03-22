@@ -1,3 +1,5 @@
+<%@page import="java.util.logging.Level"%>
+<%@page import="java.util.logging.Logger"%>
 <%@page import="java.lang.StringBuffer" %>
 <%@page import="java.sql.*, javax.servlet.*"%>
 <% 
@@ -91,7 +93,7 @@
                         <% pst.setString(1, cte);
                            rst2=pst.executeQuery();
                            if(!rst2.first()){%>
-                            <input type="checkbox" name="corte" id="corte" value="<%=rst.getString("corte")%>"/>
+                            <input type="checkbox" name="corte" value="<%=rst.getString("corte")%>"/>
                         <%}
                           rst2.close();%>
                     </td>
@@ -132,7 +134,8 @@
                 </div>
             </fieldset>
         </form>   
-      </div>             
+      </div>     
+                    <div id="dialog-confirm" title="Esta a punto de eliminar cortes">Los cortes seleccionados van a borrarse, ¿Esta seguro?</div>
 <%}
   else{ /*agregar corte*/
      if(accion.equalsIgnoreCase("agregar")){%>
@@ -141,7 +144,25 @@
      
      /*borrar elemento*/
      if(accion.equalsIgnoreCase("borrar")){
-         out.println("OK");
+         //obtiene los cortes a borrar
+         String[] cortes= request.getParameterValues("corte[]");
+         String mensaje="Elemento(s) eliminado(s)";
+         try{
+             PreparedStatement pst = conect.prepareStatement("delete from cortes where corte=?");
+             int error=0;
+             for (int i=0; i<cortes.length; i++){
+                 pst.setString(1, cortes[i]);
+                 if(pst.executeUpdate()<0){
+                     error=i+1;
+                     break;
+                 }
+             }
+             if(error>0)
+                 mensaje="El corte "+cortes[error]+" no se pudo eliminar";
+         }catch (Exception ex){
+             Logger.getAnonymousLogger().log(Level.WARNING,"Error: ",ex);
+         }
+         out.println(mensaje);
      }
      
      /*modificar elemento*/

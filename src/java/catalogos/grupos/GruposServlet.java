@@ -47,7 +47,8 @@ public class GruposServlet extends HttpServlet {
       Connection conect = (Connection) session.getAttribute("conn");
   session.removeAttribute("grupos");
        GruposDAO gDAO = new GruposDAO(conect);
-     //  List<Grupo> grupos = gDAO.consultaGrupos();
+       int corte = Integer.parseInt(request.getParameter("corte"));
+       List<Grupo> grupos = gDAO.consultaGrupos(corte);
        List cortes = gDAO.consultaCortes();
    
      //   request.setAttribute("grupos", grupos);

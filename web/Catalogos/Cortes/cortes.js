@@ -1,4 +1,6 @@
          $(function(){
+             
+         $( "#dialog:ui-dialog" ).dialog( "destroy" );
          
          function limpiar(){
             $("#fecha_ini").val('');
@@ -108,9 +110,10 @@
                    }
                    //avisar 
                    alert(data); 
+                   $('#frmCorte').action='?o=11';
+                   $('#frmCorte').submit();
                 },'text'   );
-                $('#frmCorte').action='?o=11';
-                $('#frmCorte').submit();
+
            // },'json'
             }//else
          }
@@ -179,7 +182,7 @@
          
          $('#btn-cambia-corte').click(
           function(){
-            var radio = $('input[@id=modificar]:checked');
+            var radio = $('input[id=modificar]:checked');
             var corte=radio.val();
             var param=getValores(corte);
             setValores(param, 'modificar');
@@ -192,9 +195,50 @@
             $("#fecha_fin").datepicker({altFormat: 'dd/mm/yy'});
             $("#fecha_ini").datepicker({altFormat: 'dd/mm/yy'});
           });
+          
+          
+           function borrar(){
+            var param={};
+            param.opcion='borrar';
+            param.accion='borrar';
+            var arr=$('input[name=corte]:checked');
+            var i;
+            param.corte=[];
+            for(i=0;i<arr.length;i++){
+               param.corte[i]=($(arr[i]).val());
+            }
+            if(param.corte.length>0){
+                $.post('Catalogos/Cortes/cortes.jsp', param, function(data){
+                    alert(data);
+                    $( "#dialog-confirm" ).dialog("close");
+                    $('#frmCorte').action='?o=11';
+                    $('#frmCorte').submit();
+                });
+            }
+            else{
+               alert('Se debe seleccionar algun elemento');
+            }
+
+           }
+          
+            $( "#dialog-confirm" ).dialog({
+                    autoOpen:false,
+                    resizable: false,
+                    height:140,
+                    modal: true,
+                    buttons: {
+                            "Borrar los seleccionados": function() {
+                                    borrar();
+                            },
+                            "No borrar": function() {
+                                    $( this ).dialog( "close" );
+                            }
+                    }
+            });
+            
              
         $('#btn-borra-corte').click(function(){
-            $('#opcion').val('borrar');
+            $( "#dialog-confirm" ).dialog("open");
         });
            
         $('button').addClass("ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only");

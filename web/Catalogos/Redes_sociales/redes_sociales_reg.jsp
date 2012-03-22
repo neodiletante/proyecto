@@ -44,7 +44,6 @@
     <br />
     <jsp:useBean id="tiposDato" class="java.util.ArrayList" scope="session" />
      <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="session" />
-     <jsp:useBean id="" >
      <%--jsp:useBean id="datos" class="java.util.ArrayList" scope="request" /--%>
      <%--jsp:useBean id="referidos" class="java.util.ArrayList" scope="session"  /--%>
     <!--table id="tabla-alumnos">
@@ -63,22 +62,24 @@
                
                 <input class="radio-referido" type="radio" name="referido"  value="${alumno.no_lista}"/>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-               <%
+               <%--
                //Httpsession session = request.getSession();
-               Integer noElementos= (Integer)session.getAttribute("noElementos");
-               if(cuenta==noElementos){
+               String elementos = (String)session.getAttribute("noElementos");
+               Integer noElementos = null;
+               if(elementos != ""){
+                  noElementos= Integer.valueOf(elementos);
+                }
+               if(cuenta == noElementos){
                  cuenta=0;
                %>
                <br/>
-               <%}%>
+               <%}--%>
                 <!--/td>
                 <
                </tr--> 
             </c:forEach>
                <br /> 
-                 <button class="ui-button" id="btn-iniciar-red">Guardar</button> 
+    <button class="ui-button" id="btn-iniciar-red">Guardar</button> 
     <button class="ui-button" id="btn-examinar-redes">Ver redes</button> 
   
-        <!--/tbody>
-    </table-->
-         <!--button class="ui-button" id="btn-guardar-red">Guardar</button--> 
+     
