@@ -38,7 +38,7 @@ public class AgregaTipoDatoServlet extends HttpServlet {
     HttpSession session = request.getSession();
     Connection conect = (Connection) session.getAttribute("conn");
     DatosInteresDAO dDAO = new DatosInteresDAO(conect);
-    int status = dDAO.insertaTipoDato(tipoDato);
+  //  int status = dDAO.insertaTipoDato(tipoDato);
     //response.setContentType("charset=UTF-8");
    //RequestDispatcher view = request.getRequestDispatcher("muestraDatosInteres");
    //view.forward(request, response);

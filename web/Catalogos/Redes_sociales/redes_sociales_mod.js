@@ -107,4 +107,41 @@ $('#select-grupos-mod').change(function(){
   });
   });
   
+  
+  $('#btn-borrar-red').click(function(){
+    //alert("eo");
+    var id_redes_check = $('.check_red:checked').val();
+    var id_redes = "";
+    for(var i=0 ; i<id_redes_check.length ; i++){
+      id_redes += id_redes_check[i];
+    }
+    alert(id_redes);
+    var parameters = {};
+    parameters.id_redes = id_redes;
+    //alert(id_red);
+    $.post('borraRedes', parameters, function(data){
+      //alert(data);
+      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
+        alert(data);
+        //var elementos = data.split(",");
+        //var red_social = $('.check-red-social');
+        //for(var i=0 ; i< elementos.length ; i++){
+        //  alert("ckecked " + red_social[i]);
+         // red_social[i].attr('checked', true);
+          
+          
+     //   }
+        //var json = $.getJSON(data);
+        //$.each(json, function(k,v){console.log(k+" -> " +v); });
+        //$('#select-cortes-mod').val(corte);
+        //$('#select-turno-mod').val(turno);
+        //$('#select-grupos-mod').val(grupo);
+        //$('#no-lista-mod').val(no_lista);
+    });
+    
+  }, 'text');
+    
+    
+  });
+  
 });

@@ -2,25 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package catalogos.datos_interes;
-
+package catalogos.redes_sociales;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ulises
  */
-public class MuestraDatosInteresServlet extends HttpServlet {
+public class BorraRedesServlet extends HttpServlet {
 
   /**
    * Processes requests for both HTTP
@@ -34,23 +29,23 @@ public class MuestraDatosInteresServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    HttpSession session = request.getSession();
-    Connection conect = (Connection) session.getAttribute("conn");
-    DatosInteresDAO dDAO = new DatosInteresDAO(conect);
-    List<DatoInteres> datosInteres = dDAO.buscaDatosInteres();
-   // List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos();
-   // List<TipoDato> tiposNoUsados = dDAO.buscaTiposDeDatos(true);
-    //HttpSession session = request.getSession();
-    
-    //request.setAttribute("datosInteres", datosInteres);
-    //request.setAttribute("tiposDato", tiposDato);
-    //request.setAttribute("tiposNoUsados", tiposNoUsados);
-    session.setAttribute("datosInteres", datosInteres);
-   // session.setAttribute("tiposDato", tiposDato);
-   // session.setAttribute("tiposNoUsados", tiposNoUsados);
-    String url = request.getParameter("url");
-    RequestDispatcher view = request.getRequestDispatcher(url);
-    view.forward(request, response);
+    response.setContentType("text/html;charset=UTF-8");
+    PrintWriter out = response.getWriter();
+    try {
+      /*
+       * TODO output your page here. You may use following sample code.
+       */
+      out.println("<html>");
+      out.println("<head>");
+      out.println("<title>Servlet BorraRedesServlet</title>");      
+      out.println("</head>");
+      out.println("<body>");
+      out.println("<h1>Servlet BorraRedesServlet at " + request.getContextPath() + "</h1>");
+      out.println("</body>");
+      out.println("</html>");
+    } finally {      
+      out.close();
+    }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

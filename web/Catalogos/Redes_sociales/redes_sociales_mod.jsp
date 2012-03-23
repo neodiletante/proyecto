@@ -44,6 +44,7 @@
                 <th>Id Red</th>
                 <th>No. personas</th>
                 <th>Modificar</th>
+                <th>Borrar</th>
                 <th>No. lista referido</th>
             </tr>
             <jsp:useBean id="listaRedes" class="java.util.ArrayList" scope="session" />
@@ -54,10 +55,14 @@
                 <td class="centrado">
                     <input class="radio_red" type="radio" name="modificar" id="modificar_red" value="${red.idRed}"/>
                 </td>
+                <td class="centrado">
+                    <input class="check_red" type="checkbox" name="borrar" id="borrar_red" value="${red.idRed}"/>
+                </td>
                 <td class="resultado" id="no-lista-referido">${red.noListaReferido}</td>
                </tr> 
             </c:forEach>
         </tbody>
     </table>
-    <button class="ui-button" id="btn-modificar-red">Modificar</button> 
+    <button class="ui-button" id="btn-modificar-red">Modificar</button>
+    <button class="ui-button" id="btn-modificar-red">Borrar</button> 
     <button class="ui-button" id="btn-agregar-datos">Datos de interés</button> 

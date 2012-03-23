@@ -38,7 +38,7 @@ public class BorraTipoDatoServlet extends HttpServlet {
     Connection conect = (Connection) session.getAttribute("conn");
     System.out.println(tipoDato);
    DatosInteresDAO dDAO = new DatosInteresDAO(conect);
-    dDAO.borraTipoDato(Integer.parseInt(tipoDato));
+  //  dDAO.borraTipoDato(Integer.parseInt(tipoDato));
     RequestDispatcher view = request.getRequestDispatcher("muestraDatosInteres");
     view.forward(request, response);
     }

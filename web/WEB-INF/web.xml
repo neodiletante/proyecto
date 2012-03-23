@@ -129,6 +129,10 @@
         <servlet-name>ActualizaRed</servlet-name>
         <servlet-class>catalogos.redes_sociales.ActualizaRedServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BorraRedes</servlet-name>
+        <servlet-class>catalogos.redes_sociales.BorraRedesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
         <url-pattern>/listasBean</url-pattern>
@@ -244,6 +248,10 @@
     <servlet-mapping>
         <servlet-name>ActualizaRed</servlet-name>
         <url-pattern>/actualizaRed</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorraRedes</servlet-name>
+        <url-pattern>/borraRedes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
