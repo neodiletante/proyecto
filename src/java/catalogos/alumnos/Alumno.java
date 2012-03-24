@@ -57,7 +57,5 @@ public class Alumno {
   public List<Alumno> mapRst(ResultSet rst) {
     throw new UnsupportedOperationException("Not yet implemented");
   }
-    
-    
    
 }

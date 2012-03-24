@@ -121,7 +121,7 @@ $('#select-grupos-mod').change(function(){
     //alert(id_red);
     $.post('borraRedes', parameters, function(data){
       //alert(data);
-      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
+      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
         alert(data);
         //var elementos = data.split(",");
         //var red_social = $('.check-red-social');

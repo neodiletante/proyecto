@@ -6,10 +6,14 @@ package catalogos.redes_sociales;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,23 +33,27 @@ public class BorraRedesServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-    try {
-      /*
-       * TODO output your page here. You may use following sample code.
-       */
-      out.println("<html>");
-      out.println("<head>");
-      out.println("<title>Servlet BorraRedesServlet</title>");      
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>Servlet BorraRedesServlet at " + request.getContextPath() + "</h1>");
-      out.println("</body>");
-      out.println("</html>");
-    } finally {      
-      out.close();
+    //response.setContentType("text/html;charset=UTF-8");
+    //PrintWriter out = response.getWriter();
+    //try {
+    System.out.println("En el servlet de borra redes");
+      HttpSession  session = request.getSession();
+      Connection con = (Connection) session.getAttribute("conn");
+    RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
+    String idRedes = request.getParameter("id_redes");
+    String[] redes = idRedes.split(",");
+    List<Integer> idsRedesBorrar = new ArrayList<Integer>();
+    Integer red;
+    for(int i = 0 ; i< redes.length ; i++){
+      red = Integer.valueOf(redes[i]);
+      System.out.println("Borrando " + red);
+      idsRedesBorrar.add(red);
     }
+    
+    rsDAO.borraRedesSociales(idsRedesBorrar);
+   // } finally {      
+   //   out.close();
+   // }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

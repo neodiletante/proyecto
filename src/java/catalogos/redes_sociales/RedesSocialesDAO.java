@@ -253,4 +253,19 @@ public class RedesSocialesDAO {
       return datosPorRed;
     }
   }
+  
+  public void borraRedesSociales(List<Integer> idRedes){
+    String qBorra = "DELETE FROM tc_redes_sociales WHERE id_red = ?";
+    PreparedStatement psBorra;
+    try {
+      psBorra = con.prepareStatement(qBorra);
+      for(Integer idRed : idRedes){
+        psBorra.setInt(1,idRed);
+        psBorra.execute();
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+  
 } 
