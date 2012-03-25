@@ -140,17 +140,27 @@ public class RedesSocialesDAO {
     PreparedStatement psBuscaRedes = null;
     ResultSet rs = null;
     RedSocialDatos rsd;
+    RedSocialDatos rsIdDato;
     List<RedSocialDatos> listaDatosRed = new ArrayList<RedSocialDatos>();
+    List<Integer> redesSinRegistros = buscaRedesSinRegistros();
+    
     try {
       psBuscaRedes = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
       psBuscaRedes.setInt(1, reg.getIdGrupo());
       psBuscaRedes.setInt(2, reg.getNoListaRefiere());
       rs = psBuscaRedes.executeQuery();
+     
       while(rs.next()){
         rsd = new RedSocialDatos();
         rsd.setIdRed(rs.getInt("id_red"));
         rsd.setNoPersonas(rs.getInt("no_personas"));
         rsd.setNoListaReferido(rs.getInt("no_lista_referido"));
+        //rdIdDato = new RedSocialDatos();
+        if(redesSinRegistros.contains((Integer)rsd.getIdRed())){
+          rsd.setTieneDatos(false);
+        }else{
+          rsd.setTieneDatos(true);
+        }
         listaDatosRed.add(rsd);
       }
       
@@ -254,7 +264,21 @@ public class RedesSocialesDAO {
     }
   }
   
-  public void borraRedesSociales(List<Integer> idRedes){
+  public void borraTrRedesSociales(List<Integer> idRedes){
+    String qBorra = "DELETE FROM tr_redes_sociales WHERE id_red = ?";
+    PreparedStatement psBorra;
+    try {
+      psBorra = con.prepareStatement(qBorra);
+      for(Integer idRed : idRedes){
+        psBorra.setInt(1,idRed);
+        psBorra.execute();
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+  
+  public void borraTcRedesSociales(List<Integer> idRedes){
     String qBorra = "DELETE FROM tc_redes_sociales WHERE id_red = ?";
     PreparedStatement psBorra;
     try {
@@ -265,6 +289,35 @@ public class RedesSocialesDAO {
       }
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+  
+  public void borraRedesSociales(List<Integer> idRedes){
+    borraTrRedesSociales(idRedes);
+    borraTcRedesSociales(idRedes);
+  }
+  
+  public List<Integer> buscaRedesSinRegistros(){
+    List<Integer> redesSinRegistros = new ArrayList<Integer>();
+    String qBusca = "SELECT id_red FROM tr_redes_sociales WHERE id_relacion NOT IN"
+            + " (SELECT rs.id_relacion FROM tr_redes_sociales rs"
+            + " RIGHT JOIN tr_datos_interes di"
+            + " ON rs.id_relacion = di.id_relacion)";
+    PreparedStatement psBusca;
+    ResultSet rsBusca;
+    try {
+      psBusca = con.prepareStatement(qBusca);
+      rsBusca = psBusca.executeQuery();
+      Integer idRed;
+      while(rsBusca.next()){
+        idRed = rsBusca.getInt("id_red");
+        redesSinRegistros.add(idRed);
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    finally{
+      return redesSinRegistros;
     }
   }
   

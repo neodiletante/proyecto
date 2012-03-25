@@ -54,10 +54,10 @@ $('#select-grupos-mod').change(function(){
     parameters.grupo = grupo;
     $.post('buscaRedesSociales', parameters, function(data){
       $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
-        //$('#select-cortes-mod').val(corte);
-        //$('#select-turno-mod').val(turno);
-        //$('#select-grupos-mod').val(grupo);
-        //$('#no-lista-mod').val(no_lista);
+        $('#select-cortes-mod').val(corte);
+        $('#select-turno-mod').val(turno);
+        $('#select-grupos-mod').val(grupo);
+        $('#no-lista-mod').val(no_lista);
     });
     
   }, 'text');
@@ -119,29 +119,37 @@ $('#select-grupos-mod').change(function(){
     var parameters = {};
     parameters.id_redes = id_redes;
     //alert(id_red);
-    $.post('borraRedes', parameters, function(data){
+    $.post('borraRedes', parameters, function(data){}, 'text');
       //alert(data);
-      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
-        alert(data);
-        //var elementos = data.split(",");
-        //var red_social = $('.check-red-social');
-        //for(var i=0 ; i< elementos.length ; i++){
-        //  alert("ckecked " + red_social[i]);
-         // red_social[i].attr('checked', true);
-          
-          
-     //   }
-        //var json = $.getJSON(data);
-        //$.each(json, function(k,v){console.log(k+" -> " +v); });
-        //$('#select-cortes-mod').val(corte);
-        //$('#select-turno-mod').val(turno);
-        //$('#select-grupos-mod').val(grupo);
-        //$('#no-lista-mod').val(no_lista);
-    });
-    
-  }, 'text');
+     // $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
+        //alert(data);
+        
+   // });
+    buscaRedesSociales();
+  //}, 'text');
     
     
   });
   
 });
+
+function buscaRedesSociales(){
+    var parameters={};
+    var corte = $('#select-cortes-mod').val();
+    var turno = $('#select-turno-mod').val();
+    var grupo = $('#select-grupos-mod').val();
+    var no_lista = $('#no-lista-mod').val();
+    //alert ("el grupo " + grupo);
+    parameters.no_lista_refiere = no_lista;
+    parameters.grupo = grupo;
+    $.post('buscaRedesSociales', parameters, function(data){
+      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
+        $('#select-cortes-mod').val(corte);
+        $('#select-turno-mod').val(turno);
+        $('#select-grupos-mod').val(grupo);
+        $('#no-lista-mod').val(no_lista);
+    });
+    
+  }, 'text');
+  
+}

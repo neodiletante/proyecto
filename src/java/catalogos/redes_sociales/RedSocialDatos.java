@@ -17,6 +17,13 @@ public class RedSocialDatos implements Serializable {
   private int idRelacion;
   private int noPersonas;
   private String descDatoInteres;
+  private boolean tieneDatos;
+  
+  public RedSocialDatos(){}
+  
+  public RedSocialDatos(int idRed){
+    this.idRed = idRed;
+  }
   
   public int getIdRed() {
     return idRed;
@@ -65,5 +72,26 @@ public class RedSocialDatos implements Serializable {
   public void setDescDatoInteres(String descDatoInteres) {
     this.descDatoInteres = descDatoInteres;
   }
+
+  public boolean isTieneDatos() {
+    return tieneDatos;
+  }
+
+  public void setTieneDatos(boolean tieneDatos) {
+    this.tieneDatos = tieneDatos;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    
+    if ( this.getIdRed() ==  ((RedSocialDatos)obj).getIdRed()){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  
+  
   
 }

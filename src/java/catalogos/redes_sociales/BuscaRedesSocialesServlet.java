@@ -52,16 +52,18 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     System.out.println("no lista refiere " + rsr.getNoListaRefiere());
     //List listaRedes = rsDAO.buscaDatosRedes(rsr);
     List<RedSocialDatos> listaRedes = rsDAO.buscaDatosRedes(rsr);
-    System.out.println("tamaño lista " + listaRedes.size());
-    for(RedSocialDatos reg : listaRedes){
-      System.out.println(reg.getIdRed());
-    }
+   // System.out.println("tamaño lista " + listaRedes.size());
+   // for(RedSocialDatos reg : listaRedes){
+   //   System.out.println(reg.getIdRed());
+   // }
     session.setAttribute("listaRedes", listaRedes);
-    try {
+    //List<Integer> redesSinRegistros = rsDAO.buscaRedesSinRegistros();
+    //session.setAttribute("redesSinRegistros", redesSinRegistros);
+   // try {
     
-    } finally {      
-      out.close();
-    }
+  //  } finally {      
+   //   out.close();
+   // }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

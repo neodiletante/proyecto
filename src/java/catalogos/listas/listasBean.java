@@ -193,7 +193,7 @@ public class listasBean extends HttpServlet {
 
     private String modificarEnLista(ListasDAO dao) {
         String retVar="";
-        StringBuilder query = new StringBuilder("update tc_listas set no_exp=?, color=?, gpo_estadistico=?  where id_grupo=? and no_lista=?");
+        StringBuilder query = new StringBuilder("update tc_listas set no_expediente=?, color=?, gpo_estadistico=?  where id_grupo=? and no_lista=?");
         PreparedStatement pst=null;
         try{
             pst = con.prepareStatement(query.toString());

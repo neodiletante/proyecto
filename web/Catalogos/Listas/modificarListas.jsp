@@ -5,7 +5,8 @@
 <%@page import="catalogos.listas.ListasDAO"%>
 <%@page import="catalogos.listas.listasUtil"%>
 <script src="Catalogos/Listas/listas.js" ></script>
-<script type="text/javascript" src="JavaScript/colorpicker/jscolor.js"></script>
+<!script type="text/javascript" src="JavaScript/colorpicker/jscolor.js"script-->
+
 
 <span style="color:black;font-size:1.5em">
 <%
@@ -104,7 +105,8 @@ Grupo:
     Buscar:<input type="text" id="buscar" size="5"/>
     <input type="button" value="Seleccionar" id="seleccionar"/>
     Color: 
-    <input id="sel-color"  size="3 "class="color" />
+    <!--input id="sel-color"  size="3 "class="color" /-->
+    <input id="sel-color"  size="3" onChange="this.backgroundColor='#'+this.value;"/>
     Grupo estadistico: 
     <select id="grupo_estadistico">
         <option value="control">control</option>
@@ -174,7 +176,9 @@ Grupo:
             <div class="div-izquierdo">
                <p><label id="ch_numero" style="font-size: 1em"></label></p>
                <p><select id="ch_alumno"></select></p>
-               <p><br><input class="color" id="mod-color" size="3"/></p>
+               <p><br>
+                   <!--input class="color" id="mod-color" size="3"/></p-->
+                <input id="mod-color" size="7" onChange="this.backgroundColor='#'+this.value;"/></p>
                <p><select id="id-gpo-es">
                     <option value="control">control</option>
                     <option value="riesgo">riesgo</option>

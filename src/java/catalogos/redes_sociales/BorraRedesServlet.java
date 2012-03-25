@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +52,8 @@ public class BorraRedesServlet extends HttpServlet {
     }
     
     rsDAO.borraRedesSociales(idsRedesBorrar);
+  //  RequestDispatcher rd = request.getRequestDispatcher(rd);
+    
    // } finally {      
    //   out.close();
    // }

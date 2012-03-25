@@ -91,7 +91,7 @@ public class ListasDAO {
                 dao.setNombre(rst.getString("nombre"));
                 dao.setId_grupo(rst.getInt("id_grupo"));
                 dao.setColor(rst.getString("color"));
-         //       dao.setGrupo_estadistico(rst.getString("grupo_estadistico"));
+                dao.setGrupo_estadistico(rst.getString("grupo_estadistico"));
                 dao.setNombreGrupo("nombre_grupo");
                 dao.setNo_exp(Integer.parseInt(rst.getString("no_expediente")));
                 dao.setTieneRegistros(rst.getInt("registros")>0);
@@ -119,11 +119,11 @@ public class ListasDAO {
               try{
                 dao.setId_grupo(Integer.parseInt(request.getParameter("id_grupo")));
               }catch(Exception ex){}
-            if(request.getParameter("no_lista")!=null)
+            if( request.getParameter("no_lista")!=null )
                 dao.setNo_lista(Integer.parseInt(request.getParameter("no_lista")));
             dao.setNombre(request.getParameter("nombre"));
             dao.setColor(request.getParameter("color"));
-            dao.setGrupo_estadistico(request.getParameter("grupo_estadistico"));
+            dao.setGrupo_estadistico(request.getParameter("grupo_est"));
             if(request.getParameter("no_expediente")!=null)
                 dao.setNo_exp(Integer.parseInt(request.getParameter("no_expediente")));
             return dao;

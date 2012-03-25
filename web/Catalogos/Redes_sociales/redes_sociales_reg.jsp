@@ -39,7 +39,7 @@
       <option value="AM"> Amistad </option>  
       <option value="AB"> Abuso </option>
     </select-->
-    
+     <hr>
     
     <br />
     <jsp:useBean id="tiposDato" class="java.util.ArrayList" scope="session" />
@@ -79,6 +79,7 @@
                </tr--> 
             </c:forEach>
                <br /> 
+               <hr>
     <button class="ui-button" id="btn-iniciar-red">Guardar</button> 
     <button class="ui-button" id="btn-examinar-redes">Ver redes</button> 
   

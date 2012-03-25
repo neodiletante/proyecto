@@ -5,7 +5,11 @@
 package catalogos.alumnos;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -53,9 +57,25 @@ public class Alumno {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-
-  public List<Alumno> mapRst(ResultSet rst) {
-    throw new UnsupportedOperationException("Not yet implemented");
-  }
+    
+    public List<Alumno> mapRst(ResultSet rst){
+       List retVar = new ArrayList();
+       try {
+            Alumno al = null;
+            if(rst.first()){
+              do{
+                al= new Alumno();
+                al.setNoExpediente(rst.getInt("no_expediente"));
+                al.setNombre(rst.getString("nombre"));
+                al.setSexo(rst.getString("sexo"));
+                retVar.add(al);
+                al=null;
+              }while(rst.next());  
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retVar;
+    }
    
 }

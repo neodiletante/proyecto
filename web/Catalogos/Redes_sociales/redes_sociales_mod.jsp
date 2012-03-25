@@ -6,6 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript" src="Catalogos/Redes_sociales/redes_sociales_mod.js" />
    <center>
+    
     <jsp:useBean id="cortes" class="java.util.ArrayList" scope="session" />
     <select id="select-cortes-mod" class="combo-cortes">
       <option value="" selected="true">Corte</option>
@@ -35,6 +36,7 @@
       </c:forEach>
       </select>
     <br />
+    <hr>
     <table id="tabla-redes">
         <thead>
             <th colspan="6">Redes actuales</th>
@@ -48,6 +50,7 @@
                 <th>No. lista referido</th>
             </tr>
             <jsp:useBean id="listaRedes" class="java.util.ArrayList" scope="session" />
+            <jsp:useBean id="redesConRegistros" class="java.util.ArrayList" scope="session" />
             <c:forEach var="red" items="${listaRedes}">
                <tr>
                 <td class="resultado" id="id-red">${red.idRed}</td>
@@ -55,14 +58,27 @@
                 <td class="centrado">
                     <input class="radio_red" type="radio" name="modificar" id="modificar_red" value="${red.idRed}"/>
                 </td>
-                <td class="centrado">
-                    <input class="check_red" type="checkbox" name="borrar" id="borrar_red" value="${red.idRed}"/>
-                </td>
+                
+                <c:choose>
+                  <c:when test='${red.tieneDatos == false}'>
+                    <td class="centrado">
+                      <input class="check_red" type="checkbox" name="borrar" id="borrar_red" value="${red.idRed}"/>
+                    </td>
+                  </c:when>
+                  <c:otherwise>
+                    <td></td>
+                  </c:otherwise>
+                </c:choose>
+                
+                
+                
+                
                 <td class="resultado" id="no-lista-referido">${red.noListaReferido}</td>
                </tr> 
             </c:forEach>
         </tbody>
     </table>
+            <hr>
     <button class="ui-button" id="btn-modificar-red">Modificar</button>
     <button class="ui-button" id="btn-borrar-red">Borrar</button> 
     <button class="ui-button" id="btn-agregar-datos">Datos de interés</button> 
