@@ -91,7 +91,7 @@ public class ListasDAO {
                 dao.setNombre(rst.getString("nombre"));
                 dao.setId_grupo(rst.getInt("id_grupo"));
                 dao.setColor(rst.getString("color"));
-                dao.setGrupo_estadistico(rst.getString("grupo_estadistico"));
+                dao.setGrupo_estadistico(rst.getString("gpo_estadistico"));
                 dao.setNombreGrupo("nombre_grupo");
                 dao.setNo_exp(Integer.parseInt(rst.getString("no_expediente")));
                 dao.setTieneRegistros(rst.getInt("registros")>0);

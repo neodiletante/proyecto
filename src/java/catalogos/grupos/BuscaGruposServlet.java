@@ -51,7 +51,7 @@ public class BuscaGruposServlet extends HttpServlet {
           for(int i=0 ; i< grupos.size() ; i++){
             Grupo grupo = grupos.get(i);
               System.out.println(grupo.getGrado() + " " + grupo.getGrupo()) ;
-        }
+      }
 
 
       //List cortes = gDAO.consultaCortes();
