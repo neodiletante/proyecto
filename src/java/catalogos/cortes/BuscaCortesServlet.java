@@ -41,6 +41,7 @@ public class BuscaCortesServlet extends HttpServlet {
       GruposDAO gDAO = new GruposDAO(conn);
       List cortes = gDAO.consultaCortes();
      // session.removeAttribute("cortes");
+      request.setAttribute("cortes", cortes);
       session.setAttribute("cortes",cortes);
       session.removeAttribute("grupos");
       session.removeAttribute("lista");

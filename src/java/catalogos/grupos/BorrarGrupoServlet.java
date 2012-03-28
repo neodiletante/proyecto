@@ -7,6 +7,7 @@ package catalogos.grupos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,12 +32,18 @@ public class BorrarGrupoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = null;
         System.out.println("En el servlet borrado");
         String idGrupo = request.getParameter("idGrupo");
+        String corte = request.getParameter("corte");
         HttpSession session = request.getSession();
         Connection conect = (Connection) session.getAttribute("conn");
         GruposDAO gDAO = new GruposDAO(conect);
         gDAO.borrarGrupo(idGrupo);
+        List<Grupo> grupos = gDAO.consultaGrupos(Integer.parseInt(corte));
+        MuestraTablaGrupos muestra = new MuestraTablaGrupos();
+        out = muestra.getTabla(response, grupos);
+        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

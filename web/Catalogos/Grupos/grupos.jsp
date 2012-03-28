@@ -11,7 +11,7 @@
 <center>
   <p><h4>Seleccione un corte</h4> 
  <p>
-   <jsp:useBean id="cortes" class="java.util.ArrayList" scope="session" />
+   <jsp:useBean id="cortes" class="java.util.ArrayList" scope="request" />
                  <p><select id ="corte" size="1">
                       <option value="" selected="true"> Seleccione un corte </option>
                      <c:forEach var="corte" items="${cortes}">
@@ -21,7 +21,7 @@
     <%--c:set var="cortes" value="${cortes}" scope="session" /--%>
    <table id="tabla-grupos-actuales">
         <thead>
-            <th colspan="6">Grupos actuales</th>
+              <th colspan='6'>Grupos actuales</th>
         </thead>
         <tbody>
             <tr>

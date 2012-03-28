@@ -133,6 +133,10 @@
         <servlet-name>BorraRedes</servlet-name>
         <servlet-class>catalogos.redes_sociales.BorraRedesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MuestraTablaGrupos</servlet-name>
+        <servlet-class>catalogos.grupos.MuestraTablaGruposServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
         <url-pattern>/listasBean</url-pattern>
@@ -252,6 +256,10 @@
     <servlet-mapping>
         <servlet-name>BorraRedes</servlet-name>
         <url-pattern>/borraRedes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MuestraTablaGrupos</servlet-name>
+        <url-pattern>/muestraTablaGrupos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

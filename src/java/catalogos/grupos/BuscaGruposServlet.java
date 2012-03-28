@@ -53,23 +53,25 @@ public class BuscaGruposServlet extends HttpServlet {
               System.out.println(grupo.getGrado() + " " + grupo.getGrupo()) ;
       }
 
-
+        //List<Grupo> grupos = gDAO.consultaGrupos(Integer.parseInt(corte));
+        MuestraTablaGrupos muestra = new MuestraTablaGrupos();
+        out = muestra.getTabla(response, grupos);
       //List cortes = gDAO.consultaCortes();
 
       //String dato = "{\"id\":\"" + datoInteres.getIdDato() + "\","
       //        + "\"descripcion\":\"" +datoInteres.getDescripcion() + "\","
       //        + "\"tipo\":\"" + datoInteres.getTipo() + "\"}";
-      session.setAttribute("grupos", grupos);
+     // session.setAttribute("grupos", grupos);
     //  session.setAttribute("cortes",cortes);
       //request.setAttribute()
     // request.setAttribute("grupos", grupos);
     // RequestDispatcher view = request.getRequestDispatcher("Catalogos/Redes_sociales/redes_sociales_reg.jsp");
       //view.forward(request, response);
-      try {
+  //    try {
 
-      } finally {      
+ //     } finally {      
         out.close();
-      }
+   //   }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

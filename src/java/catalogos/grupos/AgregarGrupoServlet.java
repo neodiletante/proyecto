@@ -7,6 +7,7 @@ package catalogos.grupos;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +33,7 @@ public class AgregarGrupoServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        PrintWriter out = null;
         String grado = request.getParameter("grado");
         String grupo = request.getParameter("grupo");
         String turno = request.getParameter("turno");
@@ -51,7 +52,10 @@ public class AgregarGrupoServlet extends HttpServlet {
         Connection conect = (Connection) session.getAttribute("conn");
         GruposDAO gDAO = new GruposDAO(conect);
         gDAO.insertarGrupo(grupoInsert);
-       
+        List<Grupo> grupos = gDAO.consultaGrupos(Integer.parseInt(corte));
+        MuestraTablaGrupos muestra = new MuestraTablaGrupos();
+        out = muestra.getTabla(response, grupos);
+        out.close();
       //  RequestDispatcher view = request.getRequestDispatcher("grupos");
        // view.forward(request, response);
     }

@@ -25,10 +25,11 @@ $(function(){
     corte_actual = corte;
     parameters.corte=corte;
     $.post('buscaGrupos', parameters, function(data){
-      $('#_principal').load('Catalogos/Grupos/grupos.jsp',data,function(){
-        $('#corte').val(corte)
-      });
-      
+    //  $('#_principal').load('Catalogos/Grupos/grupos.jsp',data,function(){
+    //    $('#corte').val(corte)
+    
+   //   });
+     $('#tabla-grupos-actuales').html(data); 
    //   $('#corte').val(corte);
     }, 'text');
     
@@ -78,12 +79,14 @@ $(function(){
             parameters.id_grupo=id_grupo;
             $.post('cambiarGrupo', parameters, 
               function(data){
-                $('#_principal').load('grupos');
+                $('#tabla-grupos-actuales').html(data);
+               // $('#_principal').load('grupos');
               },'text');
           }else{
             $.post('agregarGrupo', parameters, 
             function(data){
-              $('#_principal').load('grupos');
+            //  $('#_principal').load('grupos');
+            $('#tabla-grupos-actuales').html(data);
             },'text'   );
           }
           $( this ).dialog( 'close' );
@@ -111,13 +114,16 @@ $(function(){
   
   $('#btn-borra-grupo').click(function(){
     //$('#corte').val(5);
+    var corte = $('#corte').val();
     var checks = $('.check_grupo:checked');
     for(var i =0 ; i<checks.length ; i++){
       var parameters={};
       parameters.idGrupo = checks[i].value;
+      parameters.corte = corte;
       $.post('borrarGrupo', parameters, 
       function(data){
-        $('#_principal').load('grupos');
+        $('#tabla-grupos-actuales').html(data);
+        //$('#_principal').load('grupos');
       },'text'   );
     }
   });

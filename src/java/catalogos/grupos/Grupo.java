@@ -4,11 +4,13 @@
  */
 package catalogos.grupos;
 
+import java.io.Serializable;
+
 /**
  *
  * @author maria
  */
-public class Grupo {
+public class Grupo implements Serializable {
     private int idGrupo;
     private int grado;
     private String grupo;
