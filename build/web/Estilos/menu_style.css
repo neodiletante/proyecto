@@ -52,6 +52,7 @@
 		
 		}
 	.menu li li {
+		background:url('images/sub_sep.gif') bottom left no-repeat;
 		display:block;
 		float:none;
 		margin:0px;
