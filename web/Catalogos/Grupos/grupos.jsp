@@ -20,7 +20,7 @@
                  </select>
     <%--c:set var="cortes" value="${cortes}" scope="session" /--%>
    <table id="tabla-grupos-actuales">
-        <thead>
+        <%--thead>
               <th colspan='6'>Grupos actuales</th>
         </thead>
         <tbody>
@@ -39,15 +39,24 @@
                 <td class="resultado" id="input_grupo">${grupo.grupo}</td>
                 <td class="resultado" id="input_turno">${grupo.turno}</td>
                 <td class="resultado" id="input_corte">${grupo.corte}</td>
-                <td class="centrado">
-                    <input class="check_grupo" type="checkbox" name="corte" id="borrar" value="${grupo.idGrupo}"/>
-                </td>
+                 <c:choose>
+                  <c:when test='${red.tieneDatos == false}'>
+                    <td class="centrado">
+                      <input class="check_grupo" type="checkbox" name="corte" id="borrar" value="${grupo.idGrupo}"/>
+                    </td>
+                  </c:when>
+                  <c:otherwise>
+                    <td></td>
+                  </c:otherwise>
+                </c:choose>
+                
+                
                 <td class="centrado">
                     <input class="radio_grupo" type="radio" name="modificar" id="modificar" value="${grupo.idGrupo}"/>
                 </td>
                </tr> 
             </c:forEach>
-        </tbody>
+        </tbody--%>
     </table>
     
     <button class="ui-button" id="btn-agrega-grupo">Nuevo grupo</button> 

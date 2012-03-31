@@ -1,45 +1,24 @@
 $(function(){
-  
-  $('#select-cortes').change(function(){
-    //alert("estoy cambiando");
-      $('#select-turno').val('');
-      $('#select-grupos').val('');
-      $('#no-lista').val('');    
-  });
-  
-  $('#select-turno').change(function(){
-    //alert('Cambiando turno');
-     var parameters={};
-     var corte = $('#select-cortes').val();
-     var turno = $('#select-turno').val();
-     parameters.corte = corte;
-     parameters.turno = turno;
-      $.post('buscaGruposPorTurno', parameters, function(data){
-      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
-        $('#select-cortes').val(corte);
-        $('#select-turno').val(turno);
-      });
-    }, 'text');
-  });
-  
   $('#select-grupos').change(function(){
-  //  alert("estoy cambiando");
+  
     var parameters={};
-     var corte = $('#select-cortes').val();
-     var turno = $('#select-turno').val();
     var grupo = $('#select-grupos').val();
     parameters.grupo = grupo;
-    $.post('buscaNosLista', parameters, function(data){
-  //    alert(data);
-      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
-        $('#select-cortes').val(corte);
-        $('#select-turno').val(turno);
-        $('#select-grupos').val(grupo);
-     //   alert("estoy canbiamdo " + data);
-      
-    });
+    parameters.formato = "matriz";
+    $.post('actualizaNosLista', parameters, function(data){
+      $('#lista-alumnos').html(data);
     
-  }, 'text');
+    }, 'text');
+});
+  $('#no-lista').change(function(){
+  alert("cambiando");
+    //var parameters={};
+    //var grupo = $('#select-grupos').val();
+    //parameters.grupo = grupo;
+   // $.post('actualizaNosLista', parameters, function(data){
+      //$('#no-lista').html(data);
+      
+  //  }, 'text');
 });
 $('#btn-iniciar-red').click(function(){
   var referido = $('.radio-referido:checked').val();
@@ -77,9 +56,14 @@ $('#btn-examinar-redes').click(function(){
   //parameters.url = "Catalogos/Redes_sociales/redes_sociales_mod.jsp";
   //$.post('?o=6', parameters, function(){
     // $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
- var url = "?o=6";
+ 
+
+
+var url = "?o=6";
  $(location).attr('href', url);
-  //  });
+
+
+//  });
     
  // }, 'text');
   

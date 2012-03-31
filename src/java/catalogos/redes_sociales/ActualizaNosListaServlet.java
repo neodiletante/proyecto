@@ -2,12 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package catalogos.listas;
+package catalogos.redes_sociales;
 
+import catalogos.listas.ListasDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ulises
  */
-public class BuscaNosListaServlet extends HttpServlet {
+public class ActualizaNosListaServlet extends HttpServlet {
 
   /**
    * Processes requests for both HTTP
@@ -35,40 +34,70 @@ public class BuscaNosListaServlet extends HttpServlet {
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-      HttpSession session = request.getSession();
+     HttpSession session = request.getSession();
      // Connection conn = (Connection) session.getAttribute("conn");
       ListasDAO listaDAO = new ListasDAO(session);
       String grupo = request.getParameter("grupo");
-     
+      String formato = request.getParameter("formato");
+     System.out.println("grupo " + grupo);
       List lista = listaDAO.getDatos(Integer.parseInt(grupo));
-    /*
-     // System.out.println(lista);
-      Integer noElementos=0;
-      if(lista!=null){
-      session.setAttribute("lista", lista);
-      System.out.println("Elementos lista " + lista.size());
-      noElementos =  (int) Math.round(Math.sqrt(lista.size()));
-      session.setAttribute("noElementos", noElementos);
-      }else{
-      session.removeAttribute("lista");
-      System.out.println("Nop hay elementos en la lista");
-      }
-      */
-      
+     if(lista == null){
+       System.out.println("Lista null");
+     }else{
+       System.out.println("tamaño lista " + lista.size());
+     }
+      // System.out.println(lista.size());
+     
     try {
-     out.println("<select id='no-lista'>");
-      out.println("<option value='' selected='true'>No. Lista</option>");
-      if (lista != null){
-        int noLista;
-        for(int i=0 ; i<lista.size() ; i++){
-          noLista = ((ListasDAO)lista.get(i)).getNo_lista();
-          System.out.println("No lista " + noLista);
-          out.println("<option value='" + noLista + "'>"+ noLista + "</option>");    
+      /*
+       * TODO output your page here. You may use following sample code.
+       */
+      out.println("<span id='lista-alumnos'>");
+      
+
+     // out.println("<select id='no-lista'>");
+     // out.println("<option value='' selected='true'>No. Lista</option>");
+     // if (lista != null){
+     //   int noLista;
+     //   for(int i=0 ; i<lista.size() ; i++){
+     //     noLista = ((ListasDAO)lista.get(i)).getNo_lista();
+     //     System.out.println("No lista " + noLista);
+     //     out.println("<option value='" + noLista + "'>"+ noLista + "</option>");    
+     //   }
+   //   }
+     // out.println("</select>");
+      int noLista;
+      
+     System.out.println("formato + " + formato);
+     out.println("<hr>");
+      out.println("<br />");
+ //     if ("matriz".equals(formato)){
+        
+      int tamanioLista = lista.size();
+      System.out.println("Tamaño lista " + tamanioLista);
+     
+     int columnas = (int) Math.sqrt(tamanioLista);
+     System.out.println("Columnas " + columnas);
+      
+      for(int i=0, cuenta=1 ; i<tamanioLista ; i++, cuenta++){
+        
+        noLista = ((ListasDAO)lista.get(i)).getNo_lista();
+        out.println("<label class='h4'>" + noLista + "</label>");
+        out.println("<input class='check-red-social' type='checkbox' name='agrega_alumno'  value='"+ noLista  +"'/>");
+        out.println("<input class='radio-referido' type='radio' name='referido'  value='" + noLista + "'/>");
+        out.println("&nbsp;&nbsp;&nbsp;&nbsp;");
+        if(cuenta==columnas){
+          out.println("<br />");
+          cuenta=0;
         }
       }
-      out.println("</select>");
-      int noLista;
-      out.println("<hr>");
+     
+  
+      
+     // }else{
+        
+     // }
+ out.println("</span>");
       out.println("<br />");
     } finally {      
       out.close();

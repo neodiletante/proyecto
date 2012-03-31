@@ -14,10 +14,12 @@
      var turno = $('#select-turno-add').val();
      parameters.corte = corte;
      parameters.turno = turno;
-      $.post('buscaGruposPorTurno', parameters, function(data){
-      $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
-        $('#select-cortes-add').val(corte);
-        $('#select-turno-add').val(turno);
+     parameters.formato = "matriz";
+      $.post('actualizaGrupos', parameters, function(data){
+      //$('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
+       // $('#select-cortes-add').val(corte);
+        //$('#select-turno-add').val(turno);
+         $('#select-grupos-add').html(data); 
       });
     }, 'text');
   });

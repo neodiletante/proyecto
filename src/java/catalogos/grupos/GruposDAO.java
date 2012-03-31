@@ -32,6 +32,7 @@ public class GruposDAO {
         
         public List consultaGrupos(int corte, String turno) {
         List<Grupo> grupos = new ArrayList<Grupo>();
+        List<Integer> gruposConAlumnos = buscaGruposConAlumnos(corte);
         try{
            
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -49,6 +50,11 @@ public class GruposDAO {
                 grupo.setGrupo(rs.getString("grupo"));
                 grupo.setTurno(rs.getString("turno"));
                 grupo.setCorte(rs.getInt("corte"));
+                if(gruposConAlumnos.contains((Integer)grupo.getIdGrupo())){
+                  grupo.setTieneAlumnos(true);
+                }else{
+                  grupo.setTieneAlumnos(false);
+                }
                 grupos.add(grupo);  
             }
             
@@ -157,5 +163,31 @@ public class GruposDAO {
         
         return grupos;   
         }
+        
+        public List<Integer> buscaGruposConAlumnos(int corte){
+          List<Integer> grupos = new ArrayList<Integer>();
+           PreparedStatement psBusca = null;
+          Integer idGrupo;
+           String query = "SELECT g.id_grupo"
+                + " FROM tc_grupos g INNER JOIN tc_listas l"
+                + " ON g.id_grupo = l.id_grupo"
+                + " WHERE g.corte = ? GROUP BY g.id_grupo";
+        try{
+          psBusca = (PreparedStatement) con.prepareStatement(query);
+          psBusca.setInt(1, corte);  
+          rs = psBusca.executeQuery();
+          while(rs.next()) {
+          //  grupo = new Grupo();
+            idGrupo = rs.getInt("id_grupo");
+            grupos.add(idGrupo);  
+          }
+            
+   
+        }catch (SQLException ex) {
+           Logger.getLogger(GruposDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally{
+          return grupos;
+        }
+      }
     
 }

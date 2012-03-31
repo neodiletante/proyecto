@@ -42,8 +42,9 @@ public class BuscaCortesServlet extends HttpServlet {
       List cortes = gDAO.consultaCortes();
      // session.removeAttribute("cortes");
       request.setAttribute("cortes", cortes);
-      session.setAttribute("cortes",cortes);
-      session.removeAttribute("grupos");
+      
+     // session.setAttribute("cortes",cortes);
+    //  session.removeAttribute("grupos");
       session.removeAttribute("lista");
       session.removeAttribute("listaRedes");
       session.removeAttribute("datosInteres");
@@ -51,7 +52,8 @@ public class BuscaCortesServlet extends HttpServlet {
       session.removeAttribute("noElementos");
      // session.removeAttribute("referidos");
       String url = request.getParameter("url");
-      
+      String modo = request.getParameter("modo");
+      url += "?modo="+modo;
       System.out.println(url);
       RequestDispatcher vista = request.getRequestDispatcher(url);
       vista.forward(request, response);

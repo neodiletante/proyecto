@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package catalogos.listas;
+package catalogos.redes_sociales;
 
+import catalogos.grupos.Grupo;
+import catalogos.grupos.GruposDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ulises
  */
-public class BuscaNosListaServlet extends HttpServlet {
+public class ActualizaGruposServlet extends HttpServlet {
 
   /**
    * Processes requests for both HTTP
@@ -33,43 +34,33 @@ public class BuscaNosListaServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    response.setContentType("text/html;charset=UTF-8");
+   response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
-      HttpSession session = request.getSession();
-     // Connection conn = (Connection) session.getAttribute("conn");
-      ListasDAO listaDAO = new ListasDAO(session);
-      String grupo = request.getParameter("grupo");
-     
-      List lista = listaDAO.getDatos(Integer.parseInt(grupo));
-    /*
-     // System.out.println(lista);
-      Integer noElementos=0;
-      if(lista!=null){
-      session.setAttribute("lista", lista);
-      System.out.println("Elementos lista " + lista.size());
-      noElementos =  (int) Math.round(Math.sqrt(lista.size()));
-      session.setAttribute("noElementos", noElementos);
-      }else{
-      session.removeAttribute("lista");
-      System.out.println("Nop hay elementos en la lista");
-      }
-      */
-      
+    HttpSession session = request.getSession();
+    String corte = (String) request.getParameter("corte");
+    String turno = (String) request.getParameter("turno");
+    System.out.println("corte y turno " + corte + " " + turno);   
+    //HttpSession session = request.getSession();
+    Connection conn = (Connection) session.getAttribute("conn");
+    GruposDAO gDAO = new GruposDAO(conn);
+    session.removeAttribute("grupos");
+    session.removeAttribute("lista");
+    session.removeAttribute("datosInteres");
+    session.removeAttribute("datosPorRed");
+    List<Grupo> grupos = gDAO.buscaGruposPorTurno(Integer.parseInt(corte), turno);
     try {
-     out.println("<select id='no-lista'>");
-      out.println("<option value='' selected='true'>No. Lista</option>");
-      if (lista != null){
-        int noLista;
-        for(int i=0 ; i<lista.size() ; i++){
-          noLista = ((ListasDAO)lista.get(i)).getNo_lista();
-          System.out.println("No lista " + noLista);
-          out.println("<option value='" + noLista + "'>"+ noLista + "</option>");    
-        }
-      }
-      out.println("</select>");
-      int noLista;
-      out.println("<hr>");
-      out.println("<br />");
+      /*
+       * TODO output your page here. You may use following sample code.
+       */
+    out.println("<select id='select-grupos'>");
+    out.println("<option value='' selected='true'>Grupo</option>");
+    for(Grupo grupo : grupos){
+      out.println("<option value='" + grupo.getIdGrupo() + "'>" + grupo.getGrado() + " ° " + grupo.getGrupo() + " " + grupo.getTurno() + "</option>");    
+    }
+    out.println("</select>");
+   
+   
+    
     } finally {      
       out.close();
     }

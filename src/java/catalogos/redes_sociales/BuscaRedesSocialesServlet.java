@@ -52,18 +52,45 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     System.out.println("no lista refiere " + rsr.getNoListaRefiere());
     //List listaRedes = rsDAO.buscaDatosRedes(rsr);
     List<RedSocialDatos> listaRedes = rsDAO.buscaDatosRedes(rsr);
-   // System.out.println("tamaño lista " + listaRedes.size());
-   // for(RedSocialDatos reg : listaRedes){
-   //   System.out.println(reg.getIdRed());
-   // }
-    session.setAttribute("listaRedes", listaRedes);
-    //List<Integer> redesSinRegistros = rsDAO.buscaRedesSinRegistros();
-    //session.setAttribute("redesSinRegistros", redesSinRegistros);
-   // try {
+    out.println("<span id='lista-alumnos'>");
+    out.println("<hr>");
+      out.println("<br />");
+ 
     
-  //  } finally {      
-   //   out.close();
-   // }
+    out.println("<table id='tabla-redes'>");
+      out.println("<thead>");
+      out.println("<th colspan='6'>Redes actuales</th>");
+      out.println("</thead>");
+      out.println("<tbody>");
+      out.println("<tr>");
+      out.println("<th>Id Red</th>");
+      out.println("<th>No. personas</th>");
+      out.println("<th>Modificar</th>");
+      out.println("<th>Borrar</th>");
+      out.println("<th>No. lista referido</th>");
+      out.println("</tr>");
+    for(RedSocialDatos rsd : listaRedes){
+
+      out.println("<tr>");
+      out.println("<td class='resultado' id='id-red'>" + rsd.getIdRed() + "</td>");
+      out.println("<td class='resultado' id='no-personas'>" + rsd.getNoPersonas() + "</td>");
+      out.println("<td class='centrado'>");
+      out.println("<input class='radio_red' type='radio' name='modificar' id='modificar_red' value='"+ rsd.getIdRed() + "'/>");
+      out.println("</td>");
+      if(!rsd.isTieneDatos()){
+        out.println("<td class='centrado'>");
+        out.println("<input class='check_red' type='checkbox' name='borrar' id='borrar_red' value='"+ rsd.getIdRed() + "'/>");
+        out.println("</td>");
+      }
+      else{
+        out.println("<td></td>");
+      }
+      out.println(" <td class='resultado' id='no-lista-referido'>" + rsd.getNoListaReferido() + "</td>");
+      out.println("</tr>");
+      
+    }
+
+     out.println("</span>");
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
