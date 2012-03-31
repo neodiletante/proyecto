@@ -16,6 +16,7 @@ public class Grupo implements Serializable {
     private String grupo;
     private String turno;
     private int corte;
+    private boolean tieneAlumnos;
     
     public Grupo(){
     }
@@ -75,5 +76,15 @@ public class Grupo implements Serializable {
     public void setTurno(String turno) {
         this.turno = turno;
     }
+
+    public boolean isTieneAlumnos() {
+      return tieneAlumnos;
+    }
+
+    public void setTieneAlumnos(boolean tieneAlumnos) {
+      this.tieneAlumnos = tieneAlumnos;
+    }
+    
+    
 
 }

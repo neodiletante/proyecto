@@ -1,64 +1,29 @@
 $(function(){
+   $('#select-grupos').change(function(){
+    // alert("estoy cambiando");
   
-  $('#select-cortes-mod').change(function(){
-    //alert("estoy cambiando");
-     $('#select-turno-mod').val('');
-    $('#select-grupos-mod').val('');
-    $('#no-lista-mod').val(''); 
-  });
-  
-  $('#select-turno-mod').change(function(){
-    //alert('Cambiando turno');
-     var parameters={};
-     var corte = $('#select-cortes-mod').val();
-     var turno = $('#select-turno-mod').val();
-     parameters.corte = corte;
-     parameters.turno = turno;
-      $.post('buscaGruposPorTurno', parameters, function(data){
-      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
-        $('#select-cortes-mod').val(corte);
-        $('#select-turno-mod').val(turno);
-      });
-    }, 'text');
-  });
-  
-$('#select-grupos-mod').change(function(){
-  //  alert("estoy cambiando");
     var parameters={};
-     var corte = $('#select-cortes-mod').val();
-     var turno = $('#select-turno-mod').val();
-    var grupo = $('#select-grupos-mod').val();
+    var grupo = $('#select-grupos').val();
     parameters.grupo = grupo;
-    $.post('buscaNosLista', parameters, function(data){
-      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
-        $('#select-cortes-mod').val(corte);
-        $('#select-turno-mod').val(turno);
-        $('#select-grupos-mod').val(grupo);
-     //   alert("estoy canbiamdo " + data);
-      
-    });
+    parameters.formato = "combo";
+    $.post('actualizaNosLista', parameters, function(data){
+      $('#no-lista').html(data);
     
-  }, 'text');
+    }, 'text');
 });
-
-
- $('#no-lista-mod').change(function(){
+ 
+  $('#no-lista').change(function(){
     //alert("estoy cambiando");
     var parameters={};
-    var corte = $('#select-cortes-mod').val();
-    var turno = $('#select-turno-mod').val();
-    var grupo = $('#select-grupos-mod').val();
-    var no_lista = $('#no-lista-mod').val();
+   // var corte = $('#select-cortes-mod').val();
+   // var turno = $('#select-turno-mod').val();
+    var grupo = $('#select-grupos').val();
+    var no_lista = $('#no-lista').val();
     //alert ("el grupo " + grupo);
     parameters.no_lista_refiere = no_lista;
     parameters.grupo = grupo;
     $.post('buscaRedesSociales', parameters, function(data){
-      $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
-        $('#select-cortes-mod').val(corte);
-        $('#select-turno-mod').val(turno);
-        $('#select-grupos-mod').val(grupo);
-        $('#no-lista-mod').val(no_lista);
-    });
+     $('#tabla-redes').html(data);
     
   }, 'text');
 });
@@ -73,12 +38,20 @@ $('#select-grupos-mod').change(function(){
     $.post('buscaElementosRed', parameters, function(data){
       //alert(data);
       $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
+        var parameters={};
+    var grupo = $('#select-grupos').val();
+    parameters.grupo = grupo;
+    parameters.formato = "matriz";
+    $.post('actualizaNosLista', parameters, function(data){
+      $('#lista-alumnos').html(data);
+    
+    }, 'text');
         alert(data);
         var elementos = data.split(",");
         var red_social = $('.check-red-social');
         for(var i=0 ; i< elementos.length ; i++){
-          alert("ckecked " + red_social[i]);
-          red_social[i].attr('checked', true);
+          alert("ckecked " + elementos[i]);
+          red_social[elementos[i]].prop('checked', true);
           
           
         }
@@ -125,14 +98,14 @@ $('#select-grupos-mod').change(function(){
         //alert(data);
         
    // });
-    buscaRedesSociales();
+ //   buscaRedesSociales();
   //}, 'text');
     
     
   });
   
 });
-
+/*
 function buscaRedesSociales(){
     var parameters={};
     var corte = $('#select-cortes-mod').val();
@@ -153,3 +126,4 @@ function buscaRedesSociales(){
   }, 'text');
   
 }
+*/
