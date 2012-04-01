@@ -34,18 +34,21 @@ public class AgregaDatoInteresServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-      
-      System.out.println("en el servlet de agregar dato de interes");
-   String descripcion = request.getParameter("descripcion");
-   System.out.println(descripcion);
-    String tipo = request.getParameter("tipo");
-    DatoInteres datoInteresAgregado = new DatoInteres(descripcion, tipo);
+    PrintWriter out = response.getWriter(); 
+    System.out.println("en el servlet de agregar dato de interes");
+    String descripcion = request.getParameter("descripcion");
+    System.out.println(descripcion);
+    DatoInteres datoInteresAgregado = new DatoInteres(descripcion);
     HttpSession session = request.getSession();
     Connection conect = (Connection) session.getAttribute("conn");
     DatosInteresDAO dDAO = new DatosInteresDAO(conect);
     int status = dDAO.insertaDatoInteres(datoInteresAgregado);
-    RequestDispatcher rd = request.getRequestDispatcher("Catalogos/Datos_interes/datos_interes.jsp");
-    rd.forward(request, response);
+    if(status>0)
+        out.println("Alumno agregado");
+    else
+        out.println("Hubo un problema agregando");
+    //RequestDispatcher rd = request.getRequestDispatcher("Catalogos/Datos_interes/datos_interes.jsp");
+    //rd.forward(request, response);
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

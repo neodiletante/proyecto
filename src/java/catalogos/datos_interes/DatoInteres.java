@@ -9,25 +9,21 @@ package catalogos.datos_interes;
  * @author ulises
  */
 public class DatoInteres {
-  private int idDato;
-  private String descripcion;
-  private int tipo;
-  private String descTipo;
+  private int idDato=0;
+  private String descripcion="";
 
    
 
   public DatoInteres(){}
   
-  public DatoInteres(String idDato, String descripcion, String tipo){
-    this.idDato = Integer.parseInt(idDato);
+  public DatoInteres(String idDato, String descripcion){
+    this.idDato = idDato!=null?Integer.parseInt(idDato):0;
     this.descripcion = descripcion;
-    this.tipo = Integer.parseInt(tipo);
   }
   
-  public DatoInteres(String descripcion, String tipo){
+  public DatoInteres(String descripcion){
     this.idDato = 0;
     this.descripcion = descripcion;
-    this.tipo = Integer.parseInt(tipo);
   }
   
   public String getDescripcion() {
@@ -45,21 +41,5 @@ public class DatoInteres {
   public void setIdDato(int idDato) {
     this.idDato = idDato;
   }
-
-  public int getTipo() {
-    return tipo;
-  }
-
-  public void setTipo(int tipo) {
-    this.tipo = tipo;
-  }
-  
-   public String getDescTipo() {
-        return descTipo;
-    }
-
-    public void setDescTipo(String descTipo) {
-        this.descTipo = descTipo;
-    }
   
 }

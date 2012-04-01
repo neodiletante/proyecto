@@ -39,8 +39,8 @@ public class BorraTipoDatoServlet extends HttpServlet {
     System.out.println(tipoDato);
    DatosInteresDAO dDAO = new DatosInteresDAO(conect);
   //  dDAO.borraTipoDato(Integer.parseInt(tipoDato));
-    RequestDispatcher view = request.getRequestDispatcher("muestraDatosInteres");
-    view.forward(request, response);
+    //RequestDispatcher view = request.getRequestDispatcher("muestraDatosInteres");
+    //view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

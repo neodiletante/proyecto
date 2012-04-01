@@ -19,10 +19,12 @@
       <option value="M"> M </option>  
       <option value="V"> V </option>
     </select>
-   
+      <jsp:useBean id="grupos" class="java.util.ArrayList" scope="session" />
     <select id="select-grupos-add">
       <option value="" selected="true">Grupo</option>
-     
+      <c:forEach var="grupo" items="${grupos}">
+        <option value="${grupo.idGrupo}"> ${grupo.grado} ${grupo.grupo} ${grupo.turno} </option>  
+      </c:forEach>
       
     </select>
       <jsp:useBean id="lista" class="java.util.ArrayList" scope="session" />

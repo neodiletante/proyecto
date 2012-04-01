@@ -34,23 +34,10 @@ public class AgregaTipoDatoServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println("En el servlet deagrega tipo dato");
     String descripcion = request.getParameter("desc");
-    TipoDato tipoDato = new TipoDato(descripcion);
     HttpSession session = request.getSession();
     Connection conect = (Connection) session.getAttribute("conn");
     DatosInteresDAO dDAO = new DatosInteresDAO(conect);
-  //  int status = dDAO.insertaTipoDato(tipoDato);
-    //response.setContentType("charset=UTF-8");
-   //RequestDispatcher view = request.getRequestDispatcher("muestraDatosInteres");
-   //view.forward(request, response);
-    /*
-    PrintWriter out = response.getWriter();
-    try {
-     
-      out.println("Se ejecutó el servlet");
-    } finally {      
-      out.close();
-    }
-    * */
+//    view.forward(request, response);
     
     }
     

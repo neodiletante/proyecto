@@ -48,6 +48,7 @@ public class ActualizaGruposServlet extends HttpServlet {
     session.removeAttribute("datosInteres");
     session.removeAttribute("datosPorRed");
     List<Grupo> grupos = gDAO.buscaGruposPorTurno(Integer.parseInt(corte), turno);
+    session.setAttribute("grupos", grupos);
     try {
       /*
        * TODO output your page here. You may use following sample code.
