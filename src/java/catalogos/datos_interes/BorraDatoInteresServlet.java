@@ -33,13 +33,16 @@ public class BorraDatoInteresServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        System.out.println("En el servlet de borrar alumno");
+        System.out.println("En el servlet de borrar dato de interes");
     String idDatoInteres = request.getParameter("id_dato");
     HttpSession session = request.getSession();
     Connection conect = (Connection) session.getAttribute("conn");
     System.out.println(idDatoInteres);
     DatosInteresDAO dDAO = new DatosInteresDAO(conect);
-    dDAO.borraDatoInteres(Integer.parseInt(idDatoInteres));
+    if( dDAO.borraDatoInteres(Integer.parseInt(idDatoInteres))>0 )
+       out.println("Dato borrado");
+    else
+       out.println("Hubo un error");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

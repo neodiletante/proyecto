@@ -10,6 +10,7 @@ import catalogos.datos_interes.DatosInteresDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,9 +42,15 @@ public class BuscaElementosRedServlet extends HttpServlet {
     System.out.println("En el servlert busca elementos red");
     HttpSession session = request.getSession();
     String idRed = request.getParameter("id_red");
+    int idRedInt = Integer.parseInt(idRed);
     Connection con  = (Connection) session.getAttribute("conn");
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
-    List elementosRed = rsDAO.buscaElementosRed(Integer.parseInt(idRed));
+    List<RedSocialDatos> datosRed = rsDAO.buscaDatosPorRed(idRedInt);
+    List<Integer> elementosConDatos= new ArrayList<Integer>();
+    for(RedSocialDatos rsd : datosRed){
+      elementosConDatos.add(rsd.getNoListaReferido());
+    }
+    List<Integer> elementosRed = rsDAO.buscaElementosRed(idRedInt);
   
      DatosInteresDAO dDAO = new DatosInteresDAO(con);
      List<DatoInteres> datosInteres = dDAO.buscaDatosInteres();
@@ -53,19 +60,27 @@ public class BuscaElementosRedServlet extends HttpServlet {
      }
      session.setAttribute("datosInteres", datosInteres);
 
+     int referido = rsDAO.buscaReferidoRed(idRedInt);
+     
     String elementos = "";
     for(int i=0 ; i<elementosRed.size() ; i++){
+      
       elementos += elementosRed.get(i);
+      if(elementosConDatos.contains(elementosRed.get(i))){
+        elementos += "d";
+      }
+      
       if(i+1<elementosRed.size()){
         elementos += ",";
       }
     }
+    elementos += "-" + referido;
     System.out.println(elementos);
     session.setAttribute("nosLista", elementosRed);
     
     List<RedSocialDatos> datosPorRed = rsDAO.buscaDatosPorRed(Integer.parseInt(idRed));
   session.setAttribute("datosPorRed", datosPorRed);      
-    
+    System.out.println(elementos);
     
     try {
       out.write(elementos); 

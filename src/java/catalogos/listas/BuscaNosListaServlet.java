@@ -41,6 +41,7 @@ public class BuscaNosListaServlet extends HttpServlet {
       String grupo = request.getParameter("grupo");
      
       List lista = listaDAO.getDatos(Integer.parseInt(grupo));
+      session.setAttribute("lista", lista);
     /*
      // System.out.println(lista);
       Integer noElementos=0;

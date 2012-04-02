@@ -1,4 +1,6 @@
 var opcion;
+var modificando_red = 0;
+var id_red_global;
 
 $(function(){
   function getParameter(paramName) {
@@ -28,7 +30,7 @@ $(document).ready(function() {
   
   
   $('#select-turno').change(function(){
-   
+   modificando_red = 0;
      var parameters={};
      var corte = $('#select-cortes').val();
      var turno = $('#select-turno').val();
@@ -37,17 +39,14 @@ $(document).ready(function() {
      parameters.turno = turno;
      
      $.post('actualizaGrupos', parameters, function(data){
-      //$('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
-       // $('#select-cortes').val(corte);
-       // $('#select-turno').val(turno);
+
         $('#select-grupos').html(data); 
-     // });
     }, 'text');
   });
   
   $('#select-grupos').change(function(){
   
-  
+  modificando_red = 0;
     var parameters={};
     var grupo = $('#select-grupos').val();
     parameters.grupo = grupo;
@@ -65,10 +64,9 @@ $(document).ready(function() {
 });
 
  $('#no-lista').change(function(){
-  
+  if(modificando_red == 0){
     var parameters={};
-   // var corte = $('#select-cortes-mod').val();
-   // var turno = $('#select-turno-mod').val();
+
     var grupo = $('#select-grupos').val();
     var no_lista = $('#no-lista').val();
   
@@ -88,10 +86,17 @@ $(document).ready(function() {
     }, 'text');
    
  }
+  }
 });
  
  $('#btn-modificar-red').click(function(){
-   
+    var id_red = $('.radio_red:checked').val();
+    if(id_red == undefined){
+     alert("Seleccione una red para modificar");
+      
+    }else{
+    
+    modificando_red = 1;
     opcion=5;
      if(opcion=="5"){
       $('#btn-modificar-red').hide();
@@ -108,13 +113,11 @@ $(document).ready(function() {
       
     }
     var id_red = $('.radio_red:checked').val();
-    
+    id_red_global = id_red;
     var parameters = {};
     parameters.id_red = id_red;
     
     $.post('buscaElementosRed', parameters, function(data){
-      
- //     $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
         var parameters={};
     var grupo = $('#select-grupos').val();
     parameters.grupo = grupo;
@@ -123,26 +126,61 @@ $(document).ready(function() {
       $('#lista-alumnos').html(data);
     
     }, 'text');
+       // alert("Cambie los elementos y presione 'Guardar'");
+
         alert(data);
-        var elementos = data.split(",");
+        var red = data.split("-");
+        var elementos = red[0].split(",");//data.split(",");
+
+
         var red_social = $('.check-red-social');
-        for(var i=0 ; i< elementos.length ; i++){
-          alert("ckecked " + elementos[i]);
-          red_social[elementos[i]].prop('checked', true);
+        var tiene_datos;
+        var elemento;
+        $.each(red_social, function(index){
+        //  alert(index);
+          for(var i=0; i< elementos.length ; i++){
+            tiene_datos = 0;
+           if(elementos[i].indexOf("d") != -1){
+            // elementos[i] = elementos[i].replace("d","");
+             elemento = elementos[i].replace("d","");
+             //alert(elementos[i]);
+             tiene_datos=1;
+            // $(this).prop({disabled:true});
+           }else{
+             elemento = elementos[i];
+             
+           }
+             
+             
+             
+           if(index+1 == elemento){
+              $(this).prop({checked:true});
+           //   $(this).prop({disabled:true});
+           
+          //    alert((index+1)+ " " + tiene_datos);
+              if(tiene_datos==1){
+                 $(this).attr('disabled',true);
+                
+              }
+            }
+            
+          }
+        });
+       var referido =  $('.radio-referido');
+
+$.each(referido, function(index){
+
           
-          
-        }
-        //var json = $.getJSON(data);
-        //$.each(json, function(k,v){console.log(k+" -> " +v); });
-        //$('#select-cortes-mod').val(corte);
-        //$('#select-turno-mod').val(turno);
-        //$('#select-grupos-mod').val(grupo);
-        //$('#no-lista-mod').val(no_lista);
-  //  });
+            if(index+1 == red[1]){
+              $(this).prop({checked:true});
+            }
+       
+        });
+
     
   }, 'text');
     
-    
+ }
   });
   
   $('#btn-agregar-datos').click(function(){
@@ -150,8 +188,7 @@ $(document).ready(function() {
     parameters.url="Catalogos/Redes_sociales/agrega_datos_red.jsp";
     $.post('muestraDatosInteres', parameters, function(data){
      $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
-    //  var url = "?o=12";
- //$(location).attr('href', url);  
+ 
      });
     
   });
@@ -161,6 +198,10 @@ $(document).ready(function() {
   $('#btn-borrar-red').click(function(){
     
     var id_redes_check = $('.check_red:checked').val();
+    if(id_redes_check==undefined){
+      alert("Seleccione una o más redes para borrar");
+      
+    }else{
     var id_redes = "";
     for(var i=0 ; i<id_redes_check.length ; i++){
       id_redes += id_redes_check[i];
@@ -182,15 +223,31 @@ $(document).ready(function() {
         $.post('buscaRedesSociales', parameters, function(data){
      $('#lista-redes').html(data);
     }, 'text');
-   // });
- //   buscaRedesSociales();
-  //}, 'text');
-    
-    
+  }
   });
  
  $('#btn-iniciar-red').click(function(){
-
+   
+   var mensaje="";
+   var corte = $('#select-cortes').val();
+   var turno = $('#select-turno').val();
+   var grupo = $('#select-grupos').val();
+   var no_lista = $('#no-lista').val();
+   if(corte==""){
+     mensaje+="Debe seleccionar un corte\n";
+   }
+   if(turno==""){
+     mensaje+="Debe seleccionar un turno\n";
+   }
+   if(grupo==""||grupo==undefined){
+     mensaje+="Debe seleccionar un grupo\n";
+   }
+   if(no_lista==""||no_lista==undefined){
+     mensaje+="Debe seleccionar un número de lista";
+   }
+   if(mensaje!=""){
+     alert(mensaje);
+   }else{
    var referido = $('.radio-referido:checked').val();
   var red_social = $('.check-red-social:checked');
   var red = '';
@@ -200,33 +257,82 @@ $(document).ready(function() {
       red += ',';
     }
   }
- 
+  
+  if(referido==undefined){
+    alert('Debe seleccionar al dueño de la red');
+  }else{
+
   var parameters={};
-  parameters.id_grupo = $('#select-grupos').val();
-  parameters.no_lista_refiere = $('#no-lista').val();
+  parameters.id_grupo = grupo;
+  parameters.no_lista_refiere = no_lista;
   parameters.no_lista_referido = referido;
   parameters.red = red;
  
-
+if(modificando_red==0){
   $.post('iniciaRed',parameters, function(data){
+
+    alert("Se ha agregado la red social");
+ 
+  // var parameters={};
+
+  //  var grupo = $('#select-grupos').val();
+  //  var no_lista = $('#no-lista').val();
   
-   //  $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_reg.jsp',data,function(){
+ //   parameters.no_lista_refiere = no_lista;
+ //  parameters.grupo = grupo;
+ //   $.post('actualizaNosLista', parameters, function(data){
+ //     $('#lista-redes').html(data);
     
-    alert("Se ha agregado la red social"); 
-     //   alert("estoy canbiamdo " + data);
-      
- //   });
-  }, 'text');
+ //   }, 'text');
+ 
+ 
+ 
+ $('.radio-referido').prop('checked',false);
+ $('.check-red-social').prop('checked',false);
+// $('.check-red-social').attr('disabled',false);
+// $('.check-red-social').attr('enabled',true);
+// $('.check-red-social').prop({disabled:false});
+  $('.check-red-social').removeAttr('disabled');
   
+
+ //$.each(red_social, function(index){
+ //  $(this).prop({checked:false});
+       
+ //       });
+
+  //var parameters={};
+
+    //var grupo = $('#select-grupos').val();
+    //var no_lista = $('#no-lista').val();
+  
+  //  parameters.no_lista_refiere = no_lista;
+   // parameters.grupo = grupo;
+ //   $.post('actualizaNosLista', parameters, function(data){
+ //     $('#lista-redes').html(data);
+    
+ //   }, 'text');
+  }, 'text');
+  }else{
+    parameters.id_red = id_red_global;
+    alert(id_red_global);
+    $.post('modificaRedesSociales',parameters, function(data){
+
+    alert("Se ha modificado la red social");
+ 
+ $('.radio-referido').prop('checked',false);
+ $('.check-red-social').prop('checked',false);
+ modificando_red = 0;
+     }, 'text');
+  }
+  
+  }
+   }
 });
 
 $('#btn-examinar-redes').click(function(){
- 
- // var parameters={};
-  //parameters.url = "Catalogos/Redes_sociales/redes_sociales_mod.jsp";
-  //$.post('?o=6', parameters, function(){
-    // $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
-     opcion =6;
+ modificando_red = 0;
+     opcion ="6";
+      
      if(opcion=="5"){
       $('#btn-modificar-red').hide();
       $('#btn-borrar-red').hide();
@@ -241,12 +347,13 @@ $('#btn-examinar-redes').click(function(){
       $('#btn-agregar-datos').show();
       
     }
-    var parameters;
+
  var grupo = $('#select-grupos').val();
     var no_lista = $('#no-lista').val();
-   
+   var parameters={};
     parameters.no_lista_refiere = no_lista;
     parameters.grupo = grupo;
+  
    if(opcion=="6"){
    
    
@@ -256,17 +363,6 @@ $('#btn-examinar-redes').click(function(){
   }, 'text');
  }
 
-//var url = "?o=6";
-// $(location).attr('href', url);
-
-
-//  });
-    
- // }, 'text');
-  
- 
-  
 });
- 
- 
+  
 });

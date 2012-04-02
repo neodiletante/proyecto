@@ -31,23 +31,29 @@ public class BuscaDatoInteresServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    //response.setContentType("application/x-json;charset=UTF-8");
-    //PrintWriter out = response.getWriter();
+    response.setContentType("application/x-json;charset=UTF-8");
+    PrintWriter out = response.getWriter();
     String idDato = request.getParameter("id_dato");
     HttpSession session = request.getSession();
     Connection conect = (Connection) session.getAttribute("conn");
     DatosInteresDAO dDAO = new DatosInteresDAO(conect);
-    DatoInteres datoInteres = dDAO.buscaDatoInteres(Integer.parseInt(idDato));
+    DatoInteres datoInteres = null;
+    String dato = null;
     
-    //String dato = "{\"id\":\"" + datoInteres.getIdDato() + "\","
-    //        + "\"descripcion\":\"" +datoInteres.getDescripcion() + "\","
-    //        + "\"tipo\":\"" + datoInteres.getTipo() + "\"}";
-    //System.out.println(dato);
-   // try {
-      //out.write(dato);
-   // } finally {      
-   //   out.close();
-   // }
+    if( request.getParameter("accion").equalsIgnoreCase("modificar") ){
+       datoInteres = dDAO.buscaDatoInteres(Integer.parseInt(idDato));
+       dato = datoInteres.getDescripcion();
+    }   
+    
+    if( request.getParameter("accion").equalsIgnoreCase("agregar") )
+       dato=dDAO.getSiguienteId();
+    
+    System.out.println(dato);
+    try {
+      out.println(dato);
+    } finally {      
+      out.close();
+    }
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

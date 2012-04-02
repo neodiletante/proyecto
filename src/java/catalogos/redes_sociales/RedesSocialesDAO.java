@@ -4,6 +4,7 @@
  */
 package catalogos.redes_sociales;
 
+import catalogos.alumnos.AlumnosDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,14 +62,19 @@ public class RedesSocialesDAO {
     
   }
   
-  public void insertaElementosRed(List<String> elementos){
+  public void insertaElementosRed(List<Integer> elementos){
+    
+    int idRed = buscaIdUltimo();
+    insertaElementosRed(idRed, elementos);
+  }
+  
+   public void insertaElementosRed(int idRed, List<Integer> elementos){
     System.out.println("En el DAO, inertando elementos red");
     String qInserta = "INSERT INTO tr_redes_sociales VALUES (?,?,null)";
     PreparedStatement psInserta;
-    int idRed;
-    idRed = buscaIdUltimo();
-    for (String elemento : elementos){
-      int elementoInt = Integer.parseInt(elemento);
+  
+    for (Integer elemento : elementos){
+    //  int elementoInt = Integer.parseInt(elemento);
       System.out.print("id red " + idRed);
       System.out.println(" -> elemento " + elemento);
       
@@ -76,7 +82,7 @@ public class RedesSocialesDAO {
         
         psInserta = con.prepareStatement(qInserta);
         psInserta.setInt(1,idRed);
-        psInserta.setInt(2,elementoInt);
+        psInserta.setInt(2,elemento);
       //  psInserta.setInt(3,0);
         psInserta.execute();
       }catch(SQLException sqle){
@@ -185,8 +191,8 @@ public class RedesSocialesDAO {
     return listaRedesSociales;
   }
   
-  public List buscaElementosRed(int idRed){
-    List elementosRed = new ArrayList();
+  public List<Integer> buscaElementosRed(int idRed){
+    List<Integer> elementosRed = new ArrayList();
     String query = "SELECT no_lista FROM tr_redes_sociales WHERE id_red = ?";
     PreparedStatement psBusca;
     ResultSet rs;
@@ -204,6 +210,25 @@ public class RedesSocialesDAO {
     }
     return elementosRed;
   }
+  
+  public int buscaReferidoRed(int idRed){
+    int referido = 0;
+    String query = "SELECT no_lista_referido FROM tc_redes_sociales WHERE id_red = ?";
+    PreparedStatement psBusca;
+    ResultSet rs;
+    try {
+      psBusca = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+      psBusca.setInt(1, idRed);
+      rs = psBusca.executeQuery();
+      while(rs.next()){
+        referido = rs.getInt("no_lista_referido");
+           }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return referido;
+  }
+  
   public void actualizaDatosRed(int idRelacion, int idDato){
     String qInserta = "INSERT INTO tr_datos_interes VALUES(?,?)";
     PreparedStatement psInserta = null;
@@ -237,9 +262,9 @@ public class RedesSocialesDAO {
     }
   }
   
-  public List buscaDatosPorRed(int idRed){
+  public List<RedSocialDatos> buscaDatosPorRed(int idRed){
     List<RedSocialDatos> datosPorRed = new ArrayList<RedSocialDatos>();
-    String query = "SELECT rrs.no_lista, cdi.descripcion"
+    String query = "SELECT rrs.id_relacion, rrs.no_lista, cdi.descripcion"
             + " FROM tr_redes_sociales rrs INNER JOIN tc_datos_interes cdi"
             + " INNER JOIN tr_datos_interes rdi"
             + " WHERE rdi.id_relacion = rrs.id_relacion"
@@ -255,6 +280,7 @@ public class RedesSocialesDAO {
         rsd = new RedSocialDatos();
         rsd.setNoListaReferido(rs.getInt("no_lista"));
         rsd.setDescDatoInteres(rs.getString("descripcion"));
+        rsd.setIdRelacion(rs.getInt("id_relacion"));
         datosPorRed.add(rsd);
       }
     } catch (SQLException ex) {
@@ -319,6 +345,80 @@ public class RedesSocialesDAO {
     finally{
       return redesSinRegistros;
     }
+  }
+  
+  public void modificaRedSocialReg(RedSocialReg redSocial){
+    String qModifica = 
+            "UPDATE tc_redes_sociales"
+            + " SET id_grupo = ?,"
+            + " no_lista_refiere = ?,"
+            + " no_lista_referido = ?"
+            + " WHERE id_red = ?";
+     PreparedStatement psModifica;
+      try {
+      psModifica = con.prepareStatement(qModifica);
+        psModifica.setInt(1,redSocial.getIdGrupo());
+        psModifica.setInt(2,redSocial.getNoListaRefiere());
+        psModifica.setInt(3, redSocial.getNoListaReferido());
+        psModifica.setInt(4, redSocial.getIdRed());
+        psModifica.execute();
+     
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+  
+  public void borraElementosRed(int idRed, List<Integer> elementos){
+    String qBorra = "DELETE FROM tr_redes_sociales WHERE id_red = ? AND no_lista = ?";
+    PreparedStatement psBorra;
+    try {
+      psBorra = con.prepareStatement(qBorra);
+      psBorra.setInt(1, idRed);
+      for(Integer noLista : elementos){
+        psBorra.setInt(2, noLista);
+        psBorra.execute();
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
+  
+  public void modificaElementosRed(int idRed, List<Integer> elementos){
+    List<Integer> elementosActuales = buscaElementosRed(idRed);
+    List<Integer> elementosABorrar = new ArrayList<Integer>();
+    List<Integer> elementosAInsertar = new ArrayList<Integer>();
+    for(Integer elemento : elementosActuales){
+      if(!elementos.contains(elemento)){
+        elementosABorrar.add(elemento);
+      }
+    }
+    borraElementosRed(idRed, elementosABorrar);
+    
+    for(Integer elemento : elementos){
+      if(!elementosActuales.contains(elemento)){
+        elementosAInsertar.add(elemento);
+      }
+    }
+    
+    insertaElementosRed(idRed, elementosAInsertar);
+    
+  }
+
+  public int borraTrDatosInteres(List<Integer> relaciones){
+    PreparedStatement psBorrar = null;
+    int retVar=0;
+    String qBorrar = "DELETE FROM tr_datos_interes WHERE id_relacion = ?";
+        
+    try {
+          psBorrar = con.prepareStatement(qBorrar);
+          for(Integer relacion : relaciones){
+            psBorrar.setInt(1, relacion);
+            retVar=psBorrar.executeUpdate();
+          }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return retVar;
   }
   
 } 

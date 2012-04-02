@@ -142,8 +142,8 @@
         <servlet-class>catalogos.redes_sociales.ActualizaNosListaServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ActualizaMatrizAlumnos</servlet-name>
-        <servlet-class>catalogos.redes_sociales.ActualizaMatrizAlumnosServlet</servlet-class>
+        <servlet-name>BorraRegistrosDatos</servlet-name>
+        <servlet-class>catalogos.redes_sociales.BorraRegistrosDatosServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
@@ -274,8 +274,8 @@
         <url-pattern>/actualizaNosLista</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ActualizaMatrizAlumnos</servlet-name>
-        <url-pattern>/actualizaMatrizAlumnos</url-pattern>
+        <servlet-name>BorraRegistrosDatos</servlet-name>
+        <url-pattern>/borraRegistrosDatos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

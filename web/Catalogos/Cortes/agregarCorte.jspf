@@ -16,6 +16,7 @@
                  respuesta="no se agregó corte";
          }catch(Exception ex){
              respuesta="Error al agregar nuevo corte";
+             ex.printStackTrace();
          }
          out.println(respuesta);
         // out.println("{\"respuesta\":\"OK\",\"otro\":\"cuack\"}");

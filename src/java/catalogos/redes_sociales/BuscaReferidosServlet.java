@@ -4,17 +4,13 @@
  */
 package catalogos.redes_sociales;
 
-import catalogos.datos_interes.DatoInteres;
 import catalogos.datos_interes.DatosInteresDAO;
-import catalogos.datos_interes.TipoDato;
 import catalogos.listas.ListasDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

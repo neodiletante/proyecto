@@ -158,7 +158,7 @@ public class GruposDAO {
             System.out.println(sqle.getMessage());
             System.out.println("Error SQL");
         } catch (Exception exc) {
-            System.out.println("Se ha producido una excepción "+exc.getMessage());
+            exc.printStackTrace();
         }
         
         return grupos;   

@@ -19,10 +19,12 @@
       <option value="M"> M </option>  
       <option value="V"> V </option>
     </select>
-   
+      <jsp:useBean id="grupos" class="java.util.ArrayList" scope="session" />
     <select id="select-grupos-add">
       <option value="" selected="true">Grupo</option>
-     
+      <c:forEach var="grupo" items="${grupos}">
+        <option value="${grupo.idGrupo}"> ${grupo.grado} ${grupo.grupo} ${grupo.turno} </option>  
+      </c:forEach>
       
     </select>
       <jsp:useBean id="lista" class="java.util.ArrayList" scope="session" />
@@ -56,6 +58,7 @@
       </select>
       <br />
       <button class="ui-button" id="btn-actualiza-red">Agregar</button> 
+      <button class="ui-button" id="btn-borra-datos">Borrar</button> 
       ${red.idRed}
       <br />
  <table id="tabla-datos">
@@ -67,6 +70,7 @@
                
                 <th>No. lista referido</th>
                 <th>Dato Interés</th>
+                <th>Borrar</th>
             </tr>
           
            <jsp:useBean id="datosPorRed" class="java.util.ArrayList" scope="session" />
@@ -75,8 +79,11 @@
              
                <td class="resultado" id="td-no-lista-referido">${dato.noListaReferido}</td>
                <td class="resultado" id="td-dato-interes">${dato.descDatoInteres}</td>
-            
+            <td class="centrado">
+                    <input class="check_datos" type="checkbox" name="borrar"  value="${dato.idRelacion}"/>
+                </td>
            </tr>
             </c:forEach>
         </tbody>
     </table>
+       

@@ -11,7 +11,9 @@ import catalogos.listas.ListasDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,24 +39,28 @@ public class ModificaRedesSocialesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        System.out.println("En el servlet de modifica redes sociales");
-         HttpSession session = request.getSession();
-      Connection conect = (Connection) session.getAttribute("conn");
-      GruposDAO gDAO = new GruposDAO(conect);
-     // DatosInteresDAO dDAO = new DatosInteresDAO(conect);
-      List cortes = gDAO.consultaCortes();
-      for(Object corte : cortes){
-        System.out.println(corte);
+      HttpSession session = request.getSession();
+      Connection con = (Connection) session.getAttribute("conn");
+      RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
+      String idGrupo = request.getParameter("id_grupo");
+      String noListaRefiere = request.getParameter("no_lista_refiere");
+      String noListaReferido = request.getParameter("no_lista_referido");
+      String elementosRed = request.getParameter("red");
+      String idRed = request.getParameter("id_red");
+      int idRedInt = Integer.parseInt(idRed);
+      List<Integer> redSocial = new ArrayList<Integer>();
+      StringTokenizer tokens = new StringTokenizer(elementosRed,",");
+      while(tokens.hasMoreTokens()){
+        String elemento = tokens.nextToken();
+        System.out.println("elemento " + elemento);
+        int elementoRed = Integer.parseInt(elemento);
+        redSocial.add(elementoRed);
       }
-   //   List<Grupo> grupos = gDAO.consultaGrupos();
-       List lista = new ListasDAO(session).getDatos(2);
-         request.setAttribute("cortes", cortes);
-     // request.setAttribute("grupos", grupos);
-      request.setAttribute("listas", lista);
-        RequestDispatcher vista = request.getRequestDispatcher("Catalogos/Redes_sociales/redes_sociales_mod.jsp");
-        vista.forward(request, response);
+      
+      RedSocialReg rsr = new RedSocialReg(idGrupo,noListaRefiere, noListaReferido);
+      rsDAO.modificaRedSocialReg(rsr);
+      rsDAO.modificaElementosRed(idRedInt, redSocial);
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

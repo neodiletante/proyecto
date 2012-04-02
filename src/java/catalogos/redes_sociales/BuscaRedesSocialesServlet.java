@@ -52,6 +52,7 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     System.out.println("no lista refiere " + rsr.getNoListaRefiere());
     //List listaRedes = rsDAO.buscaDatosRedes(rsr);
     List<RedSocialDatos> listaRedes = rsDAO.buscaDatosRedes(rsr);
+    session.setAttribute("listaRedes", listaRedes);
     out.println("<span id='lista-alumnos'>");
     out.println("<hr>");
       out.println("<br />");

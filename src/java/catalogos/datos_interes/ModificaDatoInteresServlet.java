@@ -29,23 +29,24 @@ public class ModificaDatoInteresServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-     System.out.println("En el servlet de modificado de datos de interés");
-    
-    String idDatoInteres = request.getParameter("id_dato");
-    String descripcion = request.getParameter("descripcion");
-    String tipo = request.getParameter("tipo");
-    System.out.println(idDatoInteres + " " + descripcion + " " +tipo);
-    DatoInteres datoInteres = new DatoInteres(idDatoInteres, descripcion,tipo);
-    System.out.println(idDatoInteres + " " + descripcion + " " +tipo);
-    HttpSession session = request.getSession();
-    Connection conect = (Connection) session.getAttribute("conn");
-    DatosInteresDAO dDAO = new DatosInteresDAO(conect);
-    dDAO.modificaDatoInteres(datoInteres);
-    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       response.setContentType("text/html;charset=UTF-8");
+       PrintWriter out = response.getWriter();
+       System.out.println("En el servlet de modificado de datos de interés");
+       String idDatoInteres = request.getParameter("id_dato");
+       String descripcion = request.getParameter("descripcion");
+       DatoInteres datoInteres = new DatoInteres(idDatoInteres, descripcion);
+       HttpSession session = request.getSession();
+       Connection conect = (Connection) session.getAttribute("conn");
+       DatosInteresDAO dDAO = new DatosInteresDAO(conect);
+       
+       if(request.getParameter("accion").equalsIgnoreCase("modificar")){
+           if(dDAO.modificaDatoInteres(datoInteres)>0)
+             out.println("Registro modificado");
+           else
+             out.println("Problema modificando, por favor reporte");
+       }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,8 +60,7 @@ public class ModificaDatoInteresServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -74,8 +74,7 @@ public class ModificaDatoInteresServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 

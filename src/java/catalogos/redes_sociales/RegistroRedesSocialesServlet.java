@@ -4,12 +4,7 @@
  */
 package catalogos.redes_sociales;
 
-import catalogos.datos_interes.DatoInteres;
-import catalogos.datos_interes.DatosInteresDAO;
-import catalogos.datos_interes.TipoDato;
-import catalogos.grupos.Grupo;
 import catalogos.grupos.GruposDAO;
-import catalogos.listas.ListasDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -46,62 +41,16 @@ public class RegistroRedesSocialesServlet extends HttpServlet {
       GruposDAO gDAO = new GruposDAO(conect);
    //   DatosInteresDAO dDAO = new DatosInteresDAO(conect);
       List cortes = gDAO.consultaCortes();
-    //  List<Grupo> grupos = gDAO.consultaGrupos();
-   //   for(int i=0 ; i< grupos.size() ; i++){
-   //       Grupo grupo = grupos.get(i);
-   //         System.out.println(grupo.getGrado() + " " + grupo.getGrupo()) ;
-   //   }
-   //   List lista = new ListasDAO(session).getDatos(2);
-    //  List<DatoInteres> datosInteres = dDAO.buscaDatosInteres(); 
-     
-      /*
-      List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos(false); 
-      Map datos = new HashMap();
-      for(TipoDato tipo : tiposDato){
-        List<DatoInteres> datosXT = null;
-        System.out.println(tipo.getDescripcion());
-        datosXT = new ArrayList<DatoInteres>();
-        for(DatoInteres datoInteres : datosInteres){
-          
-          if (datoInteres.getTipo() == tipo.getTipo()){
-            datosXT.add(datoInteres);
-            System.out.println(datoInteres.getDescripcion());
-          }
-        }
-        request.setAttribute(tipo.getDescripcion(), datosXT);
-        datos.put(tipo.getDescripcion(), datosXT);
-      }
-      
-    
-      /*
-      for(TipoDato tipo : tiposDato){
-        System.out.println("Tipo de dato " + tipo.getDescripcion());
-        List list =  (List) datos.get(tipo.getDescripcion());
-      //  List list =  (List) datos.get("sociales");
-        for(Object di : list){
-      //    if (datos.containsKey(tipo.getDescripcion())){
-          String desc = ((DatoInteres)di).getDescripcion();
-            System.out.println("desc " + desc);
-        //  }
-        }
-      }
-      * 
-      * 
-      */
+  
       
       System.out.println("Quitando el atributo grupos");
       session.removeAttribute("grupos");
       session.removeAttribute("cortes");
       session.removeAttribute("referidos");
       session.removeAttribute("lista");
-      // session.setAttribute("datosInteres", datosInteres);
-  //    session.setAttribute("datos", datos);
-  //    session.setAttribute("tiposDato", tiposDato);
-      
+
       request.setAttribute("cortes", cortes);
-    //  request.setAttribute("grupos", grupos);
-      //request.setAttribute("listas", lista);
-     
+
       RequestDispatcher vista = request.getRequestDispatcher("Catalogos/Redes_sociales/redes_sociales_reg.jsp");
       vista.forward(request, response);
     }

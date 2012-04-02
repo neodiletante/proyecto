@@ -50,17 +50,19 @@ public class IniciaRedServlet extends HttpServlet {
     String red = request.getParameter("red");
     System.out.println("Toda la red " + red);
     List<String> redSocial = new ArrayList<String>();
+    List<Integer> redSocialInt = new ArrayList<Integer>();
     StringTokenizer tokens = new StringTokenizer(red,",");
     while(tokens.hasMoreTokens()){
       String elemento = tokens.nextToken();
       System.out.println("elemento " + elemento);
       redSocial.add(elemento);
+      redSocialInt.add(Integer.parseInt(elemento));
     }
     
     System.out.println("No lista referido " + noListaReferido );
     RedSocialReg rsr = new RedSocialReg(idGrupo,noListaRefiere, noListaReferido);
     rsDAO.insertaRedSocial(rsr);
-    rsDAO.insertaElementosRed(redSocial);
+    rsDAO.insertaElementosRed(redSocialInt);
     session.removeAttribute("lista");
     
     try {
