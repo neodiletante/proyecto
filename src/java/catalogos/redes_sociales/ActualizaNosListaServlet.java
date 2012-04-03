@@ -49,23 +49,9 @@ public class ActualizaNosListaServlet extends HttpServlet {
       // System.out.println(lista.size());
      
     try {
-      /*
-       * TODO output your page here. You may use following sample code.
-       */
+
       out.println("<span id='lista-alumnos'>");
       
-
-     // out.println("<select id='no-lista'>");
-     // out.println("<option value='' selected='true'>No. Lista</option>");
-     // if (lista != null){
-     //   int noLista;
-     //   for(int i=0 ; i<lista.size() ; i++){
-     //     noLista = ((ListasDAO)lista.get(i)).getNo_lista();
-     //     System.out.println("No lista " + noLista);
-     //     out.println("<option value='" + noLista + "'>"+ noLista + "</option>");    
-     //   }
-   //   }
-     // out.println("</select>");
       int noLista;
       
      System.out.println("formato + " + formato);
@@ -76,7 +62,7 @@ public class ActualizaNosListaServlet extends HttpServlet {
       int tamanioLista = lista.size();
       System.out.println("Tamaño lista " + tamanioLista);
      
-     int columnas = (int) Math.sqrt(tamanioLista);
+     int columnas = (int) Math.sqrt(tamanioLista) +1;
      System.out.println("Columnas " + columnas);
       
       for(int i=0, cuenta=1 ; i<tamanioLista ; i++, cuenta++){

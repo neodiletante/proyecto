@@ -58,7 +58,7 @@ public class BuscaNosListaServlet extends HttpServlet {
       
     try {
      out.println("<select id='no-lista'>");
-      out.println("<option value='' selected='true'>No. Lista</option>");
+      out.println("<option value='' selected='true'>No. Lista Refiere</option>");
       if (lista != null){
         int noLista;
         for(int i=0 ; i<lista.size() ; i++){

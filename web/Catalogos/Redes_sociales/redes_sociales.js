@@ -126,38 +126,30 @@ $(document).ready(function() {
       $('#lista-alumnos').html(data);
     
     }, 'text');
-       // alert("Cambie los elementos y presione 'Guardar'");
+        alert("Cambie los elementos y presione 'Guardar'");
 
-        alert(data);
+     
         var red = data.split("-");
-        var elementos = red[0].split(",");//data.split(",");
+        var elementos = red[0].split(",");
 
 
         var red_social = $('.check-red-social');
         var tiene_datos;
         var elemento;
         $.each(red_social, function(index){
-        //  alert(index);
           for(var i=0; i< elementos.length ; i++){
             tiene_datos = 0;
            if(elementos[i].indexOf("d") != -1){
-            // elementos[i] = elementos[i].replace("d","");
              elemento = elementos[i].replace("d","");
-             //alert(elementos[i]);
-             tiene_datos=1;
-            // $(this).prop({disabled:true});
+               tiene_datos=1;
            }else{
              elemento = elementos[i];
              
            }
-             
-             
-             
+
            if(index+1 == elemento){
               $(this).prop({checked:true});
-           //   $(this).prop({disabled:true});
-           
-          //    alert((index+1)+ " " + tiene_datos);
+
               if(tiene_datos==1){
                  $(this).attr('disabled',true);
                 
@@ -314,7 +306,7 @@ if(modificando_red==0){
   }, 'text');
   }else{
     parameters.id_red = id_red_global;
-    alert(id_red_global);
+
     $.post('modificaRedesSociales',parameters, function(data){
 
     alert("Se ha modificado la red social");

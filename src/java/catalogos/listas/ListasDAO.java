@@ -86,7 +86,6 @@ public class ListasDAO {
               rst.beforeFirst();
               retVar= new ArrayList();
               while(rst.next()){
-                System.out.println("otro registro");
                 dao= new ListasDAO();
                 dao.setNo_lista(rst.getInt("no_lista"));
                 dao.setNombre(rst.getString("nombre"));

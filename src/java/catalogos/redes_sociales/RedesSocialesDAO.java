@@ -148,7 +148,7 @@ public class RedesSocialesDAO {
     RedSocialDatos rsd;
     RedSocialDatos rsIdDato;
     List<RedSocialDatos> listaDatosRed = new ArrayList<RedSocialDatos>();
-    List<Integer> redesSinRegistros = buscaRedesSinRegistros();
+    List<Integer> redesConRegistros = buscaRedesConRegistros();
     
     try {
       psBuscaRedes = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -162,10 +162,10 @@ public class RedesSocialesDAO {
         rsd.setNoPersonas(rs.getInt("no_personas"));
         rsd.setNoListaReferido(rs.getInt("no_lista_referido"));
         //rdIdDato = new RedSocialDatos();
-        if(redesSinRegistros.contains((Integer)rsd.getIdRed())){
-          rsd.setTieneDatos(false);
-        }else{
+        if(redesConRegistros.contains((Integer)rsd.getIdRed())){
           rsd.setTieneDatos(true);
+        }else{
+          rsd.setTieneDatos(false);
         }
         listaDatosRed.add(rsd);
       }
@@ -323,12 +323,12 @@ public class RedesSocialesDAO {
     borraTcRedesSociales(idRedes);
   }
   
-  public List<Integer> buscaRedesSinRegistros(){
-    List<Integer> redesSinRegistros = new ArrayList<Integer>();
-    String qBusca = "SELECT id_red FROM tr_redes_sociales WHERE id_relacion NOT IN"
-            + " (SELECT rs.id_relacion FROM tr_redes_sociales rs"
-            + " RIGHT JOIN tr_datos_interes di"
-            + " ON rs.id_relacion = di.id_relacion)";
+  public List<Integer> buscaRedesConRegistros(){
+    List<Integer> redesConRegistros = new ArrayList<Integer>();
+    String qBusca = "SELECT tcrs.id_red, rs.id_relacion"
+            + " FROM tc_redes_sociales tcrs INNER JOIN tr_redes_sociales rs"
+            + " ON tcrs.id_red = rs.id_red INNER JOIN tr_datos_interes di"
+            + " ON rs.id_relacion = di.id_relacion GROUP BY id_red";
     PreparedStatement psBusca;
     ResultSet rsBusca;
     try {
@@ -337,13 +337,13 @@ public class RedesSocialesDAO {
       Integer idRed;
       while(rsBusca.next()){
         idRed = rsBusca.getInt("id_red");
-        redesSinRegistros.add(idRed);
+        redesConRegistros.add(idRed);
       }
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
     }
     finally{
-      return redesSinRegistros;
+      return redesConRegistros;
     }
   }
   
