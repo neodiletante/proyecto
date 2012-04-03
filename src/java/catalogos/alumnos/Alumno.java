@@ -19,6 +19,7 @@ public class Alumno {
     private int noExpediente;
     private String nombre;
     private String sexo;
+    private boolean tieneRegistros;
     
     public Alumno(){}
     
@@ -57,6 +58,16 @@ public class Alumno {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
+
+  public boolean isTieneRegistros() {
+    return tieneRegistros;
+  }
+
+  public void setTieneRegistros(boolean tieneRegistros) {
+    this.tieneRegistros = tieneRegistros;
+  }
+    
+    
     
     public List<Alumno> mapRst(ResultSet rst){
        List retVar = new ArrayList();

@@ -27,9 +27,19 @@
                 <td class="resultado" id="input_noExpediente">${alumno.noExpediente}</td>
                 <td class="resultado" id="input_nombre">${alumno.nombre}</td>
                 <td class="resultado" id="input_sexo">${alumno.sexo}</td>
-                <td class="centrado">
+                <c:choose>
+                  <c:when test='${alumno.tieneRegistros == false}'>
+                    <td class="centrado">
                     <input class="check_alumno" type="checkbox" name="borrar"  value="${alumno.noExpediente}"/>
                 </td>
+                  </c:when>
+                  <c:otherwise>
+                    <td></td>
+                  </c:otherwise>
+                </c:choose>
+                
+               
+                
                 <td class="centrado">
                     <input class="radio_alumno" type="radio" name="modificar" value="${alumno.noExpediente}"/>
                 </td>

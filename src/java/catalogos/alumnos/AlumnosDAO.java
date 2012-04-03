@@ -32,6 +32,7 @@ public class AlumnosDAO {
     public List consultaAlumnos(){
         List<Alumno> alumnos = new ArrayList<Alumno>();
         String query = "SELECT no_expediente, Nombre, sexo FROM tc_alumno";
+        List<Integer> alumnosConRegistros = buscaAlumnosConRegistros();
         try{
            
             stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -41,6 +42,12 @@ public class AlumnosDAO {
                 String nombre = rs.getString("Nombre");
                 String sexo = rs.getString("sexo");
                 alumno = new Alumno(noExpediente, nombre, sexo);
+                if(alumnosConRegistros.contains(noExpediente)){
+                  alumno.setTieneRegistros(true);
+                }else{
+                  alumno.setTieneRegistros(false);
+                }
+                  
                 alumnos.add(alumno);
                 
               }
@@ -151,5 +158,26 @@ public class AlumnosDAO {
       }finally{
         return status;
       }
+    }
+    
+    public List<Integer> buscaAlumnosConRegistros(){
+      PreparedStatement psBuscar = null;
+      List<Integer> listaAlumnos = new ArrayList<Integer>();
+      int noExpediente = 0;
+      String query = "SELECT a.no_expediente"
+              + " FROM tc_alumno a INNER JOIN tc_listas l"
+              + " ON a.no_expediente = l.no_expediente";
+    try {
+      psBuscar = con.prepareStatement(query);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+        noExpediente = rs.getInt("no_expediente");
+        listaAlumnos.add(noExpediente);
+       }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+      return listaAlumnos;
+    }
     }
 }
