@@ -4,6 +4,8 @@
  */
 package catalogos.cortes;
 
+import catalogos.datos_interes.DatoInteres;
+import catalogos.datos_interes.DatosInteresDAO;
 import catalogos.grupos.GruposDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,15 +44,14 @@ public class BuscaCortesServlet extends HttpServlet {
       List cortes = gDAO.consultaCortes();
      // session.removeAttribute("cortes");
       request.setAttribute("cortes", cortes);
-      session.setAttribute("cortes", cortes);
-      
-     // session.setAttribute("cortes",cortes);
-    //  session.removeAttribute("grupos");
-      session.removeAttribute("lista");
-      session.removeAttribute("listaRedes");
-      session.removeAttribute("datosInteres");
-      session.removeAttribute("datosPorRed");
-      session.removeAttribute("noElementos");
+         DatosInteresDAO dDAO = new DatosInteresDAO(conn);
+     List<DatoInteres> datosInteres = dDAO.buscaDatosInteres();
+     System.out.println("Datos de interés " + datosInteres.size());
+     for (int i = 0 ; i < datosInteres.size() ; i++){
+       System.out.println(datosInteres.get(i).getDescripcion());
+     }
+     request.setAttribute("datosInteres", datosInteres);
+    
      // session.removeAttribute("referidos");
       String url = request.getParameter("url");
       String modo = request.getParameter("modo");

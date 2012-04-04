@@ -22,12 +22,12 @@
             <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="request" />
             <c:forEach var="datoInteres" items="${datosInteres}">
                <tr>
-                   <td >${datoInteres.idDato}</td>
-                   <td>${datoInteres.descripcion}</td>
-                   <td>
+                   <td class="resultado">${datoInteres.idDato}</td>
+                   <td class="resultado">${datoInteres.descripcion}</td>
+                   <td class="centrado">
                       <input class="check_datos" type="checkbox" value="${datoInteres.idDato}"/>
                    </td>
-                   <td>
+                   <td class="centrado">
                       <input class="radio_datos" type="radio" name="radio_datos" value="${datoInteres.idDato}"/>
                    </td>
                </tr> 

@@ -16,6 +16,7 @@ public class RedSocialDatos implements Serializable {
   private int noListaReferido;
   private int idRelacion;
   private int noPersonas;
+  private int idDato;
   private String descDatoInteres;
   private boolean tieneDatos;
   
@@ -63,6 +64,14 @@ public class RedSocialDatos implements Serializable {
 
   public void setNoPersonas(int noPersonas) {
     this.noPersonas = noPersonas;
+  }
+
+  public int getIdDato() {
+    return idDato;
+  }
+
+  public void setIdDato(int idDato) {
+    this.idDato = idDato;
   }
 
   public String getDescDatoInteres() {

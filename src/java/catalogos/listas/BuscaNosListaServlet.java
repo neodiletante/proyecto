@@ -36,25 +36,12 @@ public class BuscaNosListaServlet extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
       HttpSession session = request.getSession();
-     // Connection conn = (Connection) session.getAttribute("conn");
+    
       ListasDAO listaDAO = new ListasDAO(session);
       String grupo = request.getParameter("grupo");
      
       List lista = listaDAO.getDatos(Integer.parseInt(grupo));
-      session.setAttribute("lista", lista);
-    /*
-     // System.out.println(lista);
-      Integer noElementos=0;
-      if(lista!=null){
-      session.setAttribute("lista", lista);
-      System.out.println("Elementos lista " + lista.size());
-      noElementos =  (int) Math.round(Math.sqrt(lista.size()));
-      session.setAttribute("noElementos", noElementos);
-      }else{
-      session.removeAttribute("lista");
-      System.out.println("Nop hay elementos en la lista");
-      }
-      */
+    
       
     try {
      out.println("<select id='no-lista'>");
@@ -63,13 +50,12 @@ public class BuscaNosListaServlet extends HttpServlet {
         int noLista;
         for(int i=0 ; i<lista.size() ; i++){
           noLista = ((ListasDAO)lista.get(i)).getNo_lista();
-          System.out.println("No lista " + noLista);
+      //    System.out.println("No lista " + noLista);
           out.println("<option value='" + noLista + "'>"+ noLista + "</option>");    
         }
       }
       out.println("</select>");
-      int noLista;
-      out.println("<hr>");
+          out.println("<hr>");
       out.println("<br />");
     } finally {      
       out.close();

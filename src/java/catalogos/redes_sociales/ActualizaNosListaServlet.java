@@ -41,29 +41,30 @@ public class ActualizaNosListaServlet extends HttpServlet {
       String formato = request.getParameter("formato");
      System.out.println("grupo " + grupo);
       List lista = listaDAO.getDatos(Integer.parseInt(grupo));
-     if(lista == null){
+    
+     /* if(lista == null){
        System.out.println("Lista null");
      }else{
        System.out.println("tamaño lista " + lista.size());
      }
       // System.out.println(lista.size());
-     
+     */
     try {
 
       out.println("<span id='lista-alumnos'>");
       
       int noLista;
       
-     System.out.println("formato + " + formato);
+  //   System.out.println("formato + " + formato);
      out.println("<hr>");
       out.println("<br />");
  //     if ("matriz".equals(formato)){
         
       int tamanioLista = lista.size();
-      System.out.println("Tamaño lista " + tamanioLista);
+  //    System.out.println("Tamaño lista " + tamanioLista);
      
      int columnas = (int) Math.sqrt(tamanioLista) +1;
-     System.out.println("Columnas " + columnas);
+  //   System.out.println("Columnas " + columnas);
       
       for(int i=0, cuenta=1 ; i<tamanioLista ; i++, cuenta++){
         

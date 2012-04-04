@@ -6,6 +6,7 @@
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   <!--script type="text/javascript" src="Catalogos/Redes_sociales/redes_sociales_reg.js" /-->
   <script type="text/javascript" src="Catalogos/Redes_sociales/redes_sociales.js" />
+  <script type="text/javascript" src="Catalogos/Redes_sociales/redes.js" />
 
   <center>
     <jsp:useBean id="cortes" class="java.util.ArrayList" scope="request" />
@@ -15,13 +16,13 @@
         <option value="${corte}"> ${corte} </option>  
       </c:forEach>
     </select>
-    <select id="select-turno" class="combo-cortes">
+    <select id="select-turno" class="combo-turnos">
       <option value="" selected="true">Turno</option>
       <option value="M"> M </option>  
       <option value="V"> V </option>
     </select>
       
-    <select id="select-grupos">
+    <select id="select-grupos" class="combo-grupos">
       <option value="" selected="true"></option>
     </select>
     <select id="no-lista">

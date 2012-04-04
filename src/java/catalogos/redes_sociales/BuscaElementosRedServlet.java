@@ -42,6 +42,7 @@ public class BuscaElementosRedServlet extends HttpServlet {
     System.out.println("En el servlert busca elementos red");
     HttpSession session = request.getSession();
     String idRed = request.getParameter("id_red");
+    String modo = request.getParameter("modo");
     int idRedInt = Integer.parseInt(idRed);
     Connection con  = (Connection) session.getAttribute("conn");
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
@@ -51,16 +52,17 @@ public class BuscaElementosRedServlet extends HttpServlet {
       elementosConDatos.add(rsd.getNoListaReferido());
     }
     List<Integer> elementosRed = rsDAO.buscaElementosRed(idRedInt);
-  
-     DatosInteresDAO dDAO = new DatosInteresDAO(con);
-     List<DatoInteres> datosInteres = dDAO.buscaDatosInteres();
-     System.out.println("Datos de interés " + datosInteres.size());
-     for (int i = 0 ; i < datosInteres.size() ; i++){
-       System.out.println(datosInteres.get(i).getDescripcion());
-     }
-     session.setAttribute("datosInteres", datosInteres);
-
-     int referido = rsDAO.buscaReferidoRed(idRedInt);
+    try{
+      if ("combo".equals(modo)){
+      
+      out.println("<select id='sel-nos-lista'>");
+      out.println("<option value='' selected='true'>Elementos de la red</option>");
+      for(Integer elemento : elementosRed){
+        out.println("<option value='" + elemento +"'> " + elemento + " </option>");
+      }
+      out.println("</select>");
+      }else{
+        int referido = rsDAO.buscaReferidoRed(idRedInt);
      
     String elementos = "";
     for(int i=0 ; i<elementosRed.size() ; i++){
@@ -75,18 +77,12 @@ public class BuscaElementosRedServlet extends HttpServlet {
       }
     }
     elementos += "-" + referido;
-    System.out.println(elementos);
-    session.setAttribute("nosLista", elementosRed);
-    
-    List<RedSocialDatos> datosPorRed = rsDAO.buscaDatosPorRed(Integer.parseInt(idRed));
-  session.setAttribute("datosPorRed", datosPorRed);      
-    System.out.println(elementos);
-    
-    try {
-      out.write(elementos); 
-    } finally {      
-      out.close();
+    out.print(elementos);
+      }
+    }finally{
+       out.close();
     }
+
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

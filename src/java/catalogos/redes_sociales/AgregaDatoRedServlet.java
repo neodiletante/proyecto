@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author maria
  */
-public class ActualizaRedServlet extends HttpServlet {
+public class AgregaDatoRedServlet extends HttpServlet {
 
   /**
    * Processes requests for both HTTP
@@ -34,7 +34,7 @@ public class ActualizaRedServlet extends HttpServlet {
           throws ServletException, IOException {
   //  response.setContentType("text/html;charset=UTF-8");
   //  PrintWriter out = response.getWriter();
-  System.out.println("En el servlet de actualizar las redes sociales");
+  System.out.println("En el servlet de actualizar las redes sociales / agregando relación");
   HttpSession session = request.getSession();
   Connection con = (Connection) session.getAttribute("conn");
   RedesSocialesDAO rrssDAO = new RedesSocialesDAO(con);
@@ -44,8 +44,8 @@ public class ActualizaRedServlet extends HttpServlet {
   String idDato = request.getParameter("id_dato");
   int idRelacion = rrssDAO.buscaIdRelacion(idRed, Integer.parseInt(noLista));
   rrssDAO.actualizaDatosRed(idRelacion, Integer.parseInt(idDato));
-  List<RedSocialDatos> datosPorRed = rrssDAO.buscaDatosPorRed(idRed);
-  session.setAttribute("datosPorRed", datosPorRed);            
+  //List<RedSocialDatos> datosPorRed = rrssDAO.buscaDatosPorRed(idRed);
+  //session.setAttribute("datosPorRed", datosPorRed);            
     //  try {
   
   //  } finally {      

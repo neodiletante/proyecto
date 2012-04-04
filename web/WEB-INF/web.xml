@@ -126,8 +126,8 @@
         <servlet-class>catalogos.redes_sociales.BuscaRedesServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ActualizaRed</servlet-name>
-        <servlet-class>catalogos.redes_sociales.ActualizaRedServlet</servlet-class>
+        <servlet-name>AgregaDatoRed</servlet-name>
+        <servlet-class>catalogos.redes_sociales.AgregaDatoRedServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BorraRedes</servlet-name>
@@ -144,6 +144,10 @@
     <servlet>
         <servlet-name>BorraRegistrosDatos</servlet-name>
         <servlet-class>catalogos.redes_sociales.BorraRegistrosDatosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaTablaDatos</servlet-name>
+        <servlet-class>catalogos.redes_sociales.ActualizaTablaDatosServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
@@ -258,8 +262,8 @@
         <url-pattern>/buscaRedes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ActualizaRed</servlet-name>
-        <url-pattern>/actualizaRed</url-pattern>
+        <servlet-name>AgregaDatoRed</servlet-name>
+        <url-pattern>/agregaDatoRed</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BorraRedes</servlet-name>
@@ -276,6 +280,10 @@
     <servlet-mapping>
         <servlet-name>BorraRegistrosDatos</servlet-name>
         <url-pattern>/borraRegistrosDatos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaTablaDatos</servlet-name>
+        <url-pattern>/actualizaTablaDatos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

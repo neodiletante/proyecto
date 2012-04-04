@@ -39,20 +39,16 @@ public class BorraRegistrosDatosServlet extends HttpServlet {
     Connection con = (Connection) session.getAttribute("conn");
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
     String relaciones = request.getParameter("relaciones");
-    String idRed = request.getParameter("id_red");
     String[] idsRelacion = relaciones.split(",");
-    List<Integer> listaRelaciones = new ArrayList<Integer>();
-    Integer red;
-    System.out.println();
+    List<String> listaRelaciones = new ArrayList<String>();
+    String red;
     for(int i = 0 ; i< idsRelacion.length ; i++){
-      red = Integer.valueOf(idsRelacion[i]);
-      System.out.println("Borrando " + red);
+      red = idsRelacion[i];
+      System.out.println("Agregando alista para borrar " + red);
       listaRelaciones.add(red);
     }
     
     rsDAO.borraTrDatosInteres(listaRelaciones);
-     List<RedSocialDatos> datosPorRed = rsDAO.buscaDatosPorRed(Integer.parseInt(idRed));
-  session.setAttribute("datosPorRed", datosPorRed);
     
     try {
       

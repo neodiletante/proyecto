@@ -1,4 +1,4 @@
-var opcion;
+var opcion ="5";
 var modificando_red = 0;
 var id_red_global;
 
@@ -27,22 +27,8 @@ $(document).ready(function() {
       $('#btn-examinar-redes').hide();
     }
 });
-  
-  
-  $('#select-turno').change(function(){
-   modificando_red = 0;
-     var parameters={};
-     var corte = $('#select-cortes').val();
-     var turno = $('#select-turno').val();
-     
-     parameters.corte = corte;
-     parameters.turno = turno;
-     
-     $.post('actualizaGrupos', parameters, function(data){
 
-        $('#select-grupos').html(data); 
-    }, 'text');
-  });
+
   
   $('#select-grupos').change(function(){
   
@@ -72,6 +58,7 @@ $(document).ready(function() {
   
     parameters.no_lista_refiere = no_lista;
     parameters.grupo = grupo;
+    parameters.modo="lista";
    if(opcion=="6"){
    
    
@@ -97,26 +84,13 @@ $(document).ready(function() {
     }else{
     
     modificando_red = 1;
-    opcion=5;
-     if(opcion=="5"){
-      $('#btn-modificar-red').hide();
-      $('#btn-borrar-red').hide();
-      $('#btn-agregar-datos').hide();
-      $('#btn-iniciar-red').show();
-      $('#btn-examinar-redes').show();
-    }else{
-      $('#btn-iniciar-red').hide();
-      $('#btn-examinar-redes').hide();
-      $('#btn-modificar-red').show();
-      $('#btn-borrar-red').show();
-      $('#btn-agregar-datos').show();
-      
-    }
+    opcion="5";
+    invierteBotones(opcion);
     var id_red = $('.radio_red:checked').val();
     id_red_global = id_red;
     var parameters = {};
     parameters.id_red = id_red;
-    
+    parameters.modo="combo";
     $.post('buscaElementosRed', parameters, function(data){
         var parameters={};
     var grupo = $('#select-grupos').val();
@@ -207,11 +181,10 @@ $.each(referido, function(index){
     parameters.no_lista_refiere = no_lista;
     parameters.grupo = grupo;
     parameters.id_redes = id_redes;
+    parameters.modo="lista";
   
     $.post('borraRedes', parameters, function(data){}, 'text');
-   
-     // $('#_principal').load('Catalogos/Redes_sociales/redes_sociales_mod.jsp',data,function(){
-      
+
         $.post('buscaRedesSociales', parameters, function(data){
      $('#lista-redes').html(data);
     }, 'text');
@@ -324,8 +297,29 @@ if(modificando_red==0){
 $('#btn-examinar-redes').click(function(){
  modificando_red = 0;
      opcion ="6";
-      
-     if(opcion=="5"){
+     invierteBotones(opcion);
+     
+
+    var grupo = $('#select-grupos').val();
+    var no_lista = $('#no-lista').val();
+    var parameters={};
+    parameters.no_lista_refiere = no_lista;
+    parameters.grupo = grupo;
+    parameters.modo="lista";
+  
+   if(opcion=="6"){
+   
+   
+    $.post('buscaRedesSociales', parameters, function(data){
+      $('#lista-redes').html(data);
+    
+  }, 'text');
+ }
+
+});
+  
+  function invierteBotones(opcion){
+    if(opcion=="5"){
       $('#btn-modificar-red').hide();
       $('#btn-borrar-red').hide();
       $('#btn-agregar-datos').hide();
@@ -339,22 +333,12 @@ $('#btn-examinar-redes').click(function(){
       $('#btn-agregar-datos').show();
       
     }
-
- var grupo = $('#select-grupos').val();
-    var no_lista = $('#no-lista').val();
-   var parameters={};
-    parameters.no_lista_refiere = no_lista;
-    parameters.grupo = grupo;
+  }
   
-   if(opcion=="6"){
-   
-   
-    $.post('buscaRedesSociales', parameters, function(data){
-      $('#lista-redes').html(data);
+  
+  function actualizaRedes(){
     
-  }, 'text');
- }
-
-});
+    
+  }
   
 });

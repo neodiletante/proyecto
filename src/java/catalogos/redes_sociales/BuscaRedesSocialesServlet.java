@@ -52,7 +52,17 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     System.out.println("no lista refiere " + rsr.getNoListaRefiere());
     //List listaRedes = rsDAO.buscaDatosRedes(rsr);
     List<RedSocialDatos> listaRedes = rsDAO.buscaDatosRedes(rsr);
-    session.setAttribute("listaRedes", listaRedes);
+    String modo = request.getParameter("modo");
+    System.out.println("Modo buscaRedes "+ modo);
+    if ("combo".equals(modo)){
+      out.println("<select id='sel-red'>");
+      out.println("<option value='' selected='true'>Red</option>");
+      for(RedSocialDatos rsd : listaRedes){
+        out.println("<option value='" +rsd.getIdRed() + "'>" + rsd.getIdRed() + "</option>");    
+      }
+      out.println("</select>");
+     
+    }else{
     out.println("<span id='lista-alumnos'>");
     out.println("<hr>");
       out.println("<br />");
@@ -92,6 +102,8 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     }
 
      out.println("</span>");
+    }
+    out.close();
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

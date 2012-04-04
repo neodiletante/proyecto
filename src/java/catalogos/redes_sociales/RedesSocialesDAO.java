@@ -264,11 +264,12 @@ public class RedesSocialesDAO {
   
   public List<RedSocialDatos> buscaDatosPorRed(int idRed){
     List<RedSocialDatos> datosPorRed = new ArrayList<RedSocialDatos>();
-    String query = "SELECT rrs.id_relacion, rrs.no_lista, cdi.descripcion"
+    String query = "SELECT rrs.id_relacion, rrs.no_lista, cdi.id_dato, cdi.descripcion"
             + " FROM tr_redes_sociales rrs INNER JOIN tc_datos_interes cdi"
             + " INNER JOIN tr_datos_interes rdi"
             + " WHERE rdi.id_relacion = rrs.id_relacion"
-            + " AND rdi.id_dato = cdi.id_dato AND rrs.id_red = ?";
+            + " AND rdi.id_dato = cdi.id_dato AND rrs.id_red = ?"
+            + " ORDER BY rrs.no_lista";
     PreparedStatement psBusca;
     ResultSet rs;
     RedSocialDatos rsd;
@@ -280,6 +281,7 @@ public class RedesSocialesDAO {
         rsd = new RedSocialDatos();
         rsd.setNoListaReferido(rs.getInt("no_lista"));
         rsd.setDescDatoInteres(rs.getString("descripcion"));
+        rsd.setIdDato(rs.getInt("id_dato"));
         rsd.setIdRelacion(rs.getInt("id_relacion"));
         datosPorRed.add(rsd);
       }
@@ -404,15 +406,17 @@ public class RedesSocialesDAO {
     
   }
 
-  public int borraTrDatosInteres(List<Integer> relaciones){
+  public int borraTrDatosInteres(List<String> elementos){
     PreparedStatement psBorrar = null;
     int retVar=0;
-    String qBorrar = "DELETE FROM tr_datos_interes WHERE id_relacion = ?";
+    String qBorrar = "DELETE FROM tr_datos_interes WHERE id_relacion = ? AND id_dato = ?";
         
     try {
           psBorrar = con.prepareStatement(qBorrar);
-          for(Integer relacion : relaciones){
-            psBorrar.setInt(1, relacion);
+          for(String elemento : elementos){
+            String[] relacionDato = elemento.split("-");
+            psBorrar.setInt(1, Integer.parseInt(relacionDato[0]));
+            psBorrar.setInt(2, Integer.parseInt(relacionDato[1]));
             retVar=psBorrar.executeUpdate();
           }
         } catch (SQLException ex) {

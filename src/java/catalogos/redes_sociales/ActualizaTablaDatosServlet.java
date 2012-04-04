@@ -4,8 +4,6 @@
  */
 package catalogos.redes_sociales;
 
-import catalogos.grupos.Grupo;
-import catalogos.grupos.GruposDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author ulises
  */
-public class ActualizaGruposServlet extends HttpServlet {
+public class ActualizaTablaDatosServlet extends HttpServlet {
 
   /**
    * Processes requests for both HTTP
@@ -34,33 +32,38 @@ public class ActualizaGruposServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-   response.setContentType("text/html;charset=UTF-8");
+    response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
     HttpSession session = request.getSession();
-    String corte = (String) request.getParameter("corte");
-    String turno = (String) request.getParameter("turno");
-    System.out.println("corte y turno " + corte + " " + turno);   
-    Connection conn = (Connection) session.getAttribute("conn");
-    GruposDAO gDAO = new GruposDAO(conn);
-    session.removeAttribute("grupos");
-    session.removeAttribute("lista");
-    session.removeAttribute("datosInteres");
-    session.removeAttribute("datosPorRed");
-    List<Grupo> grupos = gDAO.buscaGruposPorTurno(Integer.parseInt(corte), turno);
-    session.setAttribute("grupos", grupos);
+    String idRed = request.getParameter("id_red");
+    Connection con  = (Connection) session.getAttribute("conn");
+    RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
+    List<RedSocialDatos> datosPorRed = rsDAO.buscaDatosPorRed(Integer.parseInt(idRed));
+   
     try {
-      /*
-       * TODO output your page here. You may use following sample code.
-       */
-    out.println("<select id='select-grupos'>");
-    out.println("<option value='' selected='true'>Grupo</option>");
-    for(Grupo grupo : grupos){
-      out.println("<option value='" + grupo.getIdGrupo() + "'>" + grupo.getGrado() + " ° " + grupo.getGrupo() + " " + grupo.getTurno() + "</option>");    
-    }
-    out.println("</select>");
-   
-   
-    
+      out.println("<table id='tabla-datos'>");
+      out.println("<thead>");
+      out.println("<th colspan='6'>Datos actuales</th>");
+      out.println("</thead>");
+      out.println("<tbody>");
+      out.println("<tr>");
+      out.println("<th>No. lista referido</th>");
+      out.println("<th>Dato Interés</th>");
+      out.println("<th>Borrar</th>");
+      out.println("</tr>");
+      for(RedSocialDatos datos : datosPorRed){
+        out.println("<tr>");
+        out.println("<td class='resultado' id='td-no-lista-referido'>"+ datos.getNoListaReferido() + "</td>");
+        out.println("<td class='resultado' id='td-dato-interes'>"+ datos.getDescDatoInteres() +"</td>");
+        out.println("<td class='centrado'>");
+        out.println("<input class='check_datos' type='checkbox' name='borrar'  value='"+ datos.getIdRelacion()+"-"+datos.getIdDato() +"'/>");
+        out.println("</td>");
+        out.println("</tr>");
+      }
+      out.println("</tbody>");
+      out.println("</table>");
+      
+      
     } finally {      
       out.close();
     }
