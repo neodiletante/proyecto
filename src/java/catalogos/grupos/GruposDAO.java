@@ -4,8 +4,11 @@
  */
 package catalogos.grupos;
 
-
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -60,10 +63,9 @@ public class GruposDAO {
             
    
         }catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
-            System.out.println("Error SQL");
+           Logger.getLogger(GruposDAO.class.getName()).log(Level.SEVERE, null, sqle);
         } catch (Exception exc) {
-           exc.printStackTrace();
+          Logger.getLogger(GruposDAO.class.getName()).log(Level.SEVERE, null, exc);
         }
         
         return grupos;   

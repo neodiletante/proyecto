@@ -62,9 +62,9 @@ public class BuscaReferidosServlet extends HttpServlet {
    
      /*
      List<DatoInteres> datosInteres = dDAO.buscaDatosInteres(); 
-      List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos(false); 
+//      List<TipoDato> tiposDato = dDAO.buscaTiposDeDatos(false); 
       Map datos = new HashMap();
-      for(TipoDato tipo : tiposDato){
+     /* for(TipoDato tipo : tiposDato){
         List<DatoInteres> datosXT = null;
         System.out.println(tipo.getDescripcion());
         datosXT = new ArrayList<DatoInteres>();
@@ -77,11 +77,11 @@ public class BuscaReferidosServlet extends HttpServlet {
         }
         request.setAttribute(tipo.getDescripcion(), datosXT);
         datos.put(tipo.getDescripcion(), datosXT);
-      }
+      }*/
       
     
       
-      for(TipoDato tipo : tiposDato){
+      /*for(TipoDato tipo : tiposDato){
         System.out.println("Tipo de dato " + tipo.getDescripcion());
         List list =  (List) datos.get(tipo.getDescripcion());
       //  List list =  (List) datos.get("sociales");
@@ -99,7 +99,7 @@ public class BuscaReferidosServlet extends HttpServlet {
      // session.removeAttribute("lista");
        session.setAttribute("datosInteres", datosInteres);
       session.setAttribute("datos", datos);
-      session.setAttribute("tiposDato", tiposDato);
+      //session.setAttribute("tiposDato", tiposDato);
     
     
    */ 
