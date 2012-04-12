@@ -90,7 +90,7 @@ $(document).ready(function() {
     id_red_global = id_red;
     var parameters = {};
     parameters.id_red = id_red;
-    parameters.modo="combo";
+    parameters.modo="grupo";
     $.post('buscaElementosRed', parameters, function(data){
         var parameters={};
     var grupo = $('#select-grupos').val();
@@ -101,7 +101,7 @@ $(document).ready(function() {
     
     }, 'text');
         alert("Cambie los elementos y presione 'Guardar'");
-
+//alert(data);
      
         var red = data.split("-");
         var elementos = red[0].split(",");

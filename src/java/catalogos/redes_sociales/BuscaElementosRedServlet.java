@@ -52,6 +52,7 @@ public class BuscaElementosRedServlet extends HttpServlet {
       elementosConDatos.add(rsd.getNoListaReferido());
     }
     List<Integer> elementosRed = rsDAO.buscaElementosRed(idRedInt);
+    System.out.println(modo);
     try{
       if ("combo".equals(modo)){
       

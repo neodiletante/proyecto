@@ -7,8 +7,15 @@
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
  <script type="text/javascript" src="Catalogos/Alumnos/alumnos.js" />
-   
+ <br> 
 <center>
+
+    <button class="ui-button" id="btn-agrega-alumno">Nuevo alumno</button> 
+    <button class="ui-button" id="btn-borra-alumno">Borra alumno</button> 
+    <button class="ui-button" id="btn-cambia-alumno">Modifica alumno</button> 
+    Buscar:<input type="text" id="buscarAlumno" size="5"/>
+   <button class="ui-button" id="btn-busca-alumno">Busca alumno</button> 
+    
    <table id="tabla-alumnos-actuales">
         <thead>
             <th colspan="6">Alumnos actuales</th>
@@ -49,10 +56,6 @@
         </tbody>
         
     </table>
-    
-    <button class="ui-button" id="btn-agrega-alumno">Nuevo alumno</button> 
-    <button class="ui-button" id="btn-borra-alumno">Borra alumno</button> 
-    <button class="ui-button" id="btn-cambia-alumno">Modifica alumno</button> 
     
       <div id="forma-agrega-alumno" >
         <form>

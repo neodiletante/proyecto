@@ -6,7 +6,11 @@ function validaNombre(nombre){
   var patron = /[A-Za-z\s]/;
   return !patron.test(nombre);
 }
-         
+  
+$('#btn-busca-alumno').click(function() {
+  autoCompletarAlumno();
+});  
+  
 $(function(){
   $( '#forma-agrega-alumno' ).dialog({
     autoOpen: false,
@@ -110,5 +114,18 @@ $(function(){
     }
     
   });
+   function autoCompletarAlumno(){
+     var opciones=$("#input_nombre").val();
+      var availableTags=[];
+     availableTags = new Array(opciones.length);
+     for (i=0; i<opciones.length; i++){
+        availableTags[i]=opciones[i].text;
+        alert(opciones[i]);
+     }
+     
+     $( "#buscarAlumno" ).autocomplete({
+       source: availableTags
+     });
+   }
   
 });

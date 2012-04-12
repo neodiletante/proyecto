@@ -52,7 +52,7 @@
         
 
         
-        <div id="_principal" class="carga-paginas">
+        <div id="_principal" class="carga-paginas" style="overflow:auto;">
             
         </div>
         <!-- solo para probar la bd %@include file="Catalogos/Genericos/newjsp.jsp" %-->
