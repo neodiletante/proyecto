@@ -149,6 +149,10 @@
         <servlet-name>ActualizaTablaDatos</servlet-name>
         <servlet-class>catalogos.redes_sociales.ActualizaTablaDatosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BuscaAlumos</servlet-name>
+        <servlet-class>catalogos.alumnos.BuscaAlumnosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
         <url-pattern>/listasBean</url-pattern>
@@ -284,6 +288,10 @@
     <servlet-mapping>
         <servlet-name>ActualizaTablaDatos</servlet-name>
         <url-pattern>/actualizaTablaDatos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuscaAlumos</servlet-name>
+        <url-pattern>/buscaAlumnos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

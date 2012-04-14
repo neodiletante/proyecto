@@ -52,11 +52,17 @@ public class AlumnosDAO {
                 
               }
               
-        }catch(SQLException sqle){
-            System.out.println("Error SQL en Alumno");
-            sqle.printStackTrace();
+        }catch(SQLException ex){
+           Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return alumnos;
         }
-        return alumnos;
+        
     }
     
     public Alumno buscarAlumno(int noExpediente){
@@ -75,8 +81,14 @@ public class AlumnosDAO {
               }
     } catch (SQLException ex) {
       Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
-    }
-      return alumno;
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return alumno;
+        }
     }
     
     public int buscaAlumno(int noExpediente){
@@ -95,8 +107,13 @@ public class AlumnosDAO {
     } catch (SQLException ex) {
       Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{
-      return cuenta;
-    }
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return cuenta;
+        }
 
     }
     
@@ -177,7 +194,41 @@ public class AlumnosDAO {
     } catch (SQLException ex) {
       Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{
-      return listaAlumnos;
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return listaAlumnos;
+        }
     }
+    
+    public List<Alumno> buscaPosicionAlumnos(){
+      PreparedStatement psBuscar = null;
+      List<Alumno> listaAlumnos = new ArrayList<Alumno>();
+      Alumno alumno;
+      String query = "SELECT @num:=@num+1 AS posicion, a.no_expediente, a.nombre"
+              + " FROM tc_alumno a, (SELECT @num:=0) r ORDER BY no_expediente";
+    try {
+      psBuscar = con.prepareStatement(query);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+        alumno = new Alumno();
+        alumno.setPosicion(rs.getInt("posicion"));
+        alumno.setNoExpediente(rs.getInt("no_expediente"));
+        alumno.setNombre(rs.getString("nombre"));
+        listaAlumnos.add(alumno);
+       }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return listaAlumnos;
+        }
     }
+    
 }

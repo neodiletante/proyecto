@@ -20,6 +20,7 @@ public class Alumno {
     private String nombre;
     private String sexo;
     private boolean tieneRegistros;
+    private int posicion;
     
     public Alumno(){}
     
@@ -66,7 +67,16 @@ public class Alumno {
   public void setTieneRegistros(boolean tieneRegistros) {
     this.tieneRegistros = tieneRegistros;
   }
-    
+
+  public int getPosicion() {
+    return posicion;
+  }
+
+  public void setPosicion(int posicion) {
+    this.posicion = posicion;
+  }
+   
+  
     
     
     public List<Alumno> mapRst(ResultSet rst){

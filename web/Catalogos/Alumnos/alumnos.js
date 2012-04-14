@@ -7,11 +7,35 @@ function validaNombre(nombre){
   return !patron.test(nombre);
 }
   
-$('#btn-busca-alumno').click(function() {
+  function autoCompletarAlumno(){
+    // alert("presionando fnc");
+     var opciones=$("#input_nombre");
+     alert(opciones[0].val());
+     $.each(opciones, function(index){
+       alert(opciones[index].val());
+       
+     });
+     //alert(opciones);
+      var availableTags=[];
+     availableTags = new Array(opciones.length);
+     for (i=0; i<opciones.length; i++){
+        availableTags[i]=opciones[i].text;
+        alert(opciones[i]);
+     }
+     
+     $( "#buscarAlumno" ).autocomplete({
+       source: availableTags
+     });
+   }
+
+   function buscaAlumnos(){
+     $.post(url, data, callback, type)
+   }
+$(function(){
+  $('#btn-busca-alumno').click(function() {
+  
   autoCompletarAlumno();
 });  
-  
-$(function(){
   $( '#forma-agrega-alumno' ).dialog({
     autoOpen: false,
     height: 300,
@@ -112,20 +136,17 @@ $(function(){
     }else{
       $('#sexoH').attr('checked', true);
     }
-    
-  });
-   function autoCompletarAlumno(){
-     var opciones=$("#input_nombre").val();
-      var availableTags=[];
-     availableTags = new Array(opciones.length);
-     for (i=0; i<opciones.length; i++){
-        availableTags[i]=opciones[i].text;
-        alert(opciones[i]);
-     }
      
-     $( "#buscarAlumno" ).autocomplete({
-       source: availableTags
-     });
-   }
+  });
+  
+  $(document).ready(function() {
+    var parameters={};
+   $.post('buscaAlumnos', parameters, 
+      function(data){
+    //    $('#_principal').load('mostrarAlumnos');
+  $('#tabs').html(data);
+  $( "#tabs" ).tabs();
+  },'text'   );
+});
   
 });

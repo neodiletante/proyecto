@@ -29,6 +29,7 @@ public class GruposDAO {
         
     }
 
+    
         public List<Grupo> consultaGrupos(int corte){
             return consultaGrupos(corte, null);
         }
@@ -36,37 +37,41 @@ public class GruposDAO {
         public List consultaGrupos(int corte, String turno) {
         List<Grupo> grupos = new ArrayList<Grupo>();
         List<Integer> gruposConAlumnos = buscaGruposConAlumnos(corte);
-        try{
-           
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "SELECT * FROM tc_grupos where corte="+corte;
-            if (turno!=null)
-                query= query+" and turno=";
-            query+=" order by turno";
-            System.out.println(query);
-            rs = stmt.executeQuery(query);
-            
-            while(rs.next()) {
-                grupo = new Grupo();
-                grupo.setIdGrupo(rs.getInt("id_grupo"));
-                grupo.setGrado(rs.getInt("grado"));
-                grupo.setGrupo(rs.getString("grupo"));
-                grupo.setTurno(rs.getString("turno"));
-                grupo.setCorte(rs.getInt("corte"));
-                if(gruposConAlumnos.contains((Integer)grupo.getIdGrupo())){
-                  grupo.setTieneAlumnos(true);
-                }else{
-                  grupo.setTieneAlumnos(false);
+        if ( con!=null )
+            try{
+
+                stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+                String query = "SELECT * FROM tc_grupos where corte="+corte;
+                if (turno!=null)
+                    query= query+" and turno=";
+                query+=" order by turno";
+                System.out.println(query);
+                rs = stmt.executeQuery(query);
+
+                while(rs.next()) {
+                    grupo = new Grupo();
+                    grupo.setIdGrupo(rs.getInt("id_grupo"));
+                    grupo.setGrado(rs.getInt("grado"));
+                    grupo.setGrupo(rs.getString("grupo"));
+                    grupo.setTurno(rs.getString("turno"));
+                    grupo.setCorte(rs.getInt("corte"));
+                    if(gruposConAlumnos.contains((Integer)grupo.getIdGrupo())){
+                      grupo.setTieneAlumnos(true);
+                    }else{
+                      grupo.setTieneAlumnos(false);
+                    }
+                    grupos.add(grupo);  
                 }
-                grupos.add(grupo);  
+
+
+            }catch (Exception sqle) {
+               Logger.getLogger(GruposDAO.class.getName()).log(Level.SEVERE, null, sqle);
+            } finally {
+              try{
+                  if(rs!=null)rs.close();
+                  if(stmt!=null)stmt.close();
+              }catch(Exception ex){}
             }
-            
-   
-        }catch (SQLException sqle) {
-           Logger.getLogger(GruposDAO.class.getName()).log(Level.SEVERE, null, sqle);
-        } catch (Exception exc) {
-          Logger.getLogger(GruposDAO.class.getName()).log(Level.SEVERE, null, exc);
-        }
         
         return grupos;   
     }

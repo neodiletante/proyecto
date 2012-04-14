@@ -237,8 +237,12 @@ public class listasBean extends HttpServlet {
             retVar.append("           <th width=\"10%\">Grupo</th> ");
             retVar.append("           <th width=\"5%\">Color</th> ");
             retVar.append("           <th width=\"10%\">Gpo est</th> ");
-            retVar.append("           <th width=\"10%\">Borrar</th> ");
-            retVar.append("           <th width=\"10%\">cambiar</th></tr></thead>");
+            retVar.append("           <th width=\"10%\">"+
+                   " <input type=\"button\"  class=\"boton\" id=\"borrar\" value=\"borrar\" />"
+                    +"</th> ");
+            retVar.append("           <th width=\"10%\">"+
+                   " <input type=\"button\" class=\"boton\" id=\"cambiar\" value=\"cambiar\" />"                   
+                    +"</th></tr></thead>");
             if(rst.first()){
                do{
                    retVar.append(" <tr><td>");

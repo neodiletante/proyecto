@@ -15,8 +15,8 @@
     <button class="ui-button" id="btn-cambia-alumno">Modifica alumno</button> 
     Buscar:<input type="text" id="buscarAlumno" size="5"/>
    <button class="ui-button" id="btn-busca-alumno">Busca alumno</button> 
-    
-   <table id="tabla-alumnos-actuales">
+    <div id="tabs">
+   <%--table id="tabla-alumnos-actuales">
         <thead>
             <th colspan="6">Alumnos actuales</th>
         </thead>
@@ -32,7 +32,7 @@
             <c:forEach var="alumno" items="${alumnos}">
                <tr>
                 <td class="resultado" id="input_noExpediente">${alumno.noExpediente}</td>
-                <td class="resultado" id="input_nombre">${alumno.nombre}</td>
+                <td class="resultado" id="input_nombre" val="${alumno.nombre}">${alumno.nombre}</td>
                 <td class="resultado" id="input_sexo">${alumno.sexo}</td>
                 <c:choose>
                   <c:when test='${alumno.tieneRegistros == false}'>
@@ -55,8 +55,8 @@
     
         </tbody>
         
-    </table>
-    
+    </table--%>
+    </div>
       <div id="forma-agrega-alumno" >
         <form>
             <fieldset >

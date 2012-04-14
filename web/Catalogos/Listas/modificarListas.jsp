@@ -127,8 +127,12 @@ Grupo:
                  <th width="10%">Grupo</th>
                  <th width="5%">Color</th>
                  <th>Gpo est</th>
-                 <th>Borrar</th>
-                 <th>Cambiar</th>
+                 <th>
+                    <input type="button"  class="boton" id="borrar" value="borrar" />
+                </th>
+                 <th>
+                    <input type="button" class="boton" id="cambiar" value="cambiar" />
+                 </th>
              </tr>
          </thead>
          <tbody>
@@ -161,8 +165,6 @@ Grupo:
               <%}%>
          </tbody>
      </table>
-        <input type="button" id="borrar" value="borrar" />
-        <input type="button" id="cambiar" value="cambiar" />
         <div id="cambia">
             <br>
               Seleccione el alumno a enlazar al numero de lista en este grupo

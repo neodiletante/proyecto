@@ -12,12 +12,12 @@
    String corte="0";
     %>
 <%if(accion==null){
-   rst = stm.executeQuery("Select max(corte)total from cortes");
+   rst = stm.executeQuery("Select IFNULL(max(corte),0) total from cortes");
    if(rst.first()){
-        corte= Integer.parseInt(rst.getString("total"))+1+"";
+        corte= (Integer.parseInt(rst.getString("total")!=null?rst.getString("total"):"0")+1)+"";
    }
    else{ 
-       corte=request.getParameter("corte"); 
+       corte=request.getParameter("corte")!=null?request.getParameter("corte"):"0"; 
    }
    corte=corte==null?"1":corte;
    rst.close();
