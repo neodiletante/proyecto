@@ -29,13 +29,19 @@ function validaNombre(nombre){
    }
 
    function buscaAlumnos(){
-     $.post(url, data, callback, type)
+     var parameters={};
+     //parameters.nombre = $('#buscarAlumno').val();
+     $.post('buscaAlumnos', parameters, 
+              function(data){
+                $('#tabs').html(data);
+                $( "#tabs" ).tabs();
+              },'text');
    }
 $(function(){
   $('#btn-busca-alumno').click(function() {
-  
-  autoCompletarAlumno();
-});  
+  buscaAlumnos();
+  //autoCompletarAlumno();
+  });  
   $( '#forma-agrega-alumno' ).dialog({
     autoOpen: false,
     height: 300,
@@ -140,13 +146,16 @@ $(function(){
   });
   
   $(document).ready(function() {
-    var parameters={};
+  /*  var parameters={};
+    //parameters.nombre = "";
    $.post('buscaAlumnos', parameters, 
       function(data){
     //    $('#_principal').load('mostrarAlumnos');
   $('#tabs').html(data);
   $( "#tabs" ).tabs();
-  },'text'   );
+    
+  },'text'   );*/
+//buscaAlumnos();
 });
   
 });

@@ -29,14 +29,19 @@ public class AlumnosDAO {
         this.con = con;
     }
     
-    public List consultaAlumnos(){
+    public List consultaAlumnos(String buscaNombre){
+        PreparedStatement psBuscar = null;
         List<Alumno> alumnos = new ArrayList<Alumno>();
-        String query = "SELECT no_expediente, Nombre, sexo FROM tc_alumno";
+        String query = "SELECT no_expediente, Nombre, sexo FROM tc_alumno WHERE nombre LIKE ?";
+        //String query = "SELECT no_expediente, Nombre, sexo FROM tc_alumno";
         List<Integer> alumnosConRegistros = buscaAlumnosConRegistros();
         try{
            
-            stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            rs = stmt.executeQuery(query);
+            //stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           psBuscar = con.prepareStatement(query);
+          psBuscar.setString(1, "%"+buscaNombre+"%");
+           rs = psBuscar.executeQuery();
+           // rs = stmt.executeQuery(query);
               while(rs.next()) {
                 int noExpediente = rs.getInt("no_expediente");
                 String nombre = rs.getString("Nombre");

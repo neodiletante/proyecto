@@ -38,7 +38,7 @@ public class MostrarAlumnosServlet extends HttpServlet {
     HttpSession session = request.getSession();
     Connection conect = (Connection) session.getAttribute("conn");
     AlumnosDAO aDAO = new AlumnosDAO(conect);
-    List<Alumno> alumnos = aDAO.consultaAlumnos();
+    List<Alumno> alumnos = aDAO.consultaAlumnos("");
     request.setAttribute("alumnos", alumnos);
     RequestDispatcher view = request.getRequestDispatcher("Catalogos/Alumnos/alumnos.jsp");
     view.forward(request, response);
