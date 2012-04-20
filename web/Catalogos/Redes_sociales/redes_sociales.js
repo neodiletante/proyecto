@@ -49,7 +49,7 @@ $(document).ready(function() {
     }, 'text');
 });
 
- $('#no-lista').change(function(){
+function agregarNuevaRed(){
   if(modificando_red == 0){
     var parameters={};
 
@@ -59,34 +59,42 @@ $(document).ready(function() {
     parameters.no_lista_refiere = no_lista;
     parameters.grupo = grupo;
     parameters.modo="lista";
-   if(opcion=="6"){
-   
-   
-    $.post('buscaRedesSociales', parameters, function(data){
-     $('#lista-redes').html(data);
+    /* si esta en 6 esta modificando */
+    if(opcion=="6"){
+     $.post('buscaRedesSociales', parameters, function(data){
+        $('#lista-redes').html(data);
+     }, 'text');
+    }
+    else{ /* esta agregando una nueva */
+      $.post('actualizaNosLista', parameters, function(data){
+         $('#lista-redes').html(data);
     
-  }, 'text');
- }else{
-   $.post('actualizaNosLista', parameters, function(data){
-      $('#lista-redes').html(data);
-    
-    }, 'text');
-   
- }
-  }
+      }, 'text');
+    }
+  }    
+}
+
+/* trae los numeros de lista del grupo */
+$('#no-lista').change(function(){
+    opcion='5';
+    agregarNuevaRed();
 });
- 
- $('#btn-modificar-red').click(function(){
-    var id_red = $('.radio_red:checked').val();
-    if(id_red == undefined){
-     alert("Seleccione una red para modificar");
-      
-    }else{
-    
+
+$('#red-actual').change(
+function(){
+    var valorRed=$('#red-actual').val();
+    if(valorRed!='Nueva red')
+        modificaRed();
+    else
+      agregarNuevaRed();   
+});
+
+function modificaRed(){
     modificando_red = 1;
     opcion="5";
     invierteBotones(opcion);
-    var id_red = $('.radio_red:checked').val();
+    id_red = $('.radio_red:checked').val();
+    id_red=id_red == undefined?$('#red-actual').val():id_red;
     id_red_global = id_red;
     var parameters = {};
     parameters.id_red = id_red;
@@ -100,69 +108,59 @@ $(document).ready(function() {
       $('#lista-alumnos').html(data);
     
     }, 'text');
-        alert("Cambie los elementos y presione 'Guardar'");
-//alert(data);
-     
-        var red = data.split("-");
-        var elementos = red[0].split(",");
-
-
-        var red_social = $('.check-red-social');
-        var tiene_datos;
-        var elemento;
-        $.each(red_social, function(index){
-          for(var i=0; i< elementos.length ; i++){
-            tiene_datos = 0;
-           if(elementos[i].indexOf("d") != -1){
+    alert("Cambie los elementos y presione 'Guardar'");
+    var red = data.split("-");
+    var elementos = red[0].split(",");
+    var red_social = $('.check-red-social');
+    var tiene_datos;
+    var elemento;
+    $.each(red_social, function(index){
+       for(var i=0; i< elementos.length ; i++){
+          tiene_datos = 0;
+          if(elementos[i].indexOf("d") != -1){
              elemento = elementos[i].replace("d","");
                tiene_datos=1;
-           }else{
+          }else{
              elemento = elementos[i];
-             
-           }
-
-           if(index+1 == elemento){
-              $(this).prop({checked:true});
-
-              if(tiene_datos==1){
-                 $(this).attr('disabled',true);
-                
-              }
-            }
-            
           }
-        });
-       var referido =  $('.radio-referido');
+          if(index+1 == elemento){
+             $(this).prop({checked:true});
+             if(tiene_datos==1){
+                $(this).attr('disabled',true);
+             }
+          }
+       }
+    });
+    var referido =  $('.radio-referido');
+    $.each(referido, function(index){
+        if(index+1 == red[1]){
+           $(this).prop({checked:true});
+        }
+    });
+  }, 'text');    
+}
 
-$.each(referido, function(index){
-
-          
-            if(index+1 == red[1]){
-              $(this).prop({checked:true});
-            }
-       
-        });
-
-    
-  }, 'text');
-    
- }
-  });
+ 
+ $('#btn-modificar-red').click(function(){
+    var id_red = $('.radio_red:checked').val();
+    if(id_red == undefined){
+     alert("Seleccione una red para modificar");
+    }
+    else{
+        modificaRed();
+    }
+ });
   
-  $('#btn-agregar-datos').click(function(){
+ $('#btn-agregar-datos').click(function(){
     var parameters={};
     parameters.url="Catalogos/Redes_sociales/agrega_datos_red.jsp";
-    $.post('muestraDatosInteres', parameters, function(data){
-     $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
- 
-     });
-    
-  });
-  });
+    $.post('buscaCortes', parameters, function(data){
+      $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){});
+    });
+ });
   
   
   $('#btn-borrar-red').click(function(){
-    
     var id_redes_check = $('.check_red:checked').val();
     if(id_redes_check==undefined){
       alert("Seleccione una o más redes para borrar");
@@ -186,10 +184,10 @@ $.each(referido, function(index){
     $.post('borraRedes', parameters, function(data){}, 'text');
 
         $.post('buscaRedesSociales', parameters, function(data){
-     $('#lista-redes').html(data);
-    }, 'text');
-  }
-  });
+           $('#lista-redes').html(data);
+        }, 'text');
+    }
+});
  
  $('#btn-iniciar-red').click(function(){
    
@@ -335,10 +333,17 @@ $('#btn-examinar-redes').click(function(){
     }
   }
   
-  
-  function actualizaRedes(){
-    
-    
-  }
+  /* muestra la lista de redes que tiene el alumno */
+$('#no-lista').change(function(){
+    var grupo = $('#select-grupos').val();
+    var no_lista = $('#no-lista').val();
+    var parameters={};
+    parameters.no_lista_refiere = no_lista;
+    parameters.grupo = grupo;
+    parameters.modo="select";
+    $.post('buscaRedesSociales', parameters, function(data){
+      $('#red-actual').html(data);
+    }, 'text');
+ });
   
 });

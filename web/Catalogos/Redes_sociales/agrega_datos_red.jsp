@@ -7,7 +7,7 @@
  <script type="text/javascript" src="Catalogos/Redes_sociales/agrega_datos_red.js" />
  <script type="text/javascript" src="Catalogos/Redes_sociales/redes.js" />
  <center>
-  <jsp:useBean id="cortes" class="java.util.ArrayList" scope="request" />
+  <jsp:useBean id="cortes" class="java.util.ArrayList" scope="session" />
     <select id="select-cortes-add" class="combo-cortes">
       <option value="" selected="true">Corte</option>
       <c:forEach var="corte" items="${cortes}">

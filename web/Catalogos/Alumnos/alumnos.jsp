@@ -13,8 +13,8 @@
     <button class="ui-button" id="btn-agrega-alumno">Nuevo alumno</button> 
     <button class="ui-button" id="btn-borra-alumno">Borra alumno</button> 
     <button class="ui-button" id="btn-cambia-alumno">Modifica alumno</button> 
-    Buscar:<input type="text" id="buscarAlumno" size="5"/>
-   <button class="ui-button" id="btn-busca-alumno">Busca alumno</button> 
+   <%-- Buscar:<input type="text" id="buscarAlumno" size="5"/>
+   <button class="ui-button" id="btn-busca-alumno">Busca alumno</button--%> 
     <div id="tabs">
    <%--table id="tabla-alumnos-actuales">
         <thead>

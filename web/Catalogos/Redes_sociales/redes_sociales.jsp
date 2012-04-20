@@ -10,37 +10,44 @@
 
   <center>
     <jsp:useBean id="cortes" class="java.util.ArrayList" scope="request" />
-    <select id="select-cortes" class="combo-cortes">
+   Corte: <select id="select-cortes" class="combo-cortes">
       <option value="" selected="true">Corte</option>
       <c:forEach var="corte" items="${cortes}">
         <option value="${corte}"> ${corte} </option>  
       </c:forEach>
     </select>
-    <select id="select-turno" class="combo-turnos">
+   Turno: <select id="select-turno" class="combo-turnos">
       <option value="" selected="true">Turno</option>
       <option value="M"> M </option>  
       <option value="V"> V </option>
     </select>
       
+    Grupo:
     <select id="select-grupos" class="combo-grupos">
       <option value="" selected="true"></option>
     </select>
+    No. de Lista
     <select id="no-lista">
         <option value="" selected="true"></option>
-        <option value="1">tre</option>
     </select>
-    <span id="lista-redes">
+    
+    Red actual:
+    <select id="red-actual">
+        <option>Selecciona no.</option>
+    </select>
+    
+    <span id="lista-redes" width="100%">
       
       <hr>
-      <br />
+      <br/>
       
     </span>
 
-    <br /> 
+    <br/> 
     <hr>
     <button class="ui-button" id="btn-iniciar-red"  hidden="true">Guardar</button> 
     <button class="ui-button" id="btn-examinar-redes" hidden>Ver redes</button> 
-     <button class="ui-button" id="btn-modificar-red">Modificar</button>
+    <button class="ui-button" id="btn-modificar-red">Modificar</button>
     <button class="ui-button" id="btn-borrar-red">Borrar</button> 
     <button class="ui-button" id="btn-agregar-datos">Datos de interés</button> 
   

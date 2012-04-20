@@ -155,7 +155,7 @@ $(function(){
   $( "#tabs" ).tabs();
     
   },'text'   );*/
-//buscaAlumnos();
+buscaAlumnos();
 });
   
 });
