@@ -51,6 +51,7 @@ public class BuscaCortesServlet extends HttpServlet {
        System.out.println(datosInteres.get(i).getDescripcion());
      }
      request.setAttribute("datosInteres", datosInteres);
+     session.setAttribute("datosInteres", datosInteres);
      session.setAttribute("cortes", cortes);
      // session.removeAttribute("referidos");
       String url = request.getParameter("url");

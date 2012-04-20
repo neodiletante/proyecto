@@ -12,7 +12,7 @@
   parameters.id_red = red;
   parameters.no_lista = no_lista_referido;
   parameters.id_dato = dato_interes;
-  $.post('actualizaRed', parameters, function(data){
+  $.post('actualizaTablaDatos', parameters, function(data){
    
       $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
         $('#select-cortes-add').val(corte);

@@ -34,7 +34,7 @@
      <select id="sel-nos-lista">
       <option value="" selected="true"></option>
      </select>
-      <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="request" />
+      <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="session" />
       <select id="select-datos-interes">
       <option value="" selected="true">Dato Interés</option>
       <c:forEach var="dato" items="${datosInteres}">
