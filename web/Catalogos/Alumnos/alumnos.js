@@ -30,7 +30,7 @@ function validaNombre(nombre){
 
    function buscaAlumnos(){
      var parameters={};
-     //parameters.nombre = $('#buscarAlumno').val();
+     parameters.nombre = $('#buscarAlumno').val();
      $.post('buscaAlumnos', parameters, 
               function(data){
                 $('#tabs').html(data);
@@ -39,8 +39,15 @@ function validaNombre(nombre){
    }
 $(function(){
   $('#btn-busca-alumno').click(function() {
-  buscaAlumnos();
-  //autoCompletarAlumno();
+ // buscaAlumnos();
+   var parameters={};
+     parameters.nombre = $('#buscarAlumno').val();
+     $.post('buscaAlumnos', parameters, 
+              function(data){
+                $('#tabs').html(data);
+                $( "#tabs" ).tabs("destroy");
+                $( "#tabs" ).tabs();
+              },'text');
   });  
   $( '#forma-agrega-alumno' ).dialog({
     autoOpen: false,
