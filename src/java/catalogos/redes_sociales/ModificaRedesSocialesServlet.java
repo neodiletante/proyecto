@@ -4,17 +4,11 @@
  */
 package catalogos.redes_sociales;
 
-import catalogos.datos_interes.DatosInteresDAO;
-import catalogos.grupos.Grupo;
-import catalogos.grupos.GruposDAO;
-import catalogos.listas.ListasDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

@@ -4,8 +4,6 @@
  */
 package catalogos.redes_sociales;
 
-import catalogos.datos_interes.DatoInteres;
-import catalogos.datos_interes.DatosInteresDAO;
 //import catalogos.datos_interes.DatosInteresDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,7 +41,7 @@ public class BuscaElementosRedServlet extends HttpServlet {
     HttpSession session = request.getSession();
     String idRed = request.getParameter("id_red");
     String modo = request.getParameter("modo");
-    int idRedInt = Integer.parseInt(idRed);
+    int idRedInt = (idRed!=null&&idRed.length()>0)?Integer.parseInt(idRed):0;
     Connection con  = (Connection) session.getAttribute("conn");
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
     List<RedSocialDatos> datosRed = rsDAO.buscaDatosPorRed(idRedInt);
@@ -52,7 +50,6 @@ public class BuscaElementosRedServlet extends HttpServlet {
       elementosConDatos.add(rsd.getNoListaReferido());
     }
     List<Integer> elementosRed = rsDAO.buscaElementosRed(idRedInt);
-    System.out.println(modo);
     try{
       if ("combo".equals(modo)){
       
@@ -73,9 +70,10 @@ public class BuscaElementosRedServlet extends HttpServlet {
         elementos += "d";
       }
       
-      if(i+1<elementosRed.size()){
+      //if(i+1<elementosRed.size()){
         elementos += ",";
-      }
+     // }
+        System.out.println("elementos:"+elementos);
     }
     elementos += "-" + referido;
     out.print(elementos);

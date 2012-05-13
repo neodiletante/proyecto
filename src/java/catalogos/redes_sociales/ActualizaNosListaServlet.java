@@ -33,60 +33,50 @@ public class ActualizaNosListaServlet extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-     HttpSession session = request.getSession();
-     // Connection conn = (Connection) session.getAttribute("conn");
+      PrintWriter out = response.getWriter();
+      HttpSession session = request.getSession();
       ListasDAO listaDAO = new ListasDAO(session);
       String grupo = request.getParameter("grupo");
-      String formato = request.getParameter("formato");
-     System.out.println("grupo " + grupo);
+      System.out.println("grupo " + grupo);
+      int noLista=0;
+
       List lista = listaDAO.getDatos(Integer.parseInt(grupo));
     
-     /* if(lista == null){
-       System.out.println("Lista null");
-     }else{
-       System.out.println("tamaño lista " + lista.size());
-     }
-      // System.out.println(lista.size());
-     */
     try {
-
-      out.println("<span id='lista-alumnos'>");
-      
-      int noLista;
-      
-  //   System.out.println("formato + " + formato);
-     out.println("<hr>");
-      out.println("<br />");
- //     if ("matriz".equals(formato)){
-        
-      int tamanioLista = lista.size();
-  //    System.out.println("Tamaño lista " + tamanioLista);
-     
-     int columnas = (int) Math.sqrt(tamanioLista) +1;
-  //   System.out.println("Columnas " + columnas);
-      
+      out.println("<span id='lista-alumnos' width=\"100%\" align=\"left\">");
+      out.println("<hr>");
+      out.println("<br /><pre width=\"100%\">");
+      int tamanioLista = lista!=null?lista.size():0;
+      int columnas = (int) Math.sqrt(tamanioLista) +1;
+      int ultimaFila=0;
+      ListasDAO lDao=null;
       for(int i=0, cuenta=1 ; i<tamanioLista ; i++, cuenta++){
-        
-        noLista = ((ListasDAO)lista.get(i)).getNo_lista();
-        out.println("<label class='h4'>" + noLista + "</label>");
-        out.println("<input class='check-red-social' type='checkbox' name='agrega_alumno'  value='"+ noLista  +"'/>");
-        out.println("<input class='radio-referido' type='radio' name='referido'  value='" + noLista + "'/>");
-        out.println("&nbsp;&nbsp;&nbsp;&nbsp;");
+        lDao=((ListasDAO)lista.get(i));
+        if(lDao!=null){
+           out.print("<span align=\"left\" style=\"font-size:2em;color:"+lDao.getColor()+"\">" + 
+                    (lDao.getNo_lista()<=9?"&nbsp;":"") + lDao.getNo_lista() );
+           out.print("<input class='check-red-social' type='checkbox' name='agrega_alumno'  value='"+ lDao.getNo_lista()  +"'/>");
+           out.print("<input class='radio-referido' type='radio' name='referido'  value='" + lDao.getNo_lista() + "'/>");
+           out.print("&nbsp;&nbsp;&nbsp;&nbsp;</span>");
+        }
         if(cuenta==columnas){
-          out.println("<br />");
+          out.println("&nbsp;");
           cuenta=0;
         }
+        out.flush();
+        lDao=null;
+        ultimaFila=cuenta;
       }
+      if(ultimaFila<columnas)
+          for(int i=ultimaFila; i<=columnas; i++ ){
+              out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+          }
+          
      
-  
-      
-     // }else{
-        
-     // }
- out.println("</span>");
+      out.println("</pre></span>");
       out.println("<br />");
-    } finally {      
+   }
+    finally {      
       out.close();
     }
   }

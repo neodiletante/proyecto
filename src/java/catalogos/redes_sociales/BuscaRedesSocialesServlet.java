@@ -54,7 +54,8 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     List<RedSocialDatos> listaRedes = rsDAO.buscaDatosRedes(rsr);
     String modo = request.getParameter("modo");
     System.out.println("Modo buscaRedes "+ modo);
-    if ("combo".equals(modo)){
+    
+    if ( "combo".equals(modo) ){
       out.println("<select id='sel-red'>");
       out.println("<option value='' selected='true'>Red</option>");
       for(RedSocialDatos rsd : listaRedes){
@@ -62,13 +63,13 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
       }
       out.println("</select>");
      
-    }else{
-    out.println("<span id='lista-alumnos'>");
-    out.println("<hr>");
-      out.println("<br />");
- 
+    }
     
-    out.println("<table id='tabla-redes'>");
+    if( "lista".equalsIgnoreCase(modo) ){
+      out.println("<span id='lista-alumnos'>");
+      out.println("<hr>");
+      out.println("<br />");
+      out.println("<table id='tabla-redes'>");
       out.println("<thead>");
       out.println("<th colspan='6'>Redes actuales</th>");
       out.println("</thead>");
@@ -76,34 +77,62 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
       out.println("<tr>");
       out.println("<th>Id Red</th>");
       out.println("<th>No. personas</th>");
+      out.println("<th>Integrantes</th>");
       out.println("<th>Modificar</th>");
       out.println("<th>Borrar</th>");
       out.println("<th>No. lista referido</th>");
       out.println("</tr>");
-    for(RedSocialDatos rsd : listaRedes){
-
-      out.println("<tr>");
-      out.println("<td class='resultado' id='id-red'>" + rsd.getIdRed() + "</td>");
-      out.println("<td class='resultado' id='no-personas'>" + rsd.getNoPersonas() + "</td>");
-      out.println("<td class='centrado'>");
-      out.println("<input class='radio_red' type='radio' name='modificar' id='modificar_red' value='"+ rsd.getIdRed() + "'/>");
-      out.println("</td>");
-      if(!rsd.isTieneDatos()){
-        out.println("<td class='centrado'>");
-        out.println("<input class='check_red' type='checkbox' name='borrar' id='borrar_red' value='"+ rsd.getIdRed() + "'/>");
-        out.println("</td>");
-      }
+      if(listaRedes!=null && listaRedes.size()>0){
+          for(RedSocialDatos rsd : listaRedes){
+            List<String> red=rsDAO.buscaElementosRedColor( rsd.getIdRed(), idGrupo );
+            out.println("<tr>");
+            out.println("<td class='resultado' id='id-red'>" + rsd.getIdRed() + "</td>");
+            out.println("<td class='resultado' id='no-personas'>" + red.size() + "</td>");
+            out.println("<td><b>");
+            if(red!=null)
+               for( int i=0; i<red.size(); i++ ){
+                 out.print("<span style=\"color:"+red.get(i).split("_")[1]+";font-size:1.5em;\">"+red.get(i).split("_")[0]+" "+"</span>");
+               }
+            else  out.println("</b></td>");
+            out.println("</td>");
+            out.println("<td class='centrado'>");
+            out.println("<input class='radio_red' type='radio' name='modificar' id='modificar_red' value='"+ rsd.getIdRed() + "'/>");
+            out.println("</td>");
+            if(!rsd.isTieneDatos()){
+                out.println("<td class='centrado'>");
+                out.println("<input class='check_red' type='checkbox' name='borrar' id='borrar_red' value='"+ rsd.getIdRed() + "'/>");
+                out.println("</td>");
+            }
+            else{
+                out.println("<td>&nbsp;</td>");
+            }
+            out.println(" <td class='resultado' id='no-lista-referido'>" + rsd.getNoListaReferido() + "</td>");
+            out.println("</tr>");
+          }//for
+      }//if contiene redes
       else{
-        out.println("<td></td>");
+        out.println("<tr>");
+        out.println("<td> No se encontraron redes </td>");
+        out.println("</tr>");
       }
-      out.println(" <td class='resultado' id='no-lista-referido'>" + rsd.getNoListaReferido() + "</td>");
-      out.println("</tr>");
-      
+      out.println("</span>");
     }
-
-     out.println("</span>");
+    
+    if ( "select".equals(modo) ){
+      out.println("<option value=\"Nueva red\">Nueva red</option>");
+      for(RedSocialDatos rsd : listaRedes){
+        out.println("<option value=\""+rsd.getIdRed()+"\">"+rsd.getIdRed()+"</option>");
+      }
+      out.flush();
     }
+    
     out.close();
+  }
+  
+
+  
+  public void pintaLista(){
+  
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

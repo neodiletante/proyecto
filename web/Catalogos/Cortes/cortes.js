@@ -151,7 +151,6 @@
                      $('#frmCorte').submit();
                      //Ocultar modal form
                   });
-                  
               }
               $('#forma-agrega-corte' ).dialog( 'close' );
          }

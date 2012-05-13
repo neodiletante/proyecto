@@ -211,6 +211,28 @@ public class RedesSocialesDAO {
     return elementosRed;
   }
   
+    public List<String> buscaElementosRedColor(int idRed, int idGrupo){
+    List<String> elementosRed = new ArrayList();
+    String query = "SELECT rs.no_lista, nl.color "+
+    " FROM tr_redes_sociales rs, tc_listas nl "+
+    " WHERE id_red = "+idRed+" and nl.id_grupo="+idGrupo+" and nl.no_lista=rs.no_lista";
+    java.sql.Statement stBusca=null;
+    ResultSet rs = null;
+    String elemento=null;
+    try {
+      stBusca = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+      rs = stBusca.executeQuery(query);
+      while(rs.next()){
+        elemento = rs.getString("no_lista")+"_"+rs.getString("color");
+        elementosRed.add(elemento);
+      }
+    } 
+    catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return elementosRed;
+  }
+  
   public int buscaReferidoRed(int idRed){
     int referido = 0;
     String query = "SELECT no_lista_referido FROM tc_redes_sociales WHERE id_red = ?";
@@ -299,7 +321,8 @@ public class RedesSocialesDAO {
       psBorra = con.prepareStatement(qBorra);
       for(Integer idRed : idRedes){
         psBorra.setInt(1,idRed);
-        psBorra.execute();
+        if(!(psBorra.executeUpdate()>0))
+            System.out.println(idRed + " No borrado");
       }
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -313,7 +336,8 @@ public class RedesSocialesDAO {
       psBorra = con.prepareStatement(qBorra);
       for(Integer idRed : idRedes){
         psBorra.setInt(1,idRed);
-        psBorra.execute();
+        if(!(psBorra.executeUpdate()>0))
+            System.out.println(idRed + " No borrado");
       }
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -392,6 +416,7 @@ public class RedesSocialesDAO {
     for(Integer elemento : elementosActuales){
       if(!elementos.contains(elemento)){
         elementosABorrar.add(elemento);
+        System.out.println("borra:"+elemento);
       }
     }
     borraElementosRed(idRed, elementosABorrar);
@@ -399,6 +424,7 @@ public class RedesSocialesDAO {
     for(Integer elemento : elementos){
       if(!elementosActuales.contains(elemento)){
         elementosAInsertar.add(elemento);
+        System.out.println("inserta:"+elemento);
       }
     }
     

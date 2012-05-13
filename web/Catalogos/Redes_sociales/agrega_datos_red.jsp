@@ -8,33 +8,37 @@
  <script type="text/javascript" src="Catalogos/Redes_sociales/redes.js" />
  <center>
   <jsp:useBean id="cortes" class="java.util.ArrayList" scope="session" />
+    Corte:
     <select id="select-cortes-add" class="combo-cortes">
       <option value="" selected="true">Corte</option>
       <c:forEach var="corte" items="${cortes}">
         <option value="${corte}"> ${corte} </option>  
       </c:forEach>
-      
     </select>
+    Turno:
     <select id="select-turno-add" class="combo-turnos">
       <option value="" selected="true">Turno</option>
       <option value="M"> M </option>  
       <option value="V"> V </option>
     </select>
-    
+    Grupo:
     <select id="select-grupos-add" class="combo-grupos">
       <option value="" selected="true"></option>
     </select>
+    No. lista:
     <select id="no-lista-add">
       <option value="" selected="true"></option>
     </select>
+    Red:
     <select id="sel-red">
       <option value="" selected="true"></option>
     </select>
-     
+    Elemento:
      <select id="sel-nos-lista">
       <option value="" selected="true"></option>
      </select>
       <jsp:useBean id="datosInteres" class="java.util.ArrayList" scope="session" />
+      Dato Interés:
       <select id="select-datos-interes">
       <option value="" selected="true">Dato Interés</option>
       <c:forEach var="dato" items="${datosInteres}">
