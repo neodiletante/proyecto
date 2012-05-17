@@ -46,7 +46,7 @@ public class RedesSocialesDAO {
   public int buscaIdUltimo(){
     String query = "SELECT MAX(id_red) AS id_ultimo FROM tc_redes_sociales";
     PreparedStatement psSelecciona= null;
-    ResultSet rs;
+    ResultSet rs = null;
     int idUltimo = 0;
     try {
       psSelecciona = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -57,6 +57,14 @@ public class RedesSocialesDAO {
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{
+      if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
       return idUltimo;
     }
     
@@ -132,6 +140,14 @@ public class RedesSocialesDAO {
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{
+      if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
        return listaRedSocial;
     }
   }
@@ -174,28 +190,51 @@ public class RedesSocialesDAO {
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{
+      if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
        return listaDatosRed;
     }
   }
   
-  public List mapRedSocialReg(ResultSet rs) throws SQLException{
-    RedSocialReg redSocialReg = new RedSocialReg();
-    List<RedSocialReg> listaRedesSociales = new ArrayList<RedSocialReg>();
-    while(rs.next()){
-      redSocialReg = new RedSocialReg();
-      redSocialReg.setIdRed(rs.getInt("id_red"));
-      redSocialReg.setIdGrupo(rs.getInt("id_grupo"));
-      redSocialReg.setNoListaRefiere(rs.getInt("no_lista_refiere"));
-      listaRedesSociales.add(redSocialReg);
+  public List mapRedSocialReg(ResultSet rs) {
+     RedSocialReg redSocialReg = new RedSocialReg();
+      List<RedSocialReg> listaRedesSociales = new ArrayList<RedSocialReg>();
+    try {
+     
+      while(rs.next()){
+        redSocialReg = new RedSocialReg();
+        redSocialReg.setIdRed(rs.getInt("id_red"));
+        redSocialReg.setIdGrupo(rs.getInt("id_grupo"));
+        redSocialReg.setNoListaRefiere(rs.getInt("no_lista_refiere"));
+        listaRedesSociales.add(redSocialReg);
+      }
+      
+    } catch (SQLException ex) {
+      Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+     if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
+     return listaRedesSociales;
     }
-    return listaRedesSociales;
   }
   
   public List<Integer> buscaElementosRed(int idRed){
     List<Integer> elementosRed = new ArrayList();
-    String query = "SELECT no_lista FROM tr_redes_sociales WHERE id_red = ?";
+    String query = "SELECT no_lista FROM tr_redes_sociales WHERE id_red = ? ORDER BY no_lista";
     PreparedStatement psBusca;
-    ResultSet rs;
+    ResultSet rs = null;
     int elemento;
     try {
       psBusca = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -207,8 +246,18 @@ public class RedesSocialesDAO {
       }
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    }finally{
+    if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
+    
     return elementosRed;
+    }
   }
   
     public List<String> buscaElementosRedColor(int idRed, int idGrupo){
@@ -229,15 +278,24 @@ public class RedesSocialesDAO {
     } 
     catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    }finally{
+      if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
     return elementosRed;
+    }
   }
   
   public int buscaReferidoRed(int idRed){
     int referido = 0;
     String query = "SELECT no_lista_referido FROM tc_redes_sociales WHERE id_red = ?";
     PreparedStatement psBusca;
-    ResultSet rs;
+    ResultSet rs = null;
     try {
       psBusca = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
       psBusca.setInt(1, idRed);
@@ -247,8 +305,17 @@ public class RedesSocialesDAO {
            }
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    }finally{
+      if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
     return referido;
+    }
   }
   
   public void actualizaDatosRed(int idRelacion, int idDato){
@@ -267,7 +334,7 @@ public class RedesSocialesDAO {
   public int buscaIdRelacion(int idRed, int noLista){
     String query = "SELECT id_relacion FROM tr_redes_sociales WHERE id_red = ? AND no_lista = ?";
     PreparedStatement psBusca;
-    ResultSet rs;
+    ResultSet rs = null;
     int idRelacion = 0;
     try {
       psBusca = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -280,6 +347,14 @@ public class RedesSocialesDAO {
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{
+      if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
       return idRelacion;
     }
   }
@@ -293,7 +368,7 @@ public class RedesSocialesDAO {
             + " AND rdi.id_dato = cdi.id_dato AND rrs.id_red = ?"
             + " ORDER BY rrs.no_lista";
     PreparedStatement psBusca;
-    ResultSet rs;
+    ResultSet rs = null;
     RedSocialDatos rsd;
     try {
       psBusca = con.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -310,6 +385,14 @@ public class RedesSocialesDAO {
     } catch (SQLException ex) {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{
+      if(rs != null){
+        try {
+          rs.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
       return datosPorRed;
     }
   }
@@ -356,7 +439,7 @@ public class RedesSocialesDAO {
             + " ON tcrs.id_red = rs.id_red INNER JOIN tr_datos_interes di"
             + " ON rs.id_relacion = di.id_relacion GROUP BY id_red";
     PreparedStatement psBusca;
-    ResultSet rsBusca;
+    ResultSet rsBusca = null;
     try {
       psBusca = con.prepareStatement(qBusca);
       rsBusca = psBusca.executeQuery();
@@ -369,6 +452,14 @@ public class RedesSocialesDAO {
       Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
     }
     finally{
+      if(rsBusca != null){
+        try {
+          rsBusca.close();
+        } catch (SQLException ex) {
+          Logger.getLogger(RedesSocialesDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+      }
       return redesConRegistros;
     }
   }

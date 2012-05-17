@@ -5,12 +5,12 @@
 html, body { height: 100%; }
 
 body {
-    background-color  :#000000;
+    background-color  :#000;
     font-family	      : verdana, arial;
     font-size	      : 8pt;
     font-weight       : normal;
     text-decoration   : none;
-    color 	      : #D7D7D7;
+    color 	      : #000;
 }
 
  a	 {
@@ -259,12 +259,7 @@ p    {
 	  font-family	 	: Verdana;
 	  background-color 	: #eff5f9;
 	 }
-
-label 
-     {
-	  font-size 		: 7pt;
-	  font-weight		:bold;
-     }	  	  
+ 	  
 
 fieldset 
      {
@@ -399,5 +394,5 @@ font-weight: normal;
 }
 
 .tabla-resultado{
-    background-color: #FFFFFF
+    background-color: #FFFFFF;
 }

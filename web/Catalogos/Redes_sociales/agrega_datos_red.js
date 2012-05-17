@@ -86,25 +86,31 @@ $('#btn-agrega-dato-red').click(function(){
   parameters.no_lista = elemento;
   parameters.id_dato = dato_interes;
   $.post('agregaDatoRed', parameters, function(data){
+    actualizaTabla();
   }, 'text');
-  actualizaTabla();
+  
    }
 });
 
 
 $('#btn-borra-datos').click(function(){
   var red = $('#sel-red').val();
-  var relacion_datos = $('.check_datos:checked').val();
+  var relacion_datos = $('.check_datos:checked');
   var id_relaciones = "";
   for(var i=0 ; i< relacion_datos.length ; i++){
-    id_relaciones += relacion_datos[i];
+    id_relaciones += relacion_datos[i].value;
+    if(i < relacion_datos.length-1){
+      id_relaciones += ",";
+    }
   }
+  alert(id_relaciones);
   var parameters={};
   parameters.relaciones = id_relaciones;
   parameters.id_red = red;
   $.post('borraRegistrosDatos', parameters, function(data){
+    actualizaTabla();
   }, 'text');
-  actualizaTabla();
+  
 });
   
   function actualizaTabla(){
