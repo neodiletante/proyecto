@@ -153,6 +153,14 @@
         <servlet-name>BuscaAlumos</servlet-name>
         <servlet-class>catalogos.alumnos.BuscaAlumnosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MostrarDatosAlumno</servlet-name>
+        <servlet-class>catalogos.alumnos.MostrarDatosAlumnoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuscaCortesReq</servlet-name>
+        <servlet-class>catalogos.cortes.BuscaCortesReqServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
         <url-pattern>/listasBean</url-pattern>
@@ -292,6 +300,14 @@
     <servlet-mapping>
         <servlet-name>BuscaAlumos</servlet-name>
         <url-pattern>/buscaAlumnos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MostrarDatosAlumno</servlet-name>
+        <url-pattern>/mostrarDatosAlumno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuscaCortesReq</servlet-name>
+        <url-pattern>/buscaCortesReq</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -153,16 +153,45 @@ $(function(){
   });
   
   $(document).ready(function() {
-  /*  var parameters={};
-    //parameters.nombre = "";
-   $.post('buscaAlumnos', parameters, 
-      function(data){
-    //    $('#_principal').load('mostrarAlumnos');
-  $('#tabs').html(data);
-  $( "#tabs" ).tabs();
-    
-  },'text'   );*/
-buscaAlumnos();
-});
+    buscaAlumnos();
+  });
+  
+  $( '#forma-reporta-alumno' ).dialog({
+    autoOpen: false,
+    height: 300,
+    width: 350,
+    modal: true,
+    buttons: {
+      'Mostrar':function(){ 
+        //Abrir la vista para mostrar las redes a las que pertenece el alumno
+        //Cargar la nueva página y mostrar los datos del alumno
+       
+        var parameters = {};
+        parameters.no_exp = $('#noExpDatos').val();
+        parameters.corte = $('#corteDatos').val();
+        $.post('mostrarDatosAlumno', parameters, function(data){
+          $('#_principal').load('Catalogos/Alumnos/reporte_alumnos.jsp',data,function(){
+           
+          });
+         
+        }, 'text');
+         $( this ).dialog( 'close' );
+      }
+    }
+  });
+  $('#btn-reportar').click(function(){
+    //alert("presionando botón reportar ");
+    var parameters = {};
+
+     $.post('cargaComboCortes', parameters, function(data){
+
+       $('#corteDatos').html(data);
+        var noExpediente = $('.radio_alumno:checked').parent().siblings("#input_noExpediente").text();
+        $('#noExpDatos').val(noExpediente);
+       $('#forma-reporta-alumno').dialog('open');
+     }, 'text');
+     
+     
+  });
   
 });

@@ -12,55 +12,18 @@
 
     <button class="ui-button" id="btn-agrega-alumno">Nuevo alumno</button> 
     <button class="ui-button" id="btn-borra-alumno">Borra alumno</button> 
-    <button class="ui-button" id="btn-cambia-alumno">Modifica alumno</button> 
+    <button class="ui-button" id="btn-cambia-alumno">Modifica alumno</button>
+    <button class="ui-button" id="btn-reportar">Reportar</button>
     Buscar:<input type="text" id="buscarAlumno" size="5"/>
    <button class="ui-button" id="btn-busca-alumno">Busca alumno</button> 
-    <div id="tabs">
-   <%--table id="tabla-alumnos-actuales">
-        <thead>
-            <th colspan="6">Alumnos actuales</th>
-        </thead>
-        <tbody>
-            <tr>
-                <th>No. Expediente</th>
-                <th>Nombre</th>
-                <th>Sexo</th>
-                <th>Borrar</th>
-                <th>Modificar</th>
-            </tr>
-            <jsp:useBean id="alumnos" class="java.util.ArrayList" scope="request" />
-            <c:forEach var="alumno" items="${alumnos}">
-               <tr>
-                <td class="resultado" id="input_noExpediente">${alumno.noExpediente}</td>
-                <td class="resultado" id="input_nombre" val="${alumno.nombre}">${alumno.nombre}</td>
-                <td class="resultado" id="input_sexo">${alumno.sexo}</td>
-                <c:choose>
-                  <c:when test='${alumno.tieneRegistros == false}'>
-                    <td class="centrado">
-                    <input class="check_alumno" type="checkbox" name="borrar"  value="${alumno.noExpediente}"/>
-                </td>
-                  </c:when>
-                  <c:otherwise>
-                    <td></td>
-                  </c:otherwise>
-                </c:choose>
-                
-               
-                
-                <td class="centrado">
-                    <input class="radio_alumno" type="radio" name="modificar" value="${alumno.noExpediente}"/>
-                </td>
-               </tr> 
-            </c:forEach>
-    
-        </tbody>
-        
-    </table--%>
-    </div>
-      <div id="forma-agrega-alumno" >
-        <form>
-            <fieldset >
-               <div class="div-izquierdo">
+   <!--En este div se muestra la tabla de alumnos, separados en tabs--> 
+   <div id="tabs">
+
+   </div>
+   <div id="forma-agrega-alumno" >
+     <form>
+       <fieldset >
+        <div class="div-izquierdo">
                   <p class="etiqueta"><label>No. expediente: </label>
                   <p class="etiqueta"><label>Nombre: </label>
                   <p class="etiqueta"><label>Sexo: </label>
@@ -74,4 +37,20 @@
             </fieldset>
        
         </form>   
-      </div>   
+      </div>
+   <div id="forma-reporta-alumno">
+     <p class="etiqueta"><label>Mostrar actividad del alumno en redes</label>
+     <form>
+       <fieldset >
+        <div class="div-izquierdo">
+          <p class="etiqueta"><label>No. expediente: </label>
+          <p class="etiqueta"><label>Seleccionar corte: </label>
+        </div>
+        <div>
+          <p><input type="text" id="noExpDatos" size="10" maxlength="20"/>
+            <p><select id ="corteDatos" size="1">
+            </select>
+        </div>
+      </fieldset>
+     </form>  
+   </div>
