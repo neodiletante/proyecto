@@ -18,12 +18,8 @@
         <p class="etiqueta"><label>Grupo: </label>
         <p class="etiqueta"><label>No. lista</label>
       </div>
-      <div>
-        <p class="etiqueta"><label>${alumno.noExpediente}</label>
-        <p class="etiqueta"><label>${alumno.nombre}</label>
-        <p class="etiqueta"><label>${alumno.sexo}</label>
-        <p class="etiqueta"><label>${alumno.grupo}</label>
-        <p class="etiqueta"><label>${alumno.noLista}</label>
+      <div id="info-alumno">
+        
       </div>
       </fieldset>
      </form>  

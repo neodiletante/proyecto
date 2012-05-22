@@ -169,12 +169,15 @@ $(function(){
         var parameters = {};
         parameters.no_exp = $('#noExpDatos').val();
         parameters.corte = $('#corteDatos').val();
-        $.post('mostrarDatosAlumno', parameters, function(data){
-          $('#_principal').load('Catalogos/Alumnos/reporte_alumnos.jsp',data,function(){
-           
+        
+          $('#_principal').load('Catalogos/Alumnos/reporte_alumnos.jsp',function(){
+            $.post('mostrarDatosAlumno', parameters, function(data){
+              alert(data);
+              $('#info-alumno').html(data); 
+            }, 'text');
           });
          
-        }, 'text');
+       
          $( this ).dialog( 'close' );
       }
     }

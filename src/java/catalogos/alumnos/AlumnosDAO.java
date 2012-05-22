@@ -239,9 +239,9 @@ public class AlumnosDAO {
      public AlumnoEnRedes buscaDatos(int no_expediente, int corte){
       PreparedStatement psBuscar = null;
       AlumnoEnRedes alumno = null;
-      String query = "SELECT l.no_lista, CONCAT(g.grado,'° ',g.grupo,' ',g.turno) "
-              + "FROM tc_listas l INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
-              + "WHERE g.corte = ? AND l.no_expediente = ?";
+      String query = "SELECT l.no_lista, CONCAT(g.grado,'° ',g.grupo,' ',g.turno) AS grupo"
+              + " FROM tc_listas l INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
+              + " WHERE g.corte = ? AND l.no_expediente = ?";
     try {
       psBuscar = con.prepareStatement(query);
       psBuscar.setInt(1, corte);
@@ -251,6 +251,7 @@ public class AlumnosDAO {
         alumno = new AlumnoEnRedes();
         alumno.setNoLista(rs.getInt("no_lista"));
         alumno.setGrupo(rs.getString("grupo"));
+        System.out.println("En el DAO alumno, grupo "+ alumno.getGrupo());
       }
     } catch (SQLException ex) {
       Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);

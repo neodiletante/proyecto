@@ -54,10 +54,18 @@ public class MostrarDatosAlumnoServlet extends HttpServlet {
     alumnoEnRedes.setNoExpediente(alumno.getNoExpediente());
     alumnoEnRedes.setNombre(alumno.getNombre());
     alumnoEnRedes.setSexo(alumno.getSexo());
-    request.setAttribute("alumno", alumnoEnRedes);
+    //request.setAttribute("alumno", alumnoEnRedes);
     }
-    request.setAttribute("alumno", alumno);
-    try {
+    //request.setAttribute("alumno", alumno);
+    try {   
+      out.print("<div id='info-alumno'>");
+      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getNoExpediente()+"</label>");
+      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getNombre()+"</label>");
+      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getSexo()+"</label>");
+      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getGrupo()+"</label>");
+      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getNoLista()+"</label>");
+      out.print("</div>");
+      
     } finally {      
       out.close();
     }
