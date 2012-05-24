@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.lang.Integer;
 /**
  *
  * @author ulises
@@ -264,6 +264,35 @@ public class AlumnosDAO {
           return alumno;
         }
     }
+     
+      public List<Integer> buscaRedesRefiere(int no_expediente, int corte){
+      PreparedStatement psBuscar = null;
+      List<Integer> redes = new ArrayList<Integer>();
+      String query = 
+              "SELECT crs.id_red FROM tc_redes_sociales crs INNER JOIN tc_listas l ON crs.no_lista_refiere = l.no_lista "
+              + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
+              + " WHERE g.corte = ? AND l.no_expediente = ?";
+    try {
+      psBuscar = con.prepareStatement(query);
+      psBuscar.setInt(1, corte);
+      psBuscar.setInt(2, no_expediente);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+       redes.add(rs.getInt("id_red"));
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return redes;
+        }
+    }
+     
+     //SELECT crs.id_red FROM tc_redes_sociales crs INNER JOIN tc_listas l ON crs.no_lista_refiere = l.no_lista INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo WHERE g.corte = 1 AND l.no_expediente = 1
     
     
 }

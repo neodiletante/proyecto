@@ -57,14 +57,29 @@ public class MostrarDatosAlumnoServlet extends HttpServlet {
     //request.setAttribute("alumno", alumnoEnRedes);
     }
     //request.setAttribute("alumno", alumno);
-    try {   
-      out.print("<div id='info-alumno'>");
-      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getNoExpediente()+"</label>");
-      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getNombre()+"</label>");
-      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getSexo()+"</label>");
-      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getGrupo()+"</label>");
-      out.print("<p class='etiqueta'><label>"+alumnoEnRedes.getNoLista()+"</label>");
-      out.print("</div>");
+    try {  
+      out.println("<table id='info-alumno'>");
+      out.println("<thead>");
+      out.println("<th colspan='6'>Datos del alumno</th>");
+      out.println("</thead>");
+      out.println("<tbody>");
+      out.println("<tr>");
+      out.println("<th>No. expediente</th>");
+      out.println("<th>Nombre</th>");
+      out.println("<th>Sexo</th>");
+      out.println("<th>Grupo</th>");
+      out.println("<th>No. lista</th>");
+      out.println("<th>Modificar</th>");
+      out.println("</tr>");
+      out.println("<tr>");
+      out.println("<td class='resultado'>" +alumnoEnRedes.getNoExpediente()+ "</td>");
+      out.println("<td class='resultado'>" +alumnoEnRedes.getNombre()+ "</td>");
+      out.println("<td class='resultado'>" +alumnoEnRedes.getSexo()+ "</td>");
+      out.println("<td class='resultado'>" +alumnoEnRedes.getGrupo()+ "</td>");
+      out.println("<td class='resultado'>" +alumnoEnRedes.getNoLista()+ "</td>");
+      out.println("</tr>");
+      out.println("</tbody>");
+      out.println("</table>");
       
     } finally {      
       out.close();

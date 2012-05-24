@@ -3,13 +3,11 @@
     Created on : 19/05/2012, 01:38:03 PM
     Author     : maria
 --%>
+<script type="text/javascript" src="Catalogos/Alumnos/alumnos.js" />
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<jsp:useBean id="alumno" class="catalogos.alumnos.AlumnoEnRedes" scope="request" />
-<div id="forma-reporta-alumno">
+<table id="forma-reporta-alumno">
   
-  <form>
+  <!--form>
     <fieldset >
       <div class="div-izquierdo">
         <p class="etiqueta"><label>No. expediente: </label>
@@ -22,8 +20,10 @@
         
       </div>
       </fieldset>
-     </form>  
-   </div>
+     </form-->  
+   </table>
+ <table id="redes-por-alumno">
+ </table>
  <button class="ui-button" id="btn-redes-reporta">Reporta</button> 
  <button class="ui-button" id="btn-redes-referido">Referido</button> 
  <button class="ui-button" id="btn-redes-participa">Participa</button>
