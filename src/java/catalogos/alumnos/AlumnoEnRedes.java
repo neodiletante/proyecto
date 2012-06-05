@@ -11,7 +11,9 @@ package catalogos.alumnos;
 public class AlumnoEnRedes extends Alumno{
   private String grupo;
   private int noLista;
-
+  private int corte;
+  private String color;
+  
   public String getGrupo() {
     return grupo;
   }
@@ -27,5 +29,22 @@ public class AlumnoEnRedes extends Alumno{
   public void setNoLista(int noLista) {
     this.noLista = noLista;
   }
+
+  public int getCorte() {
+    return corte;
+  }
+
+  public void setCorte(int corte) {
+    this.corte = corte;
+  }
+
+  public String getColor() {
+    return color;
+  }
+
+  public void setColor(String color) {
+    this.color = color;
+  }
+  
   
 }

@@ -7,6 +7,7 @@
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
  <script type="text/javascript" src="Catalogos/Alumnos/alumnos.js" />
+ <script type="text/javascript" src="Catalogos/Alumnos/reporte_alumnos.js" />
  <br> 
 <center>
 

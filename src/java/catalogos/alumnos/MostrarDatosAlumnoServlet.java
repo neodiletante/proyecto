@@ -69,14 +69,15 @@ public class MostrarDatosAlumnoServlet extends HttpServlet {
       out.println("<th>Sexo</th>");
       out.println("<th>Grupo</th>");
       out.println("<th>No. lista</th>");
-      out.println("<th>Modificar</th>");
+      out.println("<th>Corte</th>");
       out.println("</tr>");
       out.println("<tr>");
-      out.println("<td class='resultado'>" +alumnoEnRedes.getNoExpediente()+ "</td>");
+      out.println("<td class='resultado' id='td_no_exp'>" +alumnoEnRedes.getNoExpediente()+ "</td>");
       out.println("<td class='resultado'>" +alumnoEnRedes.getNombre()+ "</td>");
       out.println("<td class='resultado'>" +alumnoEnRedes.getSexo()+ "</td>");
       out.println("<td class='resultado'>" +alumnoEnRedes.getGrupo()+ "</td>");
       out.println("<td class='resultado'>" +alumnoEnRedes.getNoLista()+ "</td>");
+       out.println("<td class='resultado' id='td_corte'>" +corte+ "</td>");
       out.println("</tr>");
       out.println("</tbody>");
       out.println("</table>");

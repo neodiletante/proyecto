@@ -172,7 +172,7 @@ $(function(){
         
           $('#_principal').load('Catalogos/Alumnos/reporte_alumnos.jsp',function(){
             $.post('mostrarDatosAlumno', parameters, function(data){
-              alert(data);
+             
               $('#info-alumno').html(data); 
             }, 'text');
           });

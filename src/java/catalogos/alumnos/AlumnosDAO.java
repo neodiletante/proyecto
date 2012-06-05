@@ -239,7 +239,7 @@ public class AlumnosDAO {
      public AlumnoEnRedes buscaDatos(int no_expediente, int corte){
       PreparedStatement psBuscar = null;
       AlumnoEnRedes alumno = null;
-      String query = "SELECT l.no_lista, CONCAT(g.grado,'° ',g.grupo,' ',g.turno) AS grupo"
+      String query = "SELECT l.no_lista, CONCAT(g.grado,'o. ',g.grupo,' ',g.turno) AS grupo"
               + " FROM tc_listas l INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
               + " WHERE g.corte = ? AND l.no_expediente = ?";
     try {
@@ -264,7 +264,80 @@ public class AlumnosDAO {
           return alumno;
         }
     }
+      public List<Integer> buscaAlumnoEnRedes(int no_expediente, int corte, String opcion){
+      PreparedStatement psBuscar = null;
+      List<Integer> redes = new ArrayList<Integer>();
+      String query = "";
+      if("refiere".equals(opcion)){
+      query = 
+              "SELECT crs.id_red, no_lista_refiere FROM tc_redes_sociales crs INNER JOIN tc_listas l ON crs.no_lista_refiere = l.no_lista "
+              + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
+              + " WHERE g.corte = ? AND l.no_expediente = ?";
+      }else if("referido".equals(opcion)){
+      query = 
+              "SELECT crs.id_red, crs.no_lista_refiere FROM tc_redes_sociales crs INNER JOIN tc_listas l ON crs.no_lista_referido = l.no_lista "
+              + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
+              + " WHERE g.corte = ? AND l.no_expediente = ?";
+
+      }else{
+      query = 
+              "SELECT rrs.id_red, crs.no_lista_refeiere FROM tr_redes_sociales rrs INNER JOIN tc_listas l ON rrs.no_lista = l.no_lista "
+              + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
+              + " inner join tc_redes_sociales crs on crs.id_red = rrs.id_red"
+              + " WHERE g.corte = ? AND l.no_expediente = ?";
+
+      }
+    try {
+      psBuscar = con.prepareStatement(query);
+      psBuscar.setInt(1, corte);
+      psBuscar.setInt(2, no_expediente);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+       redes.add(rs.getInt("id_red"));
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return redes;
+        }
+    }
      
+   public List<AlumnoEnRedes> buscaIntegrantesRed(int id_red){
+      PreparedStatement psBuscar = null;
+      AlumnoEnRedes alumno = null;
+      List<AlumnoEnRedes> integrantes = new ArrayList<AlumnoEnRedes>();
+      String query = "SELECT l.no_lista,color "
+              + " FROM tr_redes_sociales rrs "
+              + " INNER JOIN tc_listas l ON rrs.no_lista=l.no_lista "
+              + " INNER JOIN tc_redes_sociales crs ON crs.id_grupo = l.id_grupo "
+              + " WHERE crs.id_red = rrs.id_red AND crs.id_red = ?";
+    try {
+      psBuscar = con.prepareStatement(query);
+      psBuscar.setInt(1, id_red);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+        alumno = new AlumnoEnRedes();
+        alumno.setNoLista(rs.getInt("no_lista"));
+        alumno.setColor(rs.getString("color"));
+        integrantes.add(alumno);
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return integrantes;
+        }
+    }
+     /*
       public List<Integer> buscaRedesRefiere(int no_expediente, int corte){
       PreparedStatement psBuscar = null;
       List<Integer> redes = new ArrayList<Integer>();
@@ -294,5 +367,59 @@ public class AlumnosDAO {
      
      //SELECT crs.id_red FROM tc_redes_sociales crs INNER JOIN tc_listas l ON crs.no_lista_refiere = l.no_lista INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo WHERE g.corte = 1 AND l.no_expediente = 1
     
+    public List<Integer> buscaRedesReferido(int no_expediente, int corte){
+      PreparedStatement psBuscar = null;
+      List<Integer> redes = new ArrayList<Integer>();
+      String query = 
+              "SELECT crs.id_red FROM tc_redes_sociales crs INNER JOIN tc_listas l ON crs.no_lista_referido = l.no_lista "
+              + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
+              + " WHERE g.corte = ? AND l.no_expediente = ?";
+    try {
+      psBuscar = con.prepareStatement(query);
+      psBuscar.setInt(1, corte);
+      psBuscar.setInt(2, no_expediente);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+       redes.add(rs.getInt("id_red"));
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return redes;
+        }
+    }
+    
+    public List<Integer> buscaRedesParticipa(int no_expediente, int corte){
+      PreparedStatement psBuscar = null;
+      List<Integer> redes = new ArrayList<Integer>();
+      String query = 
+              "SELECT rrs.id_red FROM tr_redes_sociales rrs INNER JOIN tc_listas l ON rrs.no_lista_referido = l.no_lista "
+              + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
+              + " WHERE g.corte = ? AND l.no_expediente = ?";
+    try {
+      psBuscar = con.prepareStatement(query);
+      psBuscar.setInt(1, corte);
+      psBuscar.setInt(2, no_expediente);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+       redes.add(rs.getInt("id_red"));
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return redes;
+        }
+    }
+    * */
     
 }

@@ -161,6 +161,10 @@
         <servlet-name>BuscaCortesReq</servlet-name>
         <servlet-class>catalogos.cortes.BuscaCortesReqServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MostrarAlumnoEnRedes</servlet-name>
+        <servlet-class>catalogos.alumnos.MostrarAlumnoEnRedesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
         <url-pattern>/listasBean</url-pattern>
@@ -308,6 +312,10 @@
     <servlet-mapping>
         <servlet-name>BuscaCortesReq</servlet-name>
         <url-pattern>/buscaCortesReq</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MostrarAlumnoEnRedes</servlet-name>
+        <url-pattern>/mostrarAlumnoEnRedes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
