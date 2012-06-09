@@ -14,5 +14,7 @@
  <button class="ui-button" id="btn-redes-participa">Participa</button>
 
  <table id="tabla-alumno-en-redes">
+ 
  </table>
+ 
  

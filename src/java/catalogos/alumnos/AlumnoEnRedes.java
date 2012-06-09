@@ -13,6 +13,7 @@ public class AlumnoEnRedes extends Alumno{
   private int noLista;
   private int corte;
   private String color;
+  private int idGRupo;
   
   public String getGrupo() {
     return grupo;
@@ -45,6 +46,15 @@ public class AlumnoEnRedes extends Alumno{
   public void setColor(String color) {
     this.color = color;
   }
+
+  public int getIdGRupo() {
+    return idGRupo;
+  }
+
+  public void setIdGRupo(int idGRupo) {
+    this.idGRupo = idGRupo;
+  }
+  
   
   
 }

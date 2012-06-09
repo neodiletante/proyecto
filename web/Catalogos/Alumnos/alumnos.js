@@ -1,6 +1,9 @@
 var accion = '';
 //var id_grupo = null;
 var no_expediente_ant;
+var no_exp_g;
+var corte_g;
+var id_grupo_g;
 
 function validaNombre(nombre){
   var patron = /[A-Za-z\s]/;
@@ -167,13 +170,17 @@ $(function(){
         //Cargar la nueva página y mostrar los datos del alumno
        
         var parameters = {};
-        parameters.no_exp = $('#noExpDatos').val();
-        parameters.corte = $('#corteDatos').val();
         
+        no_exp_g = $('#noExpDatos').val();
+        corte_g = $('#corteDatos').val();
+        
+        parameters.no_exp = no_exp_g;
+        parameters.corte = corte_g;
           $('#_principal').load('Catalogos/Alumnos/reporte_alumnos.jsp',function(){
             $.post('mostrarDatosAlumno', parameters, function(data){
-             
-              $('#info-alumno').html(data); 
+              var respuesta = data.split("~");
+              $('#info-alumno').html(respuesta[0]);
+              id_grupo_g = respuesta[1];
             }, 'text');
           });
          
