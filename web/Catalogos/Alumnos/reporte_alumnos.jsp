@@ -12,9 +12,18 @@
  <button class="ui-button" id="btn-redes-reporta">Reporta</button> 
  <button class="ui-button" id="btn-redes-referido">Referido</button> 
  <button class="ui-button" id="btn-redes-participa">Participa</button>
+ <button class="ui-button" id="btn-borra-datos-redes">Borrar registros</button>
 
  <table id="tabla-alumno-en-redes">
- 
+   <thead>
+     <th colspan='6'>Alumno en Redes</th>
+     </thead>
+     <tbody>
+       <tr>
+         <th>Id Red</th>
+         <th>Integrantes</th>
+         <th><button class='ui-button' id='btn-borrar-red'>Borrar</button></th>
+         </tr>
  </table>
  
  

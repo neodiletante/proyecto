@@ -66,7 +66,7 @@ public class MostrarAlumnoEnRedesServlet extends HttpServlet {
       }
       out.println("<th>Id Red</th>");
       out.println("<th>Integrantes</th>");
-      //out.println("<th><input type='button'  id='borrar-red' class='boton' value='Borrar' /></th>");
+      //out.println("<th><input type='button'  id='btn-borrar-red' class='boton' value='Borrar' /></th>");
       out.println("<th><button class='ui-button' id='btn-borrar-red'>Borrar</button></th>");
       out.println("</tr>");
       
@@ -85,20 +85,26 @@ public class MostrarAlumnoEnRedesServlet extends HttpServlet {
           out.println("<span style=\"color:"+a.split("_")[1]+";font-size:1.5em;\">"+a.split("_")[0]+" "+"</span>");
         }
         out.println("</td>");
-        out.println("<td> <input type='checkbox' class='check_borra_red' name='sel_red_borrar'  value=" + red.getIdRed() +"/></td>");
+        out.println("<td> <input type='checkbox' class='check_borra_red' name='sel_red_borrar'  value='" + red.getIdRed() +"'/></td>");
         out.println("</tr>");
       }
       
       out.println("</tbody>");
       
       out.println("</table>");
-      out.println("<button class='ui-button' id='btn-red'>Borrar</button>");
+      //out.println("<button class='ui-button' id='btn-red'>Borrar</button>");
       
     } finally {      
       out.close();
     }
   }
-
+/*
+ Select rrs.id_relacion from tr_redes_sociales rrs inner join tr_datos_interes rdi on rrs.id_relacion = rdi.id_relacion inner join tc_redes_sociales crs on crs.id_red = rrs.id_red where crs.id_red = 27 group by rrs.id_relacion
+ 
+ 
+ 
+ */
+  
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Handles the HTTP

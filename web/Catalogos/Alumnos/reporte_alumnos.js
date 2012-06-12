@@ -18,7 +18,11 @@ $(function(){
   
   $.post('mostrarAlumnoEnRedes', parameters, function(data){
            //   alert(data);
-              $('#tabla-alumno-en-redes').html(data); 
+              $('#tabla-alumno-en-redes').html(data);
+               
+ $('#btn-redes-referido').show();
+ $('#btn-redes-participa').show();
+ $('#btn-redes-reporta').hide();
             }, 'text');  
    
  }
@@ -36,7 +40,10 @@ $(function(){
   parameters.id_grupo = id_grupo;
   $.post('mostrarAlumnoEnRedes', parameters, function(data){
            //   alert(data);
-              $('#tabla-alumno-en-redes').html(data); 
+              $('tbody').html(data); 
+               $('#btn-redes-reporta').show();
+ $('#btn-redes-referido').hide();
+ $('#btn-redes-participa').show();
             }, 'text');  
    
  }
@@ -56,6 +63,9 @@ var tr = $('#td_corte').parent().parent();
   $.post('mostrarAlumnoEnRedes', parameters, function(data){
              // alert(data);
               $('#tabla-alumno-en-redes').html(data); 
+               $('#btn-redes-reporta').show();
+ $('#btn-redes-referido').show();
+ $('#btn-redes-participa').hide();
             }, 'text');  
 }
 
@@ -63,19 +73,22 @@ $('#btn-redes-reporta').click(function(){
   //alert(no_exp_g + " " + corte_g + " " + id_grupo_g);
  vista = "refiere";
  muestraRedesRefiere();
+
 });
 
 $('#btn-redes-referido').click(function(){
  vista = "referido";
  muestraRedesReferido();
+
 });
 
 $('#btn-redes-participa').click(function(){
   vista = "participa";
   muestraRedesParticipa();
+ 
 });
 
-$('ble tr td button').click(function(){
+$('#btn-borrar-red').click(function(){
   alert("buton");
   
   
@@ -83,8 +96,8 @@ $('ble tr td button').click(function(){
 
 
 
-$('#btn-borrar-redes').click(function(){
-  alert("presionando");
+$('#btn-borra-datos-redes').click(function(){
+  //alert("presionando");
   var redes_borrar = $('.check_borra_red:checked');
    // var id_redes_check = $('.check_red:checked');
     if(redes_borrar==undefined){
@@ -94,7 +107,10 @@ $('#btn-borrar-redes').click(function(){
     else{
         var id_redes = "";
         for(var i=0 ; i<redes_borrar.length ; i++){
-          id_redes += ","+redes_borrar[i].value;
+          id_redes += redes_borrar[i].value;
+          if(i+1<redes_borrar.length){
+            id_redes+=",";
+          }
         }
         alert(id_redes);
         var parameters = {};
