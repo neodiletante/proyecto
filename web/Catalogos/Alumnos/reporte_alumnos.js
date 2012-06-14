@@ -40,7 +40,7 @@ $(function(){
   parameters.id_grupo = id_grupo;
   $.post('mostrarAlumnoEnRedes', parameters, function(data){
            //   alert(data);
-              $('tbody').html(data); 
+              $('#tabla-alumno-en-redes').html(data); 
                $('#btn-redes-reporta').show();
  $('#btn-redes-referido').hide();
  $('#btn-redes-participa').show();
@@ -117,7 +117,7 @@ $('#btn-borra-datos-redes').click(function(){
      
         parameters.id_redes = id_redes;
       
-        $.post('borraRedes', parameters, function(data){
+        $.post('borraRedesYRelaciones', parameters, function(data){
           if(vista=="refiere"){
             muestraRedesRefiere();
           }else if(vista=="referido"){

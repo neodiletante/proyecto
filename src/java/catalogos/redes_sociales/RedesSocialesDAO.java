@@ -542,4 +542,67 @@ public class RedesSocialesDAO {
     return retVar;
   }
   
+  public List<Integer> buscaRelacionesPorRed(int id_red){
+      PreparedStatement psBuscar = null;
+      List<Integer> relaciones = new ArrayList<Integer>();
+      ResultSet rs = null;
+      String query = "SELECT rrs.id_relacion "
+              + " FROM tr_redes_sociales rrs INNER JOIN tr_datos_interes rdi "
+              + " ON rrs.id_relacion = rdi.id_relacion "
+              + " INNER JOIN tc_redes_sociales crs "
+              + " ON crs.id_red = rrs.id_red "
+              + " WHERE crs.id_red = ? GROUP BY rrs.id_relacion";
+    try {
+      psBuscar = con.prepareStatement(query);
+      psBuscar.setInt(1, id_red);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+        relaciones.add(rs.getInt("id_relacion"));
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return relaciones;
+        }
+    }
+   
+   
+    public int borraRelaciones(int idRelacion){
+    PreparedStatement psBorrar = null;
+    int retVar=0;
+    String qBorrar = "DELETE FROM tr_datos_interes WHERE id_relacion = ?";
+        try {
+          psBorrar = con.prepareStatement(qBorrar);
+          psBorrar.setInt(1, idRelacion);
+          retVar=psBorrar.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    return retVar;
+  }
+  
+  public void borraRelacionesPorRed(int idRed){
+    List<Integer> relaciones = buscaRelacionesPorRed(idRed);
+    for(Integer relacion : relaciones){
+      borraRelaciones(relacion);
+    }
+  }
+  
+  public void borraRelacionesEnRedes(List<Integer> redes){
+    for(Integer red : redes){
+      borraRelacionesPorRed(red);
+    }
+  }
+  
+  public void borraRedesYRelaciones(List<Integer> redes){
+    borraRelacionesEnRedes(redes);
+    borraRedesSociales(redes);
+    
+  }
+  
 } 
