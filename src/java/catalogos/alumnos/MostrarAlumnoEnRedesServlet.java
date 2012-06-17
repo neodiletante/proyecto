@@ -52,12 +52,20 @@ public class MostrarAlumnoEnRedesServlet extends HttpServlet {
     int corte = "".equals(corteStr)?0:Integer.parseInt(corteStr);
     redes = aDAO.buscaAlumnoEnRedes(noExpediente, corte, opcion);
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
-   
+    String titulo = "";
+    if ("refiere".equals(opcion)){
+      titulo = "Redes que reporta";
+    }else if ("referido".equals(opcion)){
+      titulo = "Redes donde es referido";
+    }else{
+      titulo = "Redes donde participa";
+    }
+    
     try {
 
       out.println("<table id='tabla-alumno-en-redes'>");
       out.println("<thead>");
-      out.println("<th colspan='6'>Alumno en Redes</th>");
+      out.println("<th colspan='6'>"+titulo+"</th>");
       out.println("</thead>");
       out.println("<tbody>");
       out.println("<tr>");

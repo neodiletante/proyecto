@@ -583,6 +583,15 @@ public class RedesSocialesDAO {
         } catch (SQLException ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+     qBorrar = "DELETE FROM tr_redes_sociales WHERE id_relacion = ?";
+        try {
+          psBorrar = con.prepareStatement(qBorrar);
+          psBorrar.setInt(1, idRelacion);
+          retVar=psBorrar.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     return retVar;
   }
   
@@ -603,6 +612,49 @@ public class RedesSocialesDAO {
     borraRelacionesEnRedes(redes);
     borraRedesSociales(redes);
     
+  }
+  
+  public void borraRelacionesYRedParticipa(int noExpediente, int idRed){
+    List<Integer> relaciones = buscaRelacionesPorAlumno(noExpediente,idRed);
+    for(Integer relacion :relaciones){
+      borraRelaciones(relacion);
+    }
+  }
+  
+  public void borraRelacionesEnRedes(int noExpediente, List<Integer> redes){
+    for(Integer red : redes){
+      borraRelacionesYRedParticipa(noExpediente,red);
+    }
+  }
+  
+  public List<Integer> buscaRelacionesPorAlumno(int noExpediente, int idRed){
+    PreparedStatement psBuscar = null;
+      List<Integer> relaciones = new ArrayList<Integer>();
+      ResultSet rs = null;
+      String query = "SELECT id_relacion"
+              + " FROM tr_redes_sociales rrs INNER JOIN tc_listas l"
+              + " ON rrs.no_lista = l.no_lista"
+              + "  WHERE no_expediente = ? AND id_red=?";
+    try {
+      psBuscar = con.prepareStatement(query);
+      psBuscar.setInt(1, noExpediente);
+      psBuscar.setInt(2, idRed);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+        relaciones.add(rs.getInt("id_relacion"));
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            if (rs!=null){
+              rs.close();
+            }
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return relaciones;
+        }
   }
   
 } 

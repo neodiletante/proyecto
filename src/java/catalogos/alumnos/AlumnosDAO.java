@@ -274,20 +274,23 @@ public class AlumnosDAO {
       String query = "";
       if("refiere".equals(opcion)){
       query = 
-              "SELECT crs.id_red, no_lista_refiere FROM tc_redes_sociales crs INNER JOIN tc_listas l ON crs.no_lista_refiere = l.no_lista "
+              "SELECT crs.id_red, no_lista_refiere FROM tc_redes_sociales crs"
+              + " INNER JOIN tc_listas l ON crs.no_lista_refiere = l.no_lista "
               + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
               + " WHERE g.corte = ? AND l.no_expediente = ?";
       }else if("referido".equals(opcion)){
       query = 
-              "SELECT crs.id_red, crs.no_lista_refiere FROM tc_redes_sociales crs INNER JOIN tc_listas l ON crs.no_lista_referido = l.no_lista "
+              "SELECT crs.id_red, crs.no_lista_refiere FROM tc_redes_sociales crs"
+              + " INNER JOIN tc_listas l ON crs.no_lista_referido = l.no_lista "
               + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
               + " WHERE g.corte = ? AND l.no_expediente = ?";
 
       }else{
       query = 
-              "SELECT rrs.id_red, crs.no_lista_refiere FROM tr_redes_sociales rrs INNER JOIN tc_listas l ON rrs.no_lista = l.no_lista "
+              "SELECT rrs.id_red, crs.no_lista_refiere FROM tr_redes_sociales rrs"
+              + " INNER JOIN tc_listas l ON rrs.no_lista = l.no_lista "
               + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
-              + " inner join tc_redes_sociales crs on crs.id_red = rrs.id_red"
+              + " INNER JOIN tc_redes_sociales crs on crs.id_red = rrs.id_red"
               + " WHERE g.corte = ? AND l.no_expediente = ?";
 
       }
@@ -309,7 +312,9 @@ public class AlumnosDAO {
       Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
     }finally{
           try {
+            if (rs != null){
             rs.close();
+            }
           } catch (SQLException ex) {
             Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
           }

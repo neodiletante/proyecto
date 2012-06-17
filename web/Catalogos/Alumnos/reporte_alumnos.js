@@ -97,6 +97,7 @@ $('#btn-borrar-red').click(function(){
 
 
 $('#btn-borra-datos-redes').click(function(){
+  var tr = $('#td_corte').parent().parent();
   //alert("presionando");
   var redes_borrar = $('.check_borra_red:checked');
    // var id_redes_check = $('.check_red:checked');
@@ -116,6 +117,15 @@ $('#btn-borra-datos-redes').click(function(){
         var parameters = {};
      
         parameters.id_redes = id_redes;
+         parameters.no_exp = $('td:eq(0)', tr).text();
+        if(vista=="refiere" || vista=="referido"){
+          parameters.borra_redes = true;
+        }else{
+          parameters.borra_redes = false;
+         
+        }
+        
+        
       
         $.post('borraRedesYRelaciones', parameters, function(data){
           if(vista=="refiere"){

@@ -44,14 +44,21 @@ public class BorraRedesYRelacionesServlet extends HttpServlet {
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
     
     String idRedes = request.getParameter("id_redes");
-     String[] aRedes = idRedes.split(",");
+    String borraRedes = request.getParameter("borra_redes");
+    System.out.println("¿Borra redes? "+ borraRedes);
+    String noExpStr = request.getParameter("no_exp");
+    int noExpediente = "".equals(noExpStr)?0:Integer.parseInt(noExpStr);
+    String[] aRedes = idRedes.split(",");
      List<Integer> redes = new ArrayList<Integer>();
      for(int i=0 ; i < aRedes.length ; i++){
        Integer red = Integer.valueOf(aRedes[i]);
        redes.add(red);
      }
-     rsDAO.borraRedesYRelaciones(redes);
-     
+     if("true".equals(borraRedes)){
+       rsDAO.borraRedesYRelaciones(redes);
+     }else{
+       rsDAO.borraRelacionesEnRedes(noExpediente, redes);
+     }
     try {
       
     } finally {      
