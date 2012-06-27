@@ -10,12 +10,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import net.sf.jasperreports.engine.*;
 
 /**
  *
@@ -53,6 +57,9 @@ public class MostrarAlumnoEnRedesServlet extends HttpServlet {
     redes = aDAO.buscaAlumnoEnRedes(noExpediente, corte, opcion);
     RedesSocialesDAO rsDAO = new RedesSocialesDAO(con);
     String titulo = "";
+    imprimeReporte();
+    
+    
     if ("refiere".equals(opcion)){
       titulo = "Redes que reporta";
     }else if ("referido".equals(opcion)){
@@ -112,7 +119,15 @@ public class MostrarAlumnoEnRedesServlet extends HttpServlet {
  
  
  */
-  
+ public void imprimeReporte(){
+    try {
+      JasperPrint jp = JasperFillManager.fillReport("newReport.jasper", new HashMap<String,Object>(),
+              new JREmptyDataSource());
+      JasperExportManager.exportReportToPdfFile(jp,"sample.pdf");
+    } catch (JRException ex) {
+      Logger.getLogger(MostrarAlumnoEnRedesServlet.class.getName()).log(Level.SEVERE, null, ex);
+    }
+ } 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Handles the HTTP

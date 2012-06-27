@@ -203,5 +203,8 @@ $(function(){
      
      
   });
+  $('btn-resumen').click(function(){
+    
+  });
   
 });

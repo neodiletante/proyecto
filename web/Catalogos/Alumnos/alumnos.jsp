@@ -15,6 +15,7 @@
     <button class="ui-button" id="btn-borra-alumno">Borra alumno</button> 
     <button class="ui-button" id="btn-cambia-alumno">Modifica alumno</button>
     <button class="ui-button" id="btn-reportar">Reportar</button>
+    <button class="ui-button" id="btn-resumen">Resumen</button>
     Buscar:<input type="text" id="buscarAlumno" size="5"/>
    <button class="ui-button" id="btn-busca-alumno">Busca alumno</button> 
    <!--En este div se muestra la tabla de alumnos, separados en tabs--> 

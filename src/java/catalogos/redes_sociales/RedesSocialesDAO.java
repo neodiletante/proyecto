@@ -260,6 +260,10 @@ public class RedesSocialesDAO {
     }
   }
   
+  
+  
+  
+  
     public List<String> buscaElementosRedColor(int idRed, int idGrupo){
     List<String> elementosRed = new ArrayList();
     String query = "SELECT rs.no_lista, nl.color "+

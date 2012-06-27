@@ -169,6 +169,10 @@
         <servlet-name>BorraRedesYRelaciones</servlet-name>
         <servlet-class>catalogos.alumnos.BorraRedesYRelacionesServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ResumenAlumno</servlet-name>
+        <servlet-class>catalogos.alumnos.ResumenAlumnoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
         <url-pattern>/listasBean</url-pattern>
@@ -321,9 +325,13 @@
         <servlet-name>MostrarAlumnoEnRedes</servlet-name>
         <url-pattern>/mostrarAlumnoEnRedes</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>BorraRedesYRelaciones</servlet-name>
         <url-pattern>/borraRedesYRelaciones</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResumenAlumno</servlet-name>
+        <url-pattern>/resumenAlumno</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
