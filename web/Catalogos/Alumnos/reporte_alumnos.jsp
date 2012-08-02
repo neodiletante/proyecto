@@ -13,8 +13,9 @@
  <button class="ui-button" id="btn-redes-referido">Referido</button> 
  <button class="ui-button" id="btn-redes-participa">Participa</button>
  <button class="ui-button" id="btn-borra-datos-redes">Borrar registros</button>
+<button class="btn-pdf" id="btn-reporte"></button>
 
- <table id="tabla-alumno-en-redes">
+  <table id="tabla-alumno-en-redes">
    <thead>
      <th colspan='6'>Alumno en Redes</th>
      </thead>

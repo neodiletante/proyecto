@@ -14,6 +14,7 @@ public class AlumnoEnRedes extends Alumno{
   private int corte;
   private String color;
   private int idGRupo;
+  private String gpoEstadistico;
   
   public String getGrupo() {
     return grupo;
@@ -54,7 +55,13 @@ public class AlumnoEnRedes extends Alumno{
   public void setIdGRupo(int idGRupo) {
     this.idGRupo = idGRupo;
   }
-  
-  
-  
+
+  public String getGpoEstadistico() {
+    return gpoEstadistico;
+  }
+
+  public void setGpoEstadistico(String gpoEstadistico) {
+    this.gpoEstadistico = gpoEstadistico;
+  }
+ 
 }

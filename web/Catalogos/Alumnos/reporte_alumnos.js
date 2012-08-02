@@ -1,10 +1,11 @@
 var id_grupo;
 var vista = "";
+var tipo_reporte = 0;
 
 $(function(){
  function muestraRedesRefiere(){
     var parameters = {};
-  
+  tipo_reporte = 1;
   parameters.opcion = "refiere";
  var tr = $('#td_corte').parent().parent();
   if (id_grupo==undefined){
@@ -28,6 +29,7 @@ $(function(){
  }
  
  function muestraRedesReferido(){
+   tipo_reporte = 2;
     var parameters = {};
   parameters.opcion = "referido";
  var tr = $('#td_corte').parent().parent();
@@ -49,6 +51,7 @@ $(function(){
  }
 
 function muestraRedesParticipa(){
+  tipo_reporte = 3;
    var parameters = {};
   parameters.opcion = "participa";
 var tr = $('#td_corte').parent().parent();
@@ -66,6 +69,26 @@ var tr = $('#td_corte').parent().parent();
                $('#btn-redes-reporta').show();
  $('#btn-redes-referido').show();
  $('#btn-redes-participa').hide();
+            }, 'text');  
+}
+
+function imprimeReporte(){
+   var parameters = {};
+  parameters.opcion = "reporte";
+  parameters.tipo_reporte = tipo_reporte;
+var tr = $('#td_corte').parent().parent();
+  
+   if (id_grupo==undefined){
+    id_grupo = id_grupo_g;
+  }
+  //alert(id_grupo);
+  parameters.no_exp = $('td:eq(0)', tr).text();
+  parameters.corte = $('td:eq(5)', tr).text(); 
+  parameters.id_grupo = id_grupo;
+  $.post('mostrarAlumnoEnRedes', parameters, function(data){
+             // alert(data);
+             
+           
             }, 'text');  
 }
 
@@ -113,7 +136,7 @@ $('#btn-borra-datos-redes').click(function(){
             id_redes+=",";
           }
         }
-        alert(id_redes);
+       // alert(id_redes);
         var parameters = {};
      
         parameters.id_redes = id_redes;
@@ -139,6 +162,15 @@ $('#btn-borra-datos-redes').click(function(){
         
       }, 'text');
     }
+  
+});
+
+$('#btn-reporte').click(function(){
+  if (tipo_reporte == 0){
+    alert("Seleccione primero una opción");
+  }else{
+    imprimeReporte();
+  }
   
 });
 

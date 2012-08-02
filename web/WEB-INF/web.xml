@@ -173,6 +173,10 @@
         <servlet-name>ResumenAlumno</servlet-name>
         <servlet-class>catalogos.alumnos.ResumenAlumnoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DatosResumen</servlet-name>
+        <servlet-class>catalogos.alumnos.DatosResumenServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listasBean</servlet-name>
         <url-pattern>/listasBean</url-pattern>
@@ -332,6 +336,10 @@
     <servlet-mapping>
         <servlet-name>ResumenAlumno</servlet-name>
         <url-pattern>/resumenAlumno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DatosResumen</servlet-name>
+        <url-pattern>/datosResumen</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

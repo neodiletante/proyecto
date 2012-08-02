@@ -94,7 +94,7 @@ $(function(){
             $.post('modificarAlumno', parameters, 
               function(data){
                 $('#_principal').load('mostrarAlumnos');
-                alert(data);
+               // alert(data);
               },'text');
           }else{
             $.post('agregarAlumno', parameters, 
@@ -150,7 +150,7 @@ $(function(){
     if (sexo == 'Mujer'){
       $('#sexoM').attr('checked', true);
     }else{
-      $('#sexoH').attr('checked', true);
+      $('#sexoH').attr('  checked', true);
     }
      
   });
@@ -168,16 +168,31 @@ $(function(){
       'Mostrar':function(){ 
         //Abrir la vista para mostrar las redes a las que pertenece el alumno
         //Cargar la nueva página y mostrar los datos del alumno
-       
+      no_exp_g = 0;
+      corte_g = 0;
+      
         var parameters = {};
         
         no_exp_g = $('#noExpDatos').val();
         corte_g = $('#corteDatos').val();
+        mensaje = "";
+        if (no_exp_g == 0){
+          mensaje += "Introduzca un número de expediente\n";
+        }
         
+        if (corte_g == 0){
+          mensaje += "Introduzca un corte"
+        }
+        
+        if (mensaje != ""){
+          alert(mensaje);
+        } else{
+      
         parameters.no_exp = no_exp_g;
         parameters.corte = corte_g;
           $('#_principal').load('Catalogos/Alumnos/reporte_alumnos.jsp',function(){
             $.post('mostrarDatosAlumno', parameters, function(data){
+              alert(data);
               var respuesta = data.split("~");
               $('#info-alumno').html(respuesta[0]);
               id_grupo_g = respuesta[1];
@@ -186,7 +201,9 @@ $(function(){
          
        
          $( this ).dialog( 'close' );
+        }  
       }
+      
     }
   });
   $('#btn-reportar').click(function(){
@@ -203,8 +220,27 @@ $(function(){
      
      
   });
-  $('btn-resumen').click(function(){
-    
+  $('#btn-resumen').click(function(){
+     var parameters = {};
+     var noExpediente = $('.radio_alumno:checked').parent().siblings("#input_noExpediente").text();
+     parameters.no_exp = noExpediente;
+     //alert("Resumen");
+     
+     
+      $('#_principal').load('Catalogos/Alumnos/resumen_alumno.jsp',function(){
+        //alert(data);
+        $.post('resumenAlumno', parameters, function(data){
+          //alert(data);
+          $('#sp-resumen-alumno').html(data); 
+          //alert(data);
+        },'text');
+      });
+      
+      
+      
+      
+      
+     //$.post('resumenAlumno', data, callback, type);
   });
   
 });
