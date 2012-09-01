@@ -43,9 +43,9 @@ public class ActualizaNosListaServlet extends HttpServlet {
       List lista = listaDAO.getDatos(Integer.parseInt(grupo));
     
     try {
-      out.println("<span id='lista-alumnos' width=\"100%\" align=\"left\">");
+     // out.println("<span id='lista-alumnos' width=\"100%\" >");
       out.println("<hr>");
-      out.println("<br /><pre width=\"100%\">");
+      out.println("<br /><pre style=\"width:100%\">");
       int tamanioLista = lista!=null?lista.size():0;
       int columnas = (int) Math.sqrt(tamanioLista) +1;
       int ultimaFila=0;
@@ -69,11 +69,13 @@ public class ActualizaNosListaServlet extends HttpServlet {
       }
       if(ultimaFila<columnas)
           for(int i=ultimaFila; i<=columnas; i++ ){
+              out.print("&nbsp;&nbsp;&nbsp;");
               out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
           }
           
      
-      out.println("</pre></span>");
+     out.println("</pre>");
+    //  out.println("</pre></span>");
       out.println("<br />");
    }
     finally {      

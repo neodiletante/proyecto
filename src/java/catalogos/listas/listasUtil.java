@@ -1,6 +1,5 @@
 package catalogos.listas;
 import catalogos.alumnos.Alumno;
-import catalogos.alumnos.AlumnosDAO;
 import catalogos.grupos.Grupo;
 import catalogos.grupos.GruposDAO;
 import java.sql.Connection;

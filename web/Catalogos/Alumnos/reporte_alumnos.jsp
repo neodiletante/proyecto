@@ -13,7 +13,8 @@
  <button class="ui-button" id="btn-redes-referido">Referido</button> 
  <button class="ui-button" id="btn-redes-participa">Participa</button>
  <button class="ui-button" id="btn-borra-datos-redes">Borrar registros</button>
-<button class="btn-pdf" id="btn-reporte"></button>
+ <button class="ui-button" id="btn-genera-reporte">Generar reporte</button>
+<span id="btn-reporte"></span>
 
   <table id="tabla-alumno-en-redes">
    <thead>
@@ -23,8 +24,17 @@
        <tr>
          <th>Id Red</th>
          <th>Integrantes</th>
-         <th><button class='ui-button' id='btn-borrar-red'>Borrar</button></th>
+         <!--th><button class='ui-button' id='btn-borrar-red'>Borrar</button></th-->
+         <th>Borrar</th>
          </tr>
  </table>
- 
+   <div id="modal-borra-redes">    
+        <div class="div-izquierdo">    
+            <p><label>Contraseña</label>
+        </div>
+        <div class="div-izquierdo">
+       
+            <p><input id="input-passwd" type="password" name="passwd" />
+        </div>
+    </div>
  

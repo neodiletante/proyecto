@@ -6,19 +6,18 @@ $(function(){
  function muestraRedesRefiere(){
     var parameters = {};
   tipo_reporte = 1;
-  parameters.opcion = "refiere";
- var tr = $('#td_corte').parent().parent();
+  parameters.opcion = 1;
+ var tr = $('#td_corte').parent().parent(); 
   if (id_grupo==undefined){
     id_grupo = id_grupo_g;
   }
-  //alert(id_grupo);
   
   parameters.no_exp = $('td:eq(0)', tr).text();
   parameters.corte = $('td:eq(5)', tr).text(); 
   parameters.id_grupo = id_grupo;
   
   $.post('mostrarAlumnoEnRedes', parameters, function(data){
-           //   alert(data);
+
               $('#tabla-alumno-en-redes').html(data);
                
  $('#btn-redes-referido').show();
@@ -31,17 +30,16 @@ $(function(){
  function muestraRedesReferido(){
    tipo_reporte = 2;
     var parameters = {};
-  parameters.opcion = "referido";
+  parameters.opcion = 2;
  var tr = $('#td_corte').parent().parent();
  if (id_grupo==undefined){
     id_grupo = id_grupo_g;
   }
-  //alert(id_grupo);
+
   parameters.no_exp = $('td:eq(0)', tr).text();
   parameters.corte = $('td:eq(5)', tr).text(); 
   parameters.id_grupo = id_grupo;
   $.post('mostrarAlumnoEnRedes', parameters, function(data){
-           //   alert(data);
               $('#tabla-alumno-en-redes').html(data); 
                $('#btn-redes-reporta').show();
  $('#btn-redes-referido').hide();
@@ -53,18 +51,17 @@ $(function(){
 function muestraRedesParticipa(){
   tipo_reporte = 3;
    var parameters = {};
-  parameters.opcion = "participa";
+  parameters.opcion = 3;
 var tr = $('#td_corte').parent().parent();
   
    if (id_grupo==undefined){
     id_grupo = id_grupo_g;
   }
-  //alert(id_grupo);
+
   parameters.no_exp = $('td:eq(0)', tr).text();
   parameters.corte = $('td:eq(5)', tr).text(); 
   parameters.id_grupo = id_grupo;
   $.post('mostrarAlumnoEnRedes', parameters, function(data){
-             // alert(data);
               $('#tabla-alumno-en-redes').html(data); 
                $('#btn-redes-reporta').show();
  $('#btn-redes-referido').show();
@@ -74,26 +71,24 @@ var tr = $('#td_corte').parent().parent();
 
 function imprimeReporte(){
    var parameters = {};
-  parameters.opcion = "reporte";
+  parameters.opcion = 4;
   parameters.tipo_reporte = tipo_reporte;
 var tr = $('#td_corte').parent().parent();
   
    if (id_grupo==undefined){
     id_grupo = id_grupo_g;
   }
-  //alert(id_grupo);
   parameters.no_exp = $('td:eq(0)', tr).text();
   parameters.corte = $('td:eq(5)', tr).text(); 
   parameters.id_grupo = id_grupo;
   $.post('mostrarAlumnoEnRedes', parameters, function(data){
-             // alert(data);
+        $('#btn-reporte').html(data);
              
            
             }, 'text');  
 }
 
 $('#btn-redes-reporta').click(function(){
-  //alert(no_exp_g + " " + corte_g + " " + id_grupo_g);
  vista = "refiere";
  muestraRedesRefiere();
 
@@ -117,18 +112,14 @@ $('#btn-borrar-red').click(function(){
   
 });
 
-
-
-$('#btn-borra-datos-redes').click(function(){
+function borraDatosRedes(){
   var tr = $('#td_corte').parent().parent();
-  //alert("presionando");
   var redes_borrar = $('.check_borra_red:checked');
-   // var id_redes_check = $('.check_red:checked');
-    if(redes_borrar==undefined){
-      alert("Seleccione una o más redes para borrar");
+  //  if(redes_borrar==undefined || redes_borrar.length == 0){
+  //    alert("Seleccione una o más redes para borrar");
       
-    }
-    else{
+  //  }
+ //   else{
         var id_redes = "";
         for(var i=0 ; i<redes_borrar.length ; i++){
           id_redes += redes_borrar[i].value;
@@ -136,7 +127,6 @@ $('#btn-borra-datos-redes').click(function(){
             id_redes+=",";
           }
         }
-       // alert(id_redes);
         var parameters = {};
      
         parameters.id_redes = id_redes;
@@ -161,17 +151,72 @@ $('#btn-borra-datos-redes').click(function(){
           
         
       }, 'text');
+//    }
+  
+}
+
+$('#btn-borra-datos-redes').click(function(){
+  var redes_borrar = $('.check_borra_red:checked');
+    if(redes_borrar==undefined || redes_borrar.length == 0){
+      alert("Seleccione una o más redes para borrar");
+      
+    }else{
+      $('#input-passwd').val("");
+      $('#modal-borra-redes').dialog( "open" );
     }
+});
+
+$('#btn-genera-reporte').click(function(){
+  //if (tipo_reporte == 0){
+  //  alert("Seleccione primero una opción");
+  //}else{
+    imprimeReporte();
+$('#btn-reporte').html('Generando reporte...<br />');
+           $("#btn-reporte").addClass('imgGenerando');
+       // var parameters ={};
+       // parameters.opcion=5;
+       // parameters.corte=$('#corte').val();
+       // $('#espera').addClass('imgAnalizando');
+       // $('#espera').html('Analizando datos...');
+       // $.post('analizarGrupoEnCorteBean',parameters, function(data){
+       //    parameters.opcion=4;
+       //    $('#espera').html('Generando reporte...');
+        //   $("#espera").addClass('imgGenerando');
+        //   $.post('analizarGrupoEnCorteBean', parameters, function(data){
+        //       $('#capaArchivo').html(data);
+        //   })
+       // })
+
+ // }
   
 });
 
-$('#btn-reporte').click(function(){
-  if (tipo_reporte == 0){
-    alert("Seleccione primero una opción");
-  }else{
-    imprimeReporte();
-  }
-  
-});
+$( '#modal-borra-redes' ).dialog({
+        autoOpen: false,
+        height: 300,
+        width: 350,
+        modal: true,
+        buttons: {
+           Aceptar: function(){
+             var parameters = {}
+             parameters.nombre = "admin";
+             var passwd = $('#input-passwd').val();
+             parameters.passwd = passwd;
+             $.post('autentificaUsuario', parameters, function(data){
+               if (data == 'true'){
+                  borraDatosRedes();
+                  $('#modal-borra-redes').dialog( "close" );
+               }else{
+                 alert("Contraseña inválida");
+               }
+             });  
+             
+             
+           },//guardar
+           Cancelar: function() {
+              $('#modal-borra-redes').dialog( "close" );
+           }
+        }//buttons
+    });
 
 });

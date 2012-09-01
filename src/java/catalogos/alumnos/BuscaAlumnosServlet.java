@@ -57,6 +57,7 @@ public class BuscaAlumnosServlet extends HttpServlet {
     for(int i=0 ; i<numTabs ; i++){
       
       out.println("<div id='tabs-" + i+1 + "'>");
+      out.println(" <div style=\"background:#FFF\">");
       out.println("<table id='tabla-alumnos-actuales-" + i+1 + "' class='tabla-resultado'>");
       out.println("<thead>");
       out.println("<th colspan='6'>Alumnos actuales</th>");
@@ -93,15 +94,14 @@ public class BuscaAlumnosServlet extends HttpServlet {
       }
       }
       out.println("</tbody>");
-        out.println("</table>");
- 
+      out.println("</table>");
+      out.println(" </div>");
       out.println("</div>");
     }
    
     }finally{
       out.close();
     }
-    
   }
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**

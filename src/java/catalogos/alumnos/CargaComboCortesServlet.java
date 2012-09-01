@@ -40,7 +40,9 @@ public class CargaComboCortesServlet extends HttpServlet {
      HttpSession session = request.getSession();
       Connection  conn = (Connection) session.getAttribute("conn");
       GruposDAO gDAO = new GruposDAO(conn);
-      List cortes = gDAO.consultaCortes();
+      String strNoExp = request.getParameter("no_exp");
+      int noExp = strNoExp==null?0:Integer.valueOf(strNoExp);
+      List cortes = gDAO.consultaCortes(noExp);
     try {
       out.println("<select id ='corteDatos' size='1'>");
       out.println("<option value='' selected='true'> Seleccione un corte </option>");

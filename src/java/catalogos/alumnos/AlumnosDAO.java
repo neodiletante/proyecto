@@ -272,18 +272,20 @@ public class AlumnosDAO {
           return alumno;
         }
     }
-    public List<RedSocialReg> buscaAlumnoEnRedes(int no_expediente, int corte, String opcion){
+    public List<RedSocialReg> buscaAlumnoEnRedes(int no_expediente, int corte, int opcion){
       PreparedStatement psBuscar = null;
       List<RedSocialReg> redes = new ArrayList<RedSocialReg>();
       String query = "";
-      if("refiere".equals(opcion)){
+      switch(opcion){
+        case 1:
       query = 
               "SELECT crs.id_red, no_lista_refiere FROM tc_redes_sociales crs"
               + " INNER JOIN tc_listas l ON crs.no_lista_refiere = l.no_lista "
               + " INNER JOIN tc_grupos g ON g.id_grupo = l.id_grupo "
               + " WHERE crs.id_grupo = g.id_grupo "
               + " AND g.corte = ? AND l.no_expediente = ?";
-      }else if("referido".equals(opcion)){
+      break;
+        case 2:
       query = 
               "SELECT crs.id_red, crs.no_lista_refiere FROM tc_redes_sociales crs"
               + " INNER JOIN tc_listas l ON crs.no_lista_referido = l.no_lista "
@@ -291,7 +293,8 @@ public class AlumnosDAO {
               + " WHERE crs.id_grupo = g.id_grupo"
               + " AND g.corte = ? AND l.no_expediente = ?";
 
-      }else{
+      break;
+        case 3:
       query = 
               "SELECT rrs.id_red, crs.no_lista_refiere FROM tr_redes_sociales rrs"
               + " INNER JOIN tc_listas l ON rrs.no_lista = l.no_lista "
@@ -300,6 +303,7 @@ public class AlumnosDAO {
               + " WHERE crs.id_grupo = g.id_grupo"
               + " AND g.corte = ? AND l.no_expediente = ?";
 
+        default:break;
       }
     try {
       psBuscar = con.prepareStatement(query);
@@ -482,6 +486,37 @@ public class AlumnosDAO {
           return datosAlumno;
         }
    }
+   
+   public boolean autentificaUsuario(String nombre, String passwd){
+     boolean autentificado = false;
+     String nombreRespuesta;
+     PreparedStatement psBuscar = null;
+
+     String query = 
+             "SELECT nombre from tc_usuarios WHERE nombre = ? and passwd=MD5(?)";
+     try {
+      psBuscar = con.prepareStatement(query);
+      psBuscar.setString(1, nombre);
+      psBuscar.setString(2, passwd);
+      rs = psBuscar.executeQuery();
+      while(rs.next()) {
+        nombreRespuesta = rs.getString("nombre");
+        if (nombreRespuesta.equals(nombre)){
+          autentificado = true;
+        }
+      }
+    } catch (SQLException ex) {
+      Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(AlumnosDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return autentificado;
+        }
+   }
+   
    
      /*
       public List<Integer> buscaRedesRefiere(int no_expediente, int corte){

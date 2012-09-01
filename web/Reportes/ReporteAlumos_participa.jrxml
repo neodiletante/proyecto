@@ -40,7 +40,7 @@ group by id_red]]>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="20"/>
 				</textElement>
-				<text><![CDATA[Redes participa]]></text>
+				<text><![CDATA[Redes donde participa]]></text>
 			</staticText>
 		</band>
 	</title>

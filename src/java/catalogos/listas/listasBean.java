@@ -58,7 +58,7 @@ public class listasBean extends HttpServlet {
              }
              
              if(accion.equalsIgnoreCase("borrar")){
-                 if(noLista!=null  && noLista.length>0 &&borrarDeLista(noLista, id_grupo))
+                 if(noLista!=null  && noLista.length>0&&borrarDeLista(noLista, id_grupo))
                      mensaje="Elemento borrado";
                  else
                      if(noLista==null || noLista.length==0)
@@ -238,29 +238,32 @@ public class listasBean extends HttpServlet {
             retVar.append("           <th width=\"5%\">Color</th> ");
             retVar.append("           <th width=\"10%\">Gpo est</th> ");
             retVar.append("           <th width=\"10%\">"+
-                   " <input type=\"button\"  class=\"boton\" id=\"borrar\" value=\"borrar\" />"
+                   " <input type=\"button\"  class=\"boton\" id=\"btn-borrar\" value=\"borrar\" />"
                     +"</th> ");
             retVar.append("           <th width=\"10%\">"+
-                   " <input type=\"button\" class=\"boton\" id=\"cambiar\" value=\"cambiar\" />"                   
+                   " <input type=\"button\" class=\"boton\" id=\"btn-cambiar\" value=\"cambiar\" />"                   
                     +"</th></tr></thead>");
             if(rst.first()){
+               retVar.append("</tbody>");
                do{
-                   retVar.append(" <tr><td>");
-                   retVar.append( rst.getString("no_lista") ).append( "</td><td>" );
-                   retVar.append( rst.getString("nombre") ).append( "</td><td>" );
-                   retVar.append( rst.getString("no_expediente") ).append( "</td><td>");
-                   retVar.append( rst.getString("nombregrupo") ).append("</td>");
+                   retVar.append(" <tr>");
+                   retVar.append("<td>").append( rst.getString("no_lista") ).append( "</td>" );
+                   retVar.append("<td>").append( rst.getString("nombre") ).append( "</td>" );
+                   retVar.append("<td>").append( rst.getString("no_expediente") ).append( "</td>");
+                   retVar.append("<td>").append( rst.getString("nombregrupo") ).append("</td>");
                    retVar.append(" <td style=\"background-color:" ).append( rst.getString("color") ).append("\">");
-                   retVar.append( "<input type=\"hidden\" id=\"no_lista\" value=\"" ).append( rst.getString("no_lista") ).append( "></td><td>" );
-                   retVar.append( "<input type=\"hidden\" id=\"\" value=\"" ).append( rst.getString("no_lista") ).append( "\"/></td><td>" );
-                   retVar.append( rst.getString("gpo_estadistico") ).append( "</td><td> " );
-                   retVar.append("<input type=\"checkbox\" value =\"").append(rst.getString("no_lista")).append("\"/></td><td>");
-                   retVar.append("<input type=\"radio\" name=\"cambiar\" value =\"").append(rst.getString("no_lista")).append("\"/></td></tr>");
+                   retVar.append(" <input type=\"hidden\" id=\"no_lista\" value=\"" ).append( rst.getString("no_lista") ).append( "\"></td>" );
+                   retVar.append(" <td>").append( rst.getString("gpo_estadistico") ).append( "</td> " );
+                   retVar.append("<td><input type=\"checkbox\" id=\"borrar\" value =\"").append(rst.getString("no_lista")).append("\"/></td>");
+                   retVar.append("<td>").append("<input type=\"radio\" name=\"cambiar\" id=\"cambiar\" value =\"").append(rst.getString("no_lista")).append("\"/></td></tr>");
                }
                while(rst.next());
+               retVar.append("</tbody>");
             }
             else{
+              retVar.append("<tbody>");
               retVar.append(" <tr><td colspan=\"8\"> No se encontr&oacute; informaci&oacute;n </td></tr>");
+              retVar.append("</tbody>");
             }
         }
         catch(Exception ex){

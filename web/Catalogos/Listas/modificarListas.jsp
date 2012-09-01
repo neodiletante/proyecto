@@ -8,7 +8,6 @@
 <!script type="text/javascript" src="JavaScript/colorpicker/jscolor.js"script-->
 
 
-<span style="color:black;font-size:1.5em">
 <%
     ListasDAO dao =new ListasDAO(request.getSession());
     Grupo gdao = null;
@@ -22,6 +21,7 @@
     List<Alumno> alumnos =null;
         
 %>
+<span style="color:black;font-size:1.5em">
 <form id="datos" action="">
     <input type="hidden" id="o" value="<%=request.getParameter("o")%>"/>    
 Corte:
@@ -111,6 +111,7 @@ Grupo:
     <select id="grupo_estadistico">
         <option value="control">control</option>
         <option value="riesgo">riesgo</option>
+        <option value="otros">otros</option>
     </select>
     <input type="button" value="Agregar" id="agregar"/>
  <hr>
@@ -128,10 +129,10 @@ Grupo:
                  <th width="5%">Color</th>
                  <th>Gpo est</th>
                  <th>
-                    <input type="button"  class="boton" id="borrar" value="borrar" />
-                </th>
+                    <input type="button"  class="boton" id="btn-borrar" value="borrar" />
+                 </th>
                  <th>
-                    <input type="button" class="boton" id="cambiar" value="cambiar" />
+                    <input type="button" class="boton" id="btn-cambiar" value="cambiar" />
                  </th>
              </tr>
          </thead>
@@ -184,8 +185,10 @@ Grupo:
                <p><select id="id-gpo-es">
                     <option value="control">control</option>
                     <option value="riesgo">riesgo</option>
+                    <option value="otros">otros</option>
                </select></p>
             </div>    
         </div>
     </form>  
+  </span>
  </center>

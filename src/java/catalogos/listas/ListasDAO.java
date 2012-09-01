@@ -156,7 +156,7 @@ public class ListasDAO {
         this.grupo_estadistico = grupo_estadistico;
     }
     
-    public List getDatos(int id_grupo){
+    public List<ListasDAO> getDatos(int id_grupo){
         List retVar = null;
         ResultSet rst = null;
         PreparedStatement pst = null;

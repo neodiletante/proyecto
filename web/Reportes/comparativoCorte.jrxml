@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comparativoCorte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="01905fea-f8aa-41f4-932b-6ee3cbe73312">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select
+corte, concat(cast(grado as char),'°',grupo) grupo, turno, uniformidad, proporcion_media, varianza
+from
+tr_analisis_grupos ag,
+tc_grupos g
+where
+g.id_grupo=ag.id_grupo]]>
+	</queryString>
+	<field name="corte" class="java.lang.Integer"/>
+	<field name="grupo" class="java.lang.String"/>
+	<field name="turno" class="java.lang.String"/>
+	<field name="uniformidad" class="java.lang.String"/>
+	<field name="proporcion_media" class="java.lang.Float"/>
+	<field name="varianza" class="java.lang.Float"/>
+	<group name="turnos">
+		<groupExpression><![CDATA[$F{turno}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<staticText>
+					<reportElement uuid="c50a8884-4c7e-49a4-bbf5-05afcaa46179" mode="Opaque" x="0" y="0" width="42" height="20" forecolor="#000000" backcolor="#FEFEFE"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Turno]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="f56d2aa8-893e-4528-ae48-5f1031adfa2c" mode="Opaque" x="42" y="1" width="86" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{turno}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement uuid="6c301b20-4f0e-4040-94ed-7783d9245cfd" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="51">
+			<frame>
+				<reportElement uuid="3ca27d10-4b03-463b-8417-186d9f71d5b9" mode="Opaque" x="-20" y="-18" width="595" height="66" backcolor="#006699"/>
+				<staticText>
+					<reportElement uuid="dd10ed48-fe7d-4136-b532-a7e867c250a8" x="20" y="20" width="286" height="25" forecolor="#FFFFFF"/>
+					<textElement>
+						<font fontName="Verdana" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Comparacion de grupos entre cortes]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="d4ba18f8-3d8c-4d29-bea9-30687d70f448" x="20" y="45" width="417" height="15" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Left">
+						<font size="11" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Reporte acumulativo de varios grupos de distintos cortes]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement uuid="c01e5466-30de-46f9-8a4f-2acc89297678" x="-20" y="20" width="595" height="1" forecolor="#666666"/>
+			</line>
+			<staticText>
+				<reportElement uuid="98455133-d457-4b52-83a3-cd1da3639e10" mode="Opaque" x="0" y="0" width="84" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[corte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d756ada2-581f-470a-9b06-d1485fe4b8d9" mode="Opaque" x="193" y="0" width="108" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[uniformidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="27331b5c-c9f3-4a94-90ad-2ebc13470864" mode="Opaque" x="301" y="0" width="150" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[proporcion media]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec2d64f9-3aa8-4187-9b10-bc404e386294" mode="Opaque" x="465" y="0" width="90" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[varianza]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="98455133-d457-4b52-83a3-cd1da3639e10" mode="Opaque" x="100" y="0" width="84" height="20" forecolor="#006699" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[grupo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24">
+			<line>
+				<reportElement uuid="bc7b673e-a148-475d-8c2c-b1fecb9131ef" positionType="FixRelativeToBottom" x="0" y="22" width="555" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="22b53a12-bb23-4dfe-ad25-395377d87a42" x="37" y="1" width="60" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{corte}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="615fd34f-105b-4b25-a44e-cd03d390e304" x="465" y="0" width="90" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{varianza}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="204793dd-31d6-4560-ac17-9282418921ca" x="235" y="2" width="86" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{uniformidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="86e68013-32aa-49a9-bd18-b263b2215c09" x="363" y="3" width="88" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proporcion_media}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="22b53a12-bb23-4dfe-ad25-395377d87a42" x="134" y="1" width="60" height="20"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement uuid="55c0ac61-39bb-458f-a150-45f4a5ead031" mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="92f202ea-90ce-4581-91ff-394c92579049" mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="e2acd382-1163-44ef-bf99-e43bf0f46793" x="0" y="4" width="100" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

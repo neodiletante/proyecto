@@ -43,14 +43,13 @@ public class BuscaRedesSocialesServlet extends HttpServlet {
     RedSocialReg rsr = new RedSocialReg();
     String idGrupoString = request.getParameter("grupo");
     System.out.println("id grupo " + idGrupoString);
-    int idGrupo = Integer.parseInt(idGrupoString);
+    int idGrupo = idGrupoString.trim().length()>0?Integer.parseInt(idGrupoString):0;
     String noListaRefiereString = request.getParameter("no_lista_refiere");
     int noListaRefiere = Integer.parseInt(noListaRefiereString);
     rsr.setIdGrupo(idGrupo);
     rsr.setNoListaRefiere(noListaRefiere);
     System.out.println("id grupo " + rsr.getIdGrupo());
     System.out.println("no lista refiere " + rsr.getNoListaRefiere());
-    //List listaRedes = rsDAO.buscaDatosRedes(rsr);
     List<RedSocialDatos> listaRedes = rsDAO.buscaDatosRedes(rsr);
     String modo = request.getParameter("modo");
     System.out.println("Modo buscaRedes "+ modo);

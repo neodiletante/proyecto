@@ -57,7 +57,7 @@ public class BuscaCortesServlet extends HttpServlet {
       String url = request.getParameter("url");
       String modo = request.getParameter("modo");
       url += "?modo="+modo;
-      System.out.println(url);
+      //System.out.println(url);
       RequestDispatcher vista = request.getRequestDispatcher(url);
       vista.forward(request, response);
     

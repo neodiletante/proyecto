@@ -38,6 +38,7 @@ public class MostrarDatosAlumnoServlet extends HttpServlet {
     HttpSession session = request.getSession();
     Connection con = (Connection) session.getAttribute("conn");
     String noExpString = request.getParameter("no_exp");
+    boolean hayDatos = false;
    
     int noExpediente = "".equals(noExpString)?0:Integer.parseInt(noExpString);
      System.out.println("El num de exp " + noExpediente);
@@ -50,12 +51,17 @@ public class MostrarDatosAlumnoServlet extends HttpServlet {
    
    
     AlumnoEnRedes alumnoEnRedes = aDAO.buscaDatos(noExpediente, corte);
-    if(alumnoEnRedes!=null){
+    if(alumnoEnRedes == null){
+      alumnoEnRedes = new AlumnoEnRedes();
+    }else{
+      hayDatos = true;
+    }
     alumnoEnRedes.setNoExpediente(alumno.getNoExpediente());
     alumnoEnRedes.setNombre(alumno.getNombre());
     alumnoEnRedes.setSexo(alumno.getSexo());
     //request.setAttribute("alumno", alumnoEnRedes);
-    }
+    
+    System.out.println(alumnoEnRedes.getNombre());
     //request.setAttribute("alumno", alumno);
     try {  
       out.println("<table id='info-alumno'>");
@@ -75,12 +81,16 @@ public class MostrarDatosAlumnoServlet extends HttpServlet {
       out.println("<td class='resultado' id='td_no_exp'>" +alumnoEnRedes.getNoExpediente()+ "</td>");
       out.println("<td class='resultado'>" +alumnoEnRedes.getNombre()+ "</td>");
       out.println("<td class='resultado'>" +alumnoEnRedes.getSexo()+ "</td>");
-      out.println("<td class='resultado'>" +alumnoEnRedes.getGrupo()+ "</td>");
-      out.println("<td class='resultado'>" +alumnoEnRedes.getNoLista()+ "</td>");
+      out.println("<td class='resultado'>" +(hayDatos==true?alumnoEnRedes.getGrupo():"")+ "</td>");
+      out.println("<td class='resultado'>" +(hayDatos==true?alumnoEnRedes.getNoLista():"")+ "</td>");
        out.println("<td class='resultado' id='td_corte'>" +corte+ "</td>");
       out.println("</tr>");
       out.println("</tbody>");
       out.println("</table>");
+      if (!hayDatos){
+        System.out.println("No hay datos");
+        out.println("<p>El alumno no pertenece a ningún grupo en este corte</p>");
+      }
       out.println("~"+alumnoEnRedes.getIdGRupo());
     } finally {      
       out.close();

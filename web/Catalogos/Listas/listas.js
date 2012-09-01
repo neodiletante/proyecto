@@ -14,7 +14,7 @@
     $("#grupo").change(function(){
       var parameters={};
       parameters.opcion="getLista";
-      parameters.id_grupo=$("#grupo").val();  
+      parameters.id_grupo=$("#grupo").val(); 
       refrescarLista();
       refrescarAlumnos();
       refrescarListaGrupo(parameters);
@@ -134,7 +134,7 @@
              $("#alumno").html(data);
              autoCompletarAlumnos();
          });
-   };
+   }
    
       //refrescar alumnos el setea el autocompletar    
    function autoCompletarAlumnos(){
@@ -148,7 +148,7 @@
      });
    }
    
-   $("#borrar").click(
+   $("#btn-borrar").live('click',
       function(){
          var parameters={};
          var checados=$("input[type=checkbox]:checked");
@@ -162,10 +162,10 @@
          parameters.accion="borrar";
          $.post('listasBean', parameters, function(data){
              alert(data);
-             refrescarLista();  
+             refrescarLista();
              refrescarListaGrupo(parameters);
              refrescarAlumnos();
-         });      
+         });
      }
    );
 
@@ -176,7 +176,7 @@
        width: 400,
        modal: false,
        buttons: {
-           Cambiar:function(){
+           Guardar:function(){
                //traer los valores
                var parameters={};
                parameters.no_lista= $("#ch_numero").text();
@@ -197,11 +197,10 @@
            Cerrar: function() {
               $("#cambia").dialog( "close" );
            }
-           
        }
    });
 
-   $("#cambiar").click(function(){
+   $("#btn-cambiar").live('click',function(){
         $("#cambia").dialog( "open" );
         $("#cambia").html().style="z-index:800";
         //Da valor al numero
@@ -214,10 +213,7 @@
         $("#ch_numero").text(valor[i].value);
         //Asigna los alumnos disponibles
         $("#ch_alumno").html($("#alumno").html());
-        //$("#mod-color").css("color");
    });
-   
-   //$("#mod-color").css("color");
    
    $("#sel-color").ColorPicker({
 	onSubmit: function(hsb, hex, rgb, el) {

@@ -11,14 +11,14 @@ function validaNombre(nombre){
 }
   
   function autoCompletarAlumno(){
-    // alert("presionando fnc");
+
      var opciones=$("#input_nombre");
      alert(opciones[0].val());
      $.each(opciones, function(index){
        alert(opciones[index].val());
        
      });
-     //alert(opciones);
+
       var availableTags=[];
      availableTags = new Array(opciones.length);
      for (i=0; i<opciones.length; i++){
@@ -94,13 +94,12 @@ $(function(){
             $.post('modificarAlumno', parameters, 
               function(data){
                 $('#_principal').load('mostrarAlumnos');
-               // alert(data);
+
               },'text');
           }else{
             $.post('agregarAlumno', parameters, 
               function(data){
                 $('#_principal').load('mostrarAlumnos');
-                alert(data);
               },'text');
           }
           $( this ).dialog( 'close' );
@@ -192,7 +191,6 @@ $(function(){
         parameters.corte = corte_g;
           $('#_principal').load('Catalogos/Alumnos/reporte_alumnos.jsp',function(){
             $.post('mostrarDatosAlumno', parameters, function(data){
-              alert(data);
               var respuesta = data.split("~");
               $('#info-alumno').html(respuesta[0]);
               id_grupo_g = respuesta[1];
@@ -207,13 +205,16 @@ $(function(){
     }
   });
   $('#btn-reportar').click(function(){
-    //alert("presionando botón reportar ");
     var parameters = {};
-
+  var noExpediente = 0;  
+  noExpediente = $('.radio_alumno:checked').parent().siblings("#input_noExpediente").text();
+if (noExpediente != 0){
+  parameters.no_exp = noExpediente;
+}
      $.post('cargaComboCortes', parameters, function(data){
 
        $('#corteDatos').html(data);
-        var noExpediente = $('.radio_alumno:checked').parent().siblings("#input_noExpediente").text();
+        
         $('#noExpDatos').val(noExpediente);
        $('#forma-reporta-alumno').dialog('open');
      }, 'text');
@@ -224,15 +225,14 @@ $(function(){
      var parameters = {};
      var noExpediente = $('.radio_alumno:checked').parent().siblings("#input_noExpediente").text();
      parameters.no_exp = noExpediente;
-     //alert("Resumen");
-     
+
      
       $('#_principal').load('Catalogos/Alumnos/resumen_alumno.jsp',function(){
-        //alert(data);
+
         $.post('resumenAlumno', parameters, function(data){
-          //alert(data);
+
           $('#sp-resumen-alumno').html(data); 
-          //alert(data);
+
         },'text');
       });
       

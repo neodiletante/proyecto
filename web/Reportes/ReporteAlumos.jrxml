@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6bd123f2-7569-4a3e-b621-d890ad90a6a9">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="367"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="corte" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
 	</parameter>
@@ -13,7 +13,7 @@
 		<defaultValueExpression><![CDATA[26]]></defaultValueExpression>
 	</parameter>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["/home/maria/NetBeansProjects/trunk/proyecto/web/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/home/maria/NetBeansProjects/trunk/proyecto/web/Reportes/"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT id_red, group_concat( convert(  rs.no_lista ,CHAR(8) ) 
@@ -35,7 +35,7 @@ group by id_red]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="35" splitType="Stretch">
+		<band height="137" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="c8498ed6-dc0c-4f41-98e3-83c8ab8c992c" mode="Opaque" x="0" y="0" width="555" height="35" forecolor="#FFFFFF" backcolor="#006699"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -43,20 +43,19 @@ group by id_red]]>
 				</textElement>
 				<text><![CDATA[Redes del alumno]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="212">
 			<subreport>
-				<reportElement uuid="452ade16-3a23-485d-9551-e008c5b4c835" x="0" y="0" width="555" height="100"/>
+				<reportElement uuid="452ade16-3a23-485d-9551-e008c5b4c835" x="0" y="35" width="555" height="100"/>
 				<subreportParameter name="no_exp">
 					<subreportParameterExpression><![CDATA[$P{no_exp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="grupo">
+					<subreportParameterExpression><![CDATA[$P{grupo}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DatosAlumno.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
-	</pageHeader>
+	</title>
 	<columnHeader>
 		<band height="62" splitType="Stretch">
 			<staticText>
@@ -93,12 +92,12 @@ group by id_red]]>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="20"/>
 				</textElement>
-				<text><![CDATA[Redes referidas]]></text>
+				<text><![CDATA[Redes que refiere]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="177" splitType="Stretch">
+		<band height="31" splitType="Stretch">
 			<textField>
 				<reportElement uuid="d495422b-7efd-417f-882e-3e1d9b5edb40" mode="Opaque" x="0" y="0" width="100" height="29" forecolor="#000000" backcolor="#E6E6E6"/>
 				<box leftPadding="5">
@@ -128,39 +127,8 @@ group by id_red]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{integrantes}]]></textFieldExpression>
 			</textField>
-			<subreport>
-				<reportElement uuid="32e0146c-c0c5-4cf6-9432-5ec8fdd2fa56" positionType="Float" x="0" y="29" width="555" height="51"/>
-				<subreportParameter name="no_exp">
-					<subreportParameterExpression><![CDATA[$P{no_exp}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="grupo">
-					<subreportParameterExpression><![CDATA[$P{grupo}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="corte">
-					<subreportParameterExpression><![CDATA[$P{corte}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReporteAlumos_referido.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement uuid="dc07b7e8-c908-417a-9839-42edfe8a540d" positionType="Float" x="0" y="101" width="555" height="56"/>
-				<subreportParameter name="no_exp">
-					<subreportParameterExpression><![CDATA[$P{no_exp}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="grupo">
-					<subreportParameterExpression><![CDATA[$P{grupo}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="corte">
-					<subreportParameterExpression><![CDATA[$P{corte}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReporteAlumos_participa.jasper"]]></subreportExpression>
-			</subreport>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="131"/>
-	</columnFooter>
 	<pageFooter>
 		<band height="60" splitType="Stretch">
 			<textField evaluationTime="Report" pattern="EEE, dd/MM/yyyy HH:mm:ss">
@@ -182,4 +150,36 @@ group by id_red]]>
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="111">
+			<subreport>
+				<reportElement uuid="dc07b7e8-c908-417a-9839-42edfe8a540d" positionType="Float" x="0" y="51" width="555" height="56"/>
+				<subreportParameter name="no_exp">
+					<subreportParameterExpression><![CDATA[$P{no_exp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="grupo">
+					<subreportParameterExpression><![CDATA[$P{grupo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="corte">
+					<subreportParameterExpression><![CDATA[$P{corte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReporteAlumos_participa.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="32e0146c-c0c5-4cf6-9432-5ec8fdd2fa56" positionType="Float" x="0" y="0" width="555" height="51"/>
+				<subreportParameter name="no_exp">
+					<subreportParameterExpression><![CDATA[$P{no_exp}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="grupo">
+					<subreportParameterExpression><![CDATA[$P{grupo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="corte">
+					<subreportParameterExpression><![CDATA[$P{corte}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ReporteAlumos_referido.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
 </jasperReport>

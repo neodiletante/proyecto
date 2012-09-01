@@ -136,7 +136,42 @@ public class GruposDAO {
           }
             return cortes;
         }
-    
+        
+        public List consultaCortes(int noExp){
+           PreparedStatement psBuscar = null;
+        List cortes = new ArrayList();
+         String query;
+        if (noExp == 0){
+          query = "SELECT corte FROM cortes";
+        }else{
+          query = "SELECT g.corte FROM tc_listas l INNER JOIN tc_grupos g ON l.id_grupo = g.id_grupo WHERE l.no_expediente = ? ORDER BY corte";
+        //String query = "SELECT no_expediente, Nombre, sexo FROM tc_alumno";
+        }
+        try{
+           
+            //stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+           psBuscar = con.prepareStatement(query);
+          if (noExp != 0){ 
+            psBuscar.setInt(1, noExp);
+          }
+          rs = psBuscar.executeQuery();
+           // rs = stmt.executeQuery(query);
+           while(rs.next()) {
+               cortes.add(rs.getInt("corte"));
+             }
+              
+        }catch(SQLException ex){
+           Logger.getLogger(GruposDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+          try {
+            rs.close();
+          } catch (SQLException ex) {
+            Logger.getLogger(GruposDAO.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          return cortes;
+        }
+        }
+        
                 
         public List<Grupo> buscaGruposPorTurno(int corte, String turno){
            List<Grupo> grupos = new ArrayList<Grupo>();

@@ -39,7 +39,7 @@ group by id_red]]>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="20"/>
 				</textElement>
-				<text><![CDATA[Redes refiere]]></text>
+				<text><![CDATA[Redes donde es referido]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="c8498ed6-dc0c-4f41-98e3-83c8ab8c992c" mode="Opaque" x="0" y="33" width="100" height="29" forecolor="#006798" backcolor="#E6E6E6"/>

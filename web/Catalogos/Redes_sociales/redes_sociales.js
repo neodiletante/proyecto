@@ -51,7 +51,6 @@ $(document).ready(function() {
 
 function agregarNuevaRed(){
     modificando_red=0;
-//  if(modificando_red == 0){
     var parameters={};
 
     var grupo = $('#select-grupos').val();
@@ -97,6 +96,7 @@ function(){
     }  
 });
 
+//agregar o modificar elementos en una red social
 function modificaRed(){
     modificando_red = 1;
     opcion="5";
@@ -150,7 +150,7 @@ function modificaRed(){
 }
 
  //MUESTRA LOS ELEMENTOS DE LA RED PARA MODIFICAR
- $('#btn-modificar-red').click(function(){
+ $('#btn-modificar-red').live('click',function(){
     var id_red = $('.radio_red:checked').val();
     if(id_red == undefined){
      alert("Seleccione una red para modificar");
@@ -160,74 +160,62 @@ function modificaRed(){
     }
  });
   
- $('#btn-agregar-datos').click(function(){
+ $('#btn-agregar-datos').live('click',function(){
     var parameters={};
     var corte = $('#select-cortes').val();
     var turno = $('#select-turno').val();
     var grupo = $('#select-grupos').val();
     var no_lista = $('#no-lista').val();
     var id_red = $('#red-actual').val();
-   // alert(corte + " " + turno + " " + grupo + " " + no_lista + " " + id_red);
     
     parameters.url="Catalogos/Redes_sociales/agrega_datos_red.jsp";
     $.post('buscaCortes', parameters, function(data){
-      $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
-    $('#select-cortes-add').val(corte);
-    $('#select-turno-add').val(turno);    
-    
-         
-   
-   var parameters = {};
-   parameters.turno = turno;
-   parameters.corte = corte;
-   $.post('actualizaGrupos', parameters, function(data){
+        $('#_principal').load('Catalogos/Redes_sociales/agrega_datos_red.jsp',data,function(){
+            $('#select-cortes-add').val(corte);
+            $('#select-turno-add').val(turno);    
 
-        $('.combo-grupos').html(data); 
-        $('#select-grupos-add').val(grupo);
-    }, 'text');
-    //alert(grupo);
-    //parameters = {};
-    parameters.grupo = grupo;
-    parameters.turno = turno;
-   parameters.corte = corte;
-    parameters.formato = "lista";
-    parameters.opcion = "6";
-    //alert(parameters.grupo);
-    $.post('buscaNosLista', parameters, function(data){
-      $('#no-lista-add').html(data);
-      $('#no-lista-add').val(no_lista);
-    }, 'text');
-    
-   parameters.no_lista_refiere = no_lista;
-    parameters.grupo = grupo;
-    parameters.modo="select";
-    $.post('buscaRedesSociales', parameters, function(data){
-      $('#sel-red').html(data);
-      $('#sel-red').val(id_red);
-    }, 'text');
-   // alert(id_red);
-   // $('#sel-red').val(id_red);
-    
-    parameters={};
-    //var red = $('#sel-red').val();
-    parameters.id_red = id_red;
-    parameters.modo="combo";
-    $.post('buscaElementosRed', parameters, function(data){
-      $('#sel-nos-lista').html(data);
-      
-    }, 'text');
-    parameters = {};
-    parameters.id_red = id_red 
-    $.post('actualizaTablaDatos', parameters, function(data){
-      $('#tabla-datos').html(data);
-    }, 'text');
-      });
-  
- });
+            var parameters = {};
+            parameters.turno = turno;
+            parameters.corte = corte;
+            $.post('actualizaGrupos', parameters, function(data){
+                $('.combo-grupos').html(data); 
+                $('#select-grupos-add').val(grupo);
+            }, 'text');
+            parameters.grupo = grupo;
+            parameters.turno = turno;
+            parameters.corte = corte;
+            parameters.formato = "lista";
+            parameters.opcion = "6";
+            $.post('buscaNosLista', parameters, function(data){
+                $('#no-lista-add').html(data);
+                $('#no-lista-add').val(no_lista);
+            }, 'text');
+
+            parameters.no_lista_refiere = no_lista;
+            parameters.grupo = grupo;
+            parameters.modo="select";
+            $.post('buscaRedesSociales', parameters, function(data){
+                $('#sel-red').html(data);
+                $('#sel-red').val(id_red);
+            }, 'text');
+
+            parameters={};
+            parameters.id_red = id_red;
+            parameters.modo="combo";
+            $.post('buscaElementosRed', parameters, function(data){
+                $('#sel-nos-lista').html(data);
+            }, 'text');
+            parameters = {};
+            parameters.id_red = id_red 
+            $.post('actualizaTablaDatos', parameters, function(data){
+                $('#tabla-datos').html(data);
+            }, 'text');
+        });
+    });
  });
   
   
-  $('#btn-borrar-red').click(function(){
+  $('#btn-borrar-red').live('click',function(){
     var id_redes_check = $('.check_red:checked');
     if(id_redes_check==undefined){
       alert("Seleccione una o más redes para borrar");
@@ -238,7 +226,6 @@ function modificaRed(){
         for(var i=0 ; i<id_redes_check.length ; i++){
           id_redes += ","+id_redes_check[i].value;
         }
-      //  alert(id_redes);
         var parameters = {};
         var grupo = $('#select-grupos').val();
         var no_lista = $('#no-lista').val();
@@ -255,7 +242,7 @@ function modificaRed(){
     }
 });
  
- $('#btn-iniciar-red').click(function(){
+ $('#btn-iniciar-red').live('click',function(){
    
    var mensaje="";
    var corte = $('#select-cortes').val();
@@ -335,7 +322,7 @@ function muestraRedes(){
     }, 'text');
 }
 
-$('#btn-examinar-redes').click(function(){
+$('#btn-examinar-redes').live('click',function(){
      modificando_red = 0;
      opcion ="6";
      invierteBotones(opcion);

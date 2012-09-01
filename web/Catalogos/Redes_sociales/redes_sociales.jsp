@@ -36,12 +36,12 @@
         <option>Selecciona no.</option>
     </select>
     
-    <span id="lista-redes" width="100%">
+    <div id="lista-redes" class="columnas" style="overflow: scroll;">
       
       <hr>
       <br/>
       
-    </span>
+    </div>
 
     <br/> 
     <hr>

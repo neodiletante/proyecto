@@ -4,10 +4,7 @@
  */
 package catalogos.alumnos;
 
-import catalogos.grupos.Grupo;
-import catalogos.grupos.GruposDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.List;
 import javax.servlet.RequestDispatcher;

@@ -31,6 +31,8 @@
             case 6:ruta="buscaCortes?url=Catalogos/Redes_sociales/redes_sociales.jsp";break;
             case 7:ruta="buscaCortes?url=Catalogos/Grupos/grupos.jsp";break;
             case 12:ruta="buscaCortes?url=Catalogos/Redes_sociales/agrega_datos_red.jsp";break;
+            case 13:ruta="Estadisticas/analizarGrupoEnCorte.jsp";break;
+            case 14:ruta="Estadisticas/diseñarReporte.jsp";break;
            // default:ruta="Catalogos/Listas/colorpicker.jsp";break;
         }%> 
 
